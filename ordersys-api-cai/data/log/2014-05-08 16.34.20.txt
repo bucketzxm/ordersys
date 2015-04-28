@@ -1,0 +1,7 @@
+2014-05-08   16:34:21
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:WIN-LKUTEC1MDD3-56174-1399537995179-1:2:1
+INFO - send: RESPONSE: RESPONSE_UseBalanceBao
+INFO - receive: RESPONSE: Alipay PayFail
+INFO - msg exception: RESPONSE: Alipay PayFail (should be REQUEST_PageThree1

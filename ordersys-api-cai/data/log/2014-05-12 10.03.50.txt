@@ -1,0 +1,29 @@
+2014-05-12   10:03:50
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:WIN-LKUTEC1MDD3-52904-1399860144389-1:2:1
+INFO - send: RESPONSE: RESPONSE_UseBalanceBao
+INFO - receive: REQUEST: PageThree1
+INFO - receive: REQUEST: PageThree1
+INFO - send: RESPONSE: PageThree1
+INFO - receive: REQUEST: Alipay AC
+INFO - send: REQUEST: Alipay RefreshAC
+INFO - receive: REQUEST: Alipay AC
+INFO - receive: RESPONSE: Alipay RefreshAC
+INFO - receive: REQUEST: Alipay AC
+INFO - send: RESPONSE: Alipay AC
+INFO - receive: REQUEST: Alipay PageTwo
+INFO - send: RESPONSE: Alipay PageTwo
+INFO - pagetwo: true
+INFO - receive: REQUEST: PageThree1
+INFO - send: RESPONSE: PageThree1
+INFO - receive: REQUEST: PageThree2
+INFO - return: REQUEST: PageThree2 001
+INFO - receive: REQUEST: PageThree2
+INFO - send: RESPONSE: PageThree2
+INFO - receive: ERROR: PageThree2
+INFO - receive: ERROR: PageThree2
+INFO - send: RESPONSE: PageThree2
+INFO - receive: RESPONSE: Alipay PaySuccess
+INFO - pay successed
+INFO - receive: RESPONSE: Alipay PaySuccess

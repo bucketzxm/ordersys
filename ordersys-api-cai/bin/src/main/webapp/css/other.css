@@ -1,0 +1,6 @@
+/*myOrderPage数量和加减号所在的div*/
+.quantityChanger{
+	position:absolute;
+       right:25px;
+       top:18%;
+}

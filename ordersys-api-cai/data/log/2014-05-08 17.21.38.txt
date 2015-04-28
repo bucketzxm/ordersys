@@ -1,0 +1,18 @@
+2014-05-08   17:21:38
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:WIN-LKUTEC1MDD3-58678-1399540860443-1:2:1
+INFO - return: REQUEST: Alipay LoginAC 3
+INFO - receive: REQUEST: Alipay LoginAC
+INFO - send: RESPONSE: Alipay LoginAC
+INFO - receive: REQUEST: UseBalanceBao
+INFO - send: RESPONSE: RESPONSE_UseBalanceBao
+INFO - receive: REQUEST: PageThree1
+INFO - send: RESPONSE: RESPONSE_UseBalanceBao
+INFO - receive: REQUEST: PageThree1
+INFO - send: RESPONSE: RESPONSE_UseBalanceBao
+INFO - receive: REQUEST: PageThree1
+INFO - receive: RESPONSE: Alipay PayFail
+INFO - receive: REQUEST: PageThree1
+INFO - jms exception: REQUEST: PageThree1 (should be RESPONSE: PageThree1 or ERROR: PageThree1!)
+FATAL - Exception: Alipay

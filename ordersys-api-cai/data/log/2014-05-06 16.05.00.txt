@@ -1,0 +1,18 @@
+2014-05-06   16:05:01
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:WIN-LKUTEC1MDD3-53935-1399363443949-1:2:1
+INFO - return: REQUEST: Alipay LoginAC 3
+INFO - receive: REQUEST: Alipay LoginAC
+INFO - send: RESPONSE: Alipay LoginAC
+INFO - receive: REQUEST: Alipay AC
+INFO - return: REQUEST: Alipay AC 0
+INFO - receive: REQUEST: Alipay AC
+INFO - send: RESPONSE: Alipay AC
+INFO - receive: ERROR: Alipay AC!
+INFO - return: ERROR: Alipay AC! 1
+INFO - receive: ERROR: Alipay AC!
+INFO - send: RESPONSE: Alipay AC
+INFO - receive: REQUEST: Alipay PageTwo
+INFO - send: RESPONSE: Alipay PageTwo
+INFO - pagetwo: true

@@ -1,0 +1,10 @@
+2014-05-23   16:13:42
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:PC201311161140-3726-1400832623692-1:6:1
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:PC201311161140-3726-1400832623692-1:7:1
+INFO - return: REQUEST: Alipay LoginAC 3
+INFO - send: REQUEST: Alipay RefreshLoginAC
+INFO - receive: RESPONSE: Alipay RefreshLoginAC
+INFO - return: REQUEST: Alipay LoginAC 3

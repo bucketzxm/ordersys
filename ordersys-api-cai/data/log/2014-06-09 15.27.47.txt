@@ -1,0 +1,15 @@
+2014-06-09   15:27:48
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:PC201311161140-3324-1402298833476-1:2:1
+INFO - return: REQUEST: Alipay AC 0
+INFO - send: REQUEST: Alipay RefreshAC
+INFO - receive: REQUEST: Alipay AC
+INFO - receive: RESPONSE: Alipay RefreshAC
+INFO - receive: REQUEST: Alipay AC
+INFO - send: RESPONSE: Alipay AC
+INFO - receive timeout
+INFO - consumer closed.
+INFO - producer closed.
+INFO - session closed.
+INFO - connection closed

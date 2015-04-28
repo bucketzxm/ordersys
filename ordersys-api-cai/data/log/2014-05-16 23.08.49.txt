@@ -1,0 +1,6 @@
+2014-05-16   23:08:49
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:WIN-LKUTEC1MDD3-53822-1400252776740-1:2:1
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:WIN-LKUTEC1MDD3-53822-1400252776740-1:3:1

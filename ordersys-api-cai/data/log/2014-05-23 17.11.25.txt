@@ -1,0 +1,56 @@
+2014-05-23   17:11:25
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:PC201311161140-8322-1400836203016-1:3:1
+INFO - return: REQUEST: Alipay LoginAC 3
+INFO - return: REQUEST: Alipay LoginAC 3
+INFO - receive: REQUEST: Alipay LoginAC
+INFO - send: RESPONSE: Alipay LoginAC
+INFO - receive: REQUEST: Alipay LoginAC
+INFO - send: RESPONSE: Alipay LoginAC
+INFO - receive: REQUEST: UseBalanceBao
+INFO - receive: REQUEST: UseBalanceBao
+INFO - send: RESPONSE: RESPONSE_UseBalanceBao
+INFO - receive: REQUEST: PageThree1
+INFO - receive: REQUEST: PageThree1
+INFO - send: RESPONSE: PageThree1
+INFO - send: RESPONSE: RESPONSE_UseBalanceBao
+INFO - receive: REQUEST: PageThree1
+INFO - receive: REQUEST: Alipay AC
+INFO - send: REQUEST: Alipay RefreshAC
+INFO - receive: REQUEST: Alipay AC
+INFO - receive: RESPONSE: Alipay RefreshAC
+INFO - send: REQUEST: Alipay RefreshAC
+INFO - receive: REQUEST: Alipay AC
+INFO - receive: RESPONSE: Alipay RefreshAC
+INFO - receive: REQUEST: Alipay AC
+INFO - send: RESPONSE: Alipay AC
+INFO - receive: REQUEST: PageThree1
+INFO - send: RESPONSE: PageThree1
+INFO - receive: REQUEST: Alipay AC
+INFO - send: REQUEST: Alipay RefreshAC
+INFO - receive: REQUEST: Alipay AC
+INFO - receive: RESPONSE: Alipay RefreshAC
+INFO - receive: REQUEST: Alipay AC
+INFO - send: RESPONSE: Alipay AC
+INFO - receive: ERROR: Alipay AC!
+INFO - return: ERROR: Alipay AC! 1
+INFO - receive: ERROR: Alipay AC!
+INFO - send: RESPONSE: Alipay AC
+INFO - receive timeout
+INFO - consumer closed.
+INFO - producer closed.
+INFO - session closed.
+INFO - connection closed
+INFO - receive: REQUEST: Alipay PageTwo
+INFO - send: RESPONSE: Alipay PageTwo
+INFO - pagetwo: true
+INFO - receive: REQUEST: PageThree1
+INFO - send: RESPONSE: PageThree1
+INFO - receive: REQUEST: PageThree2
+INFO - return: REQUEST: PageThree2 001
+INFO - receive: REQUEST: PageThree2
+INFO - send: RESPONSE: PageThree2
+INFO - receive: RESPONSE: Alipay PaySuccess
+INFO - pay successed
+INFO - receive: RESPONSE: Alipay PaySuccess

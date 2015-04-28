@@ -1,0 +1,21 @@
+2014-04-25   20:20:22
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:a-bc3cbc531e274-1042-1398428049593-1:2:1
+INFO - send: RESPONSE: RESPONSE_UseBalanceBao
+INFO - receive: REQUEST: PageThree1
+INFO - receive: REQUEST: PageThree1
+INFO - send: RESPONSE: PageThree1
+INFO - receive: ERROR: PageThree1!
+INFO - receive: ERROR: PageThree1!
+INFO - send: RESPONSE: PageThree1
+INFO - receive: ERROR: PageThree1!
+INFO - receive: ERROR: PageThree1!
+INFO - send: RESPONSE: PageThree1
+INFO - receive: ERROR: PageThree1!
+INFO - receive: ERROR: PageThree1!
+INFO - msg exception: ERROR: PageThree1!
+FATAL - Exception: Alipay
+INFO - producer closed.
+INFO - session closed.
+INFO - connection closed

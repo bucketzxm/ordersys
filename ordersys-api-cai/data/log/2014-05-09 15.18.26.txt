@@ -1,0 +1,7 @@
+2014-05-09   15:18:26
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:WIN-LKUTEC1MDD3-52284-1399616479783-1:4:1
+INFO - producer closed.
+INFO - session closed.
+INFO - connection closed

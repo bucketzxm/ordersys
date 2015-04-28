@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="com.sh.weiyue.ordersys.web"
+  id="myeclipse.1384398957518"
+  context-root="/order"
+  j2ee-spec="5.0"
+  archive="com.sh.weiyue.ordersys.web.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

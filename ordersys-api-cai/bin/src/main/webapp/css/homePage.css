@@ -1,0 +1,143 @@
+/*----------------------推荐菜----------------------------*/
+/*推荐菜项及图片*/
+ .owl-recommend .item{
+ 	margin: 3px;
+ 	cursor: pointer;
+ }
+.owl-recommend .item img{
+	 display: block;
+	 width: 100%;
+	 height: auto;
+ }
+ 
+ /*推荐菜上的文字*/
+div.description{
+	position:absolute; /* absolute position (so we can position it where we want)*/
+	bottom:3px; /* position will be on bottom */
+	left:3px; /*黑色阴影与父元素之间的距离*/
+	right:3px;
+	/* styling bellow */
+	background-color:black;	
+	font-family = Helvetica,​Arial,​sans-serif;
+	color:white;
+	opacity:0.6; /* transparency */
+	filter:alpha(opacity=60); /* IE transparency */
+}
+p.description_content{
+	padding:1px 5px;/*调整字于阴影边框的距离1,5 xixi*/
+	margin: 3px 0;
+	font-size:13px;
+}
+p.description_title{
+	margin: 2% 5px;/*3,5*/
+	font-size:15px;
+	font-weight:400
+}		
+ /*推荐菜上的箭头*/
+ .jcarousel-control {
+    background: none repeat scroll 0 0 #4E443C;
+    border-radius: 30px;
+    box-shadow: 0 0 4px #F0EFE7;
+    color: #FFFFFF;
+    font: 24px/27px Arial,sans-serif;
+    height: 30px;
+    margin-top: -32px;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 0 1px #000000;
+    top: 50%;
+    width: 30px;
+    cursor: pointer;
+}
+
+
+
+/*----------------------数字滑动条----------------------------*/
+/*滑动条上的一项*/
+ .owl-numSlider .item{
+	background-color:black;	
+	opacity:0.5;
+	padding: 0px 0px;
+	display: block;
+	margin: 0px;
+	color: white;
+	filter:alpha(opacity=60);
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	text-align: center;
+	cursor: pointer;
+}
+/*滑动条所放置的悬浮区域*/
+div.floatSlider{
+	position:absolute;
+	z-index:1;
+	bottom:50%;
+	right:0px;
+	left:0px
+}
+/*滑动条上选中那一项*/
+div.circle{
+	position:absolute; /* absolute position (so we can position it where we want)*/
+	top:50%; /* position will be on bottom */
+	left:50%;
+    margin: -40px 0 0 -19px;  
+	z-index:2;
+	background:#444;
+	padding:5px;
+	width:20px;
+	color:white;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	border-style:solid;
+	border-width:3px;
+	border-color:white;
+	text-align:center;
+	font-size:20px;
+	cursor: pointer;
+}
+
+
+
+/*----------------------吉祥物----------------------------*/
+/*吉祥物，以及它说话的地方*/
+img.mascot{
+	position:absolute; /* absolute position (so we can position it where we want)*/
+	bottom:35px; /* position will be on bottom */
+	left:0px;
+	width:90px;
+	height:90px;
+	z-index:2;
+}
+
+.sayPoint{
+	position:absolute; /* absolute position (so we can position it where we want)*/
+	bottom:75px; /* position will be on bottom */
+	left:90px;;
+	width:1px;
+	height:1px;
+	z-index:1;
+}
+
+
+
+/*----------------------其他----------------------------*/
+/*在所有可滑动项上以及箭头上光标显示为手型*/				
+/*商家活动版块中的字体*/
+p.activity{
+	font-size:15px;
+	font-family: Georgia, 'New York', serif;
+}
+
+/*放置表头的区域*/
+div.formHeader{
+	position:absolute;
+	z-index:1;
+	top:-4px;/*25%*/
+	left:0;
+	right:0;
+	text-align:center;
+}
+

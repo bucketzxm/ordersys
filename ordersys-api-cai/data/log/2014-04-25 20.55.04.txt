@@ -1,0 +1,28 @@
+2014-04-25   20:55:05
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:a-bc3cbc531e274-4216-1398430402906-1:2:1
+INFO - send: RESPONSE: RESPONSE_UseBalanceBao
+INFO - receive: REQUEST: PageThree1
+INFO - receive: REQUEST: PageThree1
+INFO - send: RESPONSE: PageThree1
+INFO - receive: REQUEST: Alipay AC
+INFO - send: REQUEST: Alipay RefreshAC
+INFO - receive: REQUEST: Alipay AC
+INFO - receive: RESPONSE: Alipay RefreshAC
+INFO - receive: REQUEST: Alipay AC
+INFO - send: RESPONSE: Alipay AC
+INFO - receive: REQUEST: Alipay PageTwo
+INFO - send: RESPONSE: Alipay PageTwo
+INFO - pagetwo: true
+INFO - receive: REQUEST: PageThree1
+INFO - send: RESPONSE: PageThree1
+INFO - send: RESPONSE: Alipay PageTwo
+INFO - pagetwo: true
+INFO - receive: RESPONSE: Alipay PayFail
+INFO - pay failed
+INFO - msg exception: RESPONSE: Alipay PayFail
+FATAL - Exception: Alipay
+INFO - producer closed.
+INFO - session closed.
+INFO - connection closed

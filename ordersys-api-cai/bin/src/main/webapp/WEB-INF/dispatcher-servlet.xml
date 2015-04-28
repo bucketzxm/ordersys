@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- 下面这些东西是namespace，和头文件一样 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context  
+   		http://www.springframework.org/schema/context/spring-context-3.2.xsd  
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+        
+    <!-- an HTTP Session-scoped bean exposed as a proxy -->
+   <bean id="shoppingCart" class="com.sh.weiyue.ordersys.web.service.ShoppingCart" scope="session">
+      <!-- this next element effects the proxying of the surrounding bean -->
+      <aop:scoped-proxy/>
+   </bean>
+    <!--扫描 注入所有controller和service类成bean -->
+	<context:component-scan base-package="com.sh.weiyue.ordersys.web.controller" />
+	<context:component-scan base-package="com.sh.weiyue.ordersys.web.service" />
+    <!-- context:component-scan base-package="com.sh.weiyue.ordersys.web.service" /-->
+    
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="org.springframework.mobile.device.site.SitePreferenceWebArgumentResolver" />
+			<bean class="org.springframework.mobile.device.DeviceWebArgumentResolver" />
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+
+	<mvc:interceptors>
+		<!-- Resolve the device which has generated the request -->
+		<bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor" />
+
+		<!-- User's site preference -->
+		<bean class="org.springframework.mobile.device.site.SitePreferenceHandlerInterceptor" />
+
+		<!-- Redirects users to the device specific site  这些配置的作用只是重定向地址，使得网址在浏览器上看起来不一样而已，为了让用户好理解罢了，不会影响所取的页面 
+		<bean class="org.springframework.mobile.device.switcher.SiteSwitcherHandlerInterceptor" factory-method="urlPath">
+			<constructor-arg value="" />
+			<constructor-arg value="/tablet" />
+			<constructor-arg value="/order" />
+		</bean>-->
+	</mvc:interceptors>
+
+	<!-- Device aware view resolving -->
+	<bean id="liteDeviceDelegatingViewResolver" class="org.springframework.mobile.device.view.LiteDeviceDelegatingViewResolver">
+		<constructor-arg>
+			<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+				<property name="prefix" value="/pages/" />
+				<property name="suffix" value=".jsp" />
+			</bean>
+		</constructor-arg>
+
+		<!--  property name="mobilePrefix" value="" /--><!--这里定义的才是当控制器返回时，要返回的页面所在目录的定义，这里把 mobilePrefix设为"",那么当用手机访问时，仍然返回到的是根目录中的页面-->
+		<!--  property name="tabletPrefix" value="" />
+		<property name="enableFallback" value="true" /-->
+	</bean>
+
+	<!-- Device aware view resolving <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"> 
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" 
+		/> <property name="prefix" value="/pages/" /> <property name="suffix" value=".jsp" 
+		/> </bean> -->
+</beans>

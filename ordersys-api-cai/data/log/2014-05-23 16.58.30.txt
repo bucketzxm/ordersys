@@ -1,0 +1,23 @@
+2014-05-23   16:58:30
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:PC201311161140-5995-1400835224432-1:8:1
+INFO - return: REQUEST: Alipay LoginAC 3
+INFO - send: REQUEST: Alipay RefreshLoginAC
+INFO - receive: RESPONSE: Alipay RefreshLoginAC
+INFO - send: REQUEST: Alipay RefreshLoginAC
+INFO - receive: RESPONSE: Alipay RefreshLoginAC
+INFO - send: REQUEST: Alipay RefreshLoginAC
+INFO - receive: RESPONSE: Alipay RefreshLoginAC
+INFO - send: REQUEST: Alipay RefreshLoginAC
+INFO - receive: RESPONSE: Alipay RefreshLoginAC
+INFO - send: REQUEST: Alipay RefreshLoginAC
+INFO - receive: RESPONSE: Alipay RefreshLoginAC
+INFO - send: REQUEST: Alipay RefreshLoginAC
+INFO - receive: RESPONSE: Alipay RefreshLoginAC
+INFO - receive: REQUEST: Alipay LoginAC
+INFO - send: RESPONSE: Alipay LoginAC
+INFO - receive: ERROR: Alipay LoginAC!
+INFO - return: ERROR: Alipay LoginAC! 4
+INFO - send: REQUEST: Alipay RefreshLoginAC
+INFO - receive: RESPONSE: Alipay RefreshLoginAC

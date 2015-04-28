@@ -1,0 +1,8 @@
+2014-05-09   01:45:36
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:WIN-LKUTEC1MDD3-65389-1399571117834-1:2:1
+INFO - return: ERROR: Alipay UserOrPswd! 2
+INFO - receive: ERROR: Alipay UserOrPswd!
+INFO - send: RESPONSE: Alipay UserOrPswd
+INFO - receive: REQUEST: UseBalanceBao

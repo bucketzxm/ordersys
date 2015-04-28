@@ -1,0 +1,38 @@
+2014-05-23   15:31:47
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:WIN-LKUTEC1MDD3-58846-1400830200517-1:3:1
+INFO - return: REQUEST: Alipay LoginAC 3
+INFO - return: REQUEST: Alipay LoginAC 3
+INFO - receive: REQUEST: Alipay LoginAC
+INFO - send: RESPONSE: Alipay LoginAC
+INFO - receive: REQUEST: Alipay LoginAC
+INFO - send: RESPONSE: Alipay LoginAC
+INFO - receive: REQUEST: UseBalanceBao
+INFO - receive: REQUEST: UseBalanceBao
+INFO - send: RESPONSE: RESPONSE_UseBalanceBao
+INFO - receive: RESPONSE: Alipay PayFail
+INFO - msg exception: RESPONSE: Alipay PayFail (should be REQUEST_PageThree1
+INFO - consumer closed.
+INFO - producer closed.
+INFO - session closed.
+INFO - connection closed
+INFO - send: RESPONSE: RESPONSE_UseBalanceBao
+INFO - receive: RESPONSE: Alipay PayFail
+INFO - msg exception: RESPONSE: Alipay PayFail (should be REQUEST_PageThree1
+INFO - consumer closed.
+INFO - producer closed.
+INFO - session closed.
+INFO - connection closed
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:WIN-LKUTEC1MDD3-58846-1400830200517-1:4:1
+INFO - return: REQUEST: Alipay LoginAC 3
+INFO - REQUEST: Alipay BeforeAC
+INFO - UserToWorker null: temp-queue://ID:WIN-LKUTEC1MDD3-58846-1400830200517-1:5:1
+INFO - receive: REQUEST: Alipay LoginAC
+INFO - send: RESPONSE: Alipay LoginAC
+INFO - receive: ERROR: Alipay LoginAC!
+INFO - return: ERROR: Alipay LoginAC! 4
+INFO - send: REQUEST: Alipay RefreshLoginAC
+INFO - receive: RESPONSE: Alipay RefreshLoginAC
+INFO - return: REQUEST: Alipay LoginAC 3

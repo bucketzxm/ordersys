@@ -1,0 +1,54 @@
+/*菜品图片瀑布流布局*/
+ #tiles li {
+   -moz-box-sizing: border-box;
+        box-sizing: border-box;
+ }
+
+ #tiles li img {
+   width: 100%;
+   height: auto;
+ }
+ 
+ /*菜品图片上的阴影及文字*/
+ div.description2{
+	position:absolute; /* absolute position (so we can position it where we want)*/
+	bottom:4px; /* position will be on bottom */
+	left:4px;
+	right: 4px;
+	/* styling bellow */
+	background-color:black;	
+	font-family: Georgia, 'New York', serif;
+	color:white;
+	opacity:0.6; /* transparency */
+	filter:alpha(opacity=60); /* IE transparency */
+	padding: 6% 3%;/*4px上下边距没用，应该也是li的class导致的*/
+}
+p.description2_caption{
+	/*3,5*/
+	font-size:13px;
+	font-family: Georgia, 'New York', serif;
+	font-weight:200;
+}
+
+/*菜品图片左上角的气泡*/		
+div.bubbleHolder{
+	position:absolute; /* absolute position (so we can position it where we want)*/
+	top:10%; /* position will be on bottom */
+	left:30%;
+	/* styling bellow */
+	font-family: Georgia, 'New York', serif;
+	color:white;
+}
+
+/*侧边栏种类选中时的样式*/	
+#filters li[data-filter].active {
+  background: #333333;
+  color: #ffffff;
+} 	
+
+#filters li[data-filter]{
+  cursor: pointer;
+} 
+	
+
+		

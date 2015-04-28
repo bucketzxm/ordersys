@@ -1,0 +1,7 @@
+2014-05-23   18:05:39
+
+INFO - REQUEST: Alipay BeforeAC
+INFO - session closed.
+INFO - UserToWorker null: temp-queue://ID:PC201311161140-10628-1400839474096-1:3:1
+INFO - connection closed
+INFO - return: REQUEST: Alipay LoginAC 3
