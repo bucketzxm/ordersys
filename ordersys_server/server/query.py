@@ -64,17 +64,32 @@ class Consumer(Thread):
                 print "query_order ==>" + query_order
 				# post 方法
                 post_data = urllib.urlencode(params)
-                req = urllib2.Request(query_url,post_data)
-                resp = urllib2.urlopen(req)
+                req = None
+                try:
+                    req = urllib2.Request(query_url,post_data)
+                except:
+                    print "request failed"
+                    pass
+                resp = None
+                try:
+                    resp = urllib2.urlopen(req)
+                except:
+                    print "resp open failed"
+                    pass
                 #resp 中包含了另一台服务器确认成功的订单num,用;分割
-                ord = resp.read()
-                ord_li = ord.split(';')		
-                print ord_li
+                if resp != None:
+                    ord = resp.read()
+                    ord_li = ord.split(';')		
+                    print ord_li
 				
-                for to_send in ord_li:
-                    print "to_send ==> " + to_send
-                    req = urllib2.Request(delete_url+"?"+"out_trade_no="+to_send)
-                    print "url ==> " + delete_url+'?'+"out_trade_no="+to_send
+                    for to_send in ord_li:
+                        print "to_send ==> " + to_send
+                        try:
+                            req = urllib2.Request(delete_url+"?"+"out_trade_no="+to_send)
+                        except:
+                            print "net work error"
+                            pass
+                        print "url ==> " + delete_url+'?'+"out_trade_no="+to_send
 
                 time.sleep(2)
                 lock.release()
@@ -85,3 +100,4 @@ if __name__ == "__main__":
     consumer = Consumer()
     producer.start()
     consumer.start()
+
