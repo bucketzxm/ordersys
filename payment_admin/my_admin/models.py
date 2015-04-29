@@ -252,6 +252,7 @@ class Orderitem(models.Model):
     class Meta:
         managed = False
         db_table = 'orderitem'
+	
 
 
 class Pay(models.Model):
@@ -297,6 +298,14 @@ class Special(models.Model):
     class Meta:
         managed = False
         db_table = 'special'
+
+    def __str__(self):
+        return self.special_food.food_name + " " + str(self.special_id)
+
+    def __unicode__(self):
+        return self.special_food.food_name + " " + str(self.special_id)
+
+
 
 
 class User(models.Model):
