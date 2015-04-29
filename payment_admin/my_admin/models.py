@@ -49,13 +49,13 @@ class AuthPermission(models.Model):
     class Meta:
         managed = False
         db_table = 'auth_permission'
-      #  unique_together = (('content_type_id', 'codename'),)
+        #unique_together = (('content_type_id', 'codename'),)
 
 
 class AuthUser(models.Model):
     password = models.CharField(max_length=128)
     last_login = models.DateTimeField(blank=True, null=True)
-    is_superuser = models.IntegerField(default=0)
+    is_superuser = models.IntegerField()
     username = models.CharField(unique=True, max_length=30)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -76,7 +76,7 @@ class AuthUserGroups(models.Model):
     class Meta:
         managed = False
         db_table = 'auth_user_groups'
-      #  unique_together = (('user_id', 'group_id'),)
+        #unique_together = (('user_id', 'group_id'),)
 
 
 class AuthUserUserPermissions(models.Model):
@@ -86,7 +86,7 @@ class AuthUserUserPermissions(models.Model):
     class Meta:
         managed = False
         db_table = 'auth_user_user_permissions'
-      #  unique_together = (('user_id', 'permission_id'),)
+        #unique_together = (('user_id', 'permission_id'),)
 
 
 class Category(models.Model):
@@ -97,6 +97,11 @@ class Category(models.Model):
     class Meta:
         managed = False
         db_table = 'category'
+    def __str__(self):
+        return self.category_name + " " + str(self.category_id)
+
+    def __unicode__(self):
+        return self.category_name + " " + str(self.category_id)
 
 
 class Desk(models.Model):
@@ -128,7 +133,7 @@ class DjangoContentType(models.Model):
     class Meta:
         managed = False
         db_table = 'django_content_type'
-        #unique_together = (('app_label', 'model'),)
+        unique_together = (('app_label', 'model'),)
 
 
 class DjangoMigrations(models.Model):
@@ -139,6 +144,16 @@ class DjangoMigrations(models.Model):
     class Meta:
         managed = False
         db_table = 'django_migrations'
+
+
+class DjangoSession(models.Model):
+    session_key = models.CharField(primary_key=True, max_length=40)
+    session_data = models.TextField()
+    expire_date = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_session'
 
 
 class Evaluate(models.Model):
@@ -161,6 +176,11 @@ class Food(models.Model):
     class Meta:
         managed = False
         db_table = 'food'
+    def __unicode__(self):
+        return self.food_name+ " " + str(self.food_id)
+    def __str__(self):
+        return self.food_name + " " + str(self.food_id)
+
 
 
 class Mac(models.Model):
@@ -185,13 +205,18 @@ class Menuitem(models.Model):
         managed = False
         db_table = 'menuitem'
 
+    def __unicode__(self):
+        return self.menuitem_category.category_name + " - " + self.menuitem_food.food_name + " - " + str(self.menuitem_id)
+    def __str__(self):
+        return self.menuitem_category.category_name + " - " + self.menuitem_food.food_name + " - " + str(self.menuitem_id)
+
 
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
     order_code = models.CharField(max_length=40, blank=True, null=True)
     order_generatedate = models.CharField(max_length=50, blank=True, null=True)
     order_finishdate = models.CharField(max_length=50, blank=True, null=True)
-    order_state = models.TextField(blank=True, null=True)  # This field type is a guess.
+    order_state = models.CharField(max_length=50, blank=True, null=True)
     order_mermoney = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
     order_commoney = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
     order_pay = models.ForeignKey('Pay', db_column='order_pay', blank=True, null=True)
@@ -206,7 +231,14 @@ class Order(models.Model):
     class Meta:
         managed = False
         db_table = 'order'
-
+    def __str__(self):
+        if self.out_trade_no == None:
+            return "order_id " + str( self.order_id )
+        return "out_trade_no "+ self.out_trade_no
+    def __unicode__(self):
+        if self.out_trade_no == None:
+            return "order_id " + str(self.order_id)
+        return "out_trade_no "+ self.out_trade_no
 
 class Orderitem(models.Model):
     orderitem_id = models.AutoField(primary_key=True)
@@ -240,6 +272,18 @@ class Role(models.Model):
     class Meta:
         managed = False
         db_table = 'role'
+
+
+class ServerOrder(models.Model):
+    sign = models.TextField()
+    result = models.TextField()
+    out_trade_no = models.TextField()
+    trade_status = models.TextField()
+    request_token = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'server_order'
 
 
 class Special(models.Model):
