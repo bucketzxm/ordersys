@@ -81,7 +81,7 @@ DATABASES = {
 		'NAME': 'order_alipay',
 		'USER': 'root',
 		'PASSWORD': '123456',
-		'host': "",
+		'host': "127.0.0.1",
 		'PORT': 8388,
     }
 }

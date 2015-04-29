@@ -43,6 +43,7 @@ def deal_xml(xml_text):
 
 def parse_raw_data(raw_data):
     raw_data =  raw_data[1:len(raw_data)-1]
+    print raw_data
     #remove { and }
     data = raw_data.split(",")
 
@@ -73,7 +74,7 @@ def index(request):
     if request.method == 'POST':
         raw_data =  request.body
         order_dict = parse_raw_data(raw_data)
-        #print order_dict['notify_data']
+        print order_dict['notify_data']
         notify_dict = deal_xml(order_dict['notify_data'])
         # 从 notify_data 中提取两项方便查询
         order_dict['trade_status'] = notify_dict['trade_status']
@@ -86,6 +87,22 @@ def index(request):
     else:
         return HttpResponse("Not a post method")
 
+@csrf_exempt
+def cloud_pos_pay_confirm(request):
+    if request.method == 'POST':
+        params = dict(request.POST)
+        print request.POST
+        params['service'] = 'alipay.wap.trade.create.direct'
+        params['sign'] = '123456'
+        params['sec_id'] = '000001'
+        params['v'] = '1'
+        del params['total_fee']
+        params['notify_data'] = '123'
+        order = Order(**params)
+        order.save()
+        return HttpResponse("success")
+    else: 
+        return HttpResponse("Not a post method")
 
 
 def query_confirm( num_str ):
