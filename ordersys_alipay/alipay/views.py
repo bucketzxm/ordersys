@@ -73,7 +73,7 @@ def index(request):
     if request.method == 'POST':
         raw_data =  request.body
         order_dict = parse_raw_data(raw_data)
-        print order_dict['notify_data']
+        #print order_dict['notify_data']
         notify_dict = deal_xml(order_dict['notify_data'])
         # 从 notify_data 中提取两项方便查询
         order_dict['trade_status'] = notify_dict['trade_status']
@@ -97,7 +97,6 @@ def query_confirm( num_str ):
     ret = []
     for num in out_trade_no_list:
         obj = Order.objects.get(out_trade_no = num)
-		#---这里需要把finished 状态返回
         if obj.trade_status == "TRADE_FINISHED":
             ret.append(num)
     return ";".join(ret)

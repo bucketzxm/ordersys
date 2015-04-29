@@ -202,7 +202,7 @@ public class AliPayController {
 			//System.out.print(out_trade_no+"aaa");
 			//删除对应的Order
 			deleteOrderByOutTradeNum(out_trade_no);
-			test(out_trade_no);
+			test()
 			
 //			Order order = orderRepos.findOne(out_trade_no);
 //			for (String key : params.keySet()) {  

@@ -64,7 +64,7 @@ class Consumer(Thread):
 
                 print "query_order ==>" + query_order
 				
-                r = requests.post(query_url, params)
+                r = requests.post(query_url, payload=params)
 
                 #resp 中包含了另一台服务器确认成功的订单num,用;分割
                 if r.status_code == requests.codes.ok:

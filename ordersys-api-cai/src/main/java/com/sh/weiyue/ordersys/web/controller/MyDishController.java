@@ -89,7 +89,7 @@ public class MyDishController
 //		
 		
 		//just for test
-		String ret_str = "{\"custId\": \"0\", \"itemList\": [{\"itemId\": \"15965\", \"modifierIds\": \"\", \"itemPrice\": \"25.8\", \"instractions\": \"\", \"modifierPrice\": \"0\", \"itemNum\": \"1\", \"taxPrice\": \"0\"}], \"restId\": \"19\"}";
+		String ret_str = "{\"custId\": \"0\", \"itemList\": [{\"itemId\": \"15927\", \"modifierIds\": \"\", \"itemPrice\": \"25.8\", \"instractions\": \"\", \"modifierPrice\": \"0\", \"itemNum\": \"1\", \"taxPrice\": \"0\"}], \"restId\": \"19\"}";
 		
 		
 		return  ret_str; 
