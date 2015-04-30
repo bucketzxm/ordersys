@@ -45,7 +45,7 @@ public class Agent implements Serializable {
 	
 	public Agent(BigDecimal agentMoney, int orderId) {
 		this.agentMoney = agentMoney;
-		this.orderId = orderId;
+		//this.orderId = orderId;
 	}
 
 

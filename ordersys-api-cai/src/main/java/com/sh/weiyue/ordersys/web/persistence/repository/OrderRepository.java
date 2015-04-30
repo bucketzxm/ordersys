@@ -49,7 +49,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	public List<Integer> getAllOrder();
 	
 	
-	
 	@Query("delete from Order where orderid = ?1")
 	public void deleteOrder(int id);
 	

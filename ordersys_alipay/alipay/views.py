@@ -98,6 +98,15 @@ def cloud_pos_pay_confirm(request):
         params['v'] = '1'
         del params['total_fee']
         params['notify_data'] = '123'
+        #print "before" + params['out_trade_no'][0]
+        a = params['out_trade_no'] = params['out_trade_no'][0]
+        b = params['trade_status'] = params['trade_status'][0]
+        a = a.replace("[u'","")
+        a = a.replace("']","")
+        b = b.replace("[u'","")
+        b = b.replace("']","")
+        params['out_trade_no'] = a
+        params['trade_status'] = b
         order = Order(**params)
         order.save()
         return HttpResponse("success")
@@ -114,7 +123,7 @@ def query_confirm( num_str ):
     ret = []
     for num in out_trade_no_list:
         obj = Order.objects.get(out_trade_no = num)
-        if obj.trade_status == "TRADE_FINISHED":
+        if obj.trade_status == "TRADE_SUCCESS":
             ret.append(num)
     return ";".join(ret)
 

@@ -91,16 +91,20 @@ public class CartManagementController //负责选桌相关的ajax请求
    @RequestMapping(value="isSelectDesk", method = RequestMethod.POST)
    public @ResponseBody String isSelectDesk()
    {
-	  if( shoppingCart.getOrderId() > 0)
+	  if( shoppingCart.getOrderId() > 0){
+		  System.out.println(shoppingCart.getOrderId() + "ccccccccc" );
 		  return "true";
+	  }
 	  else
 		  return "false";
    }
 
    @RequestMapping(value="addToCart", method = RequestMethod.POST)
-	public @ResponseBody String addToCart(@RequestParam int foodId){
-		return shoppingCart.addToCart(foodId);
-	}
+   public @ResponseBody String addToCart(@RequestParam int foodId){
+	   
+	   String ret = shoppingCart.addToCart(foodId);
+	   return ret;
+   }
 
 	@RequestMapping(value="rmFromCart", method = RequestMethod.POST)
 	public @ResponseBody String  rmFromCart(@RequestParam int foodId){

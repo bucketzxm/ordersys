@@ -4,8 +4,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.alipay.config.*;
 import com.alipay.util.*;
+import com.sh.weiyue.ordersys.web.persistence.domain.Mac;
 import com.sh.weiyue.ordersys.web.persistence.domain.Order;
+import com.sh.weiyue.ordersys.web.persistence.domain.Orderitem;
+import com.sh.weiyue.ordersys.web.persistence.repository.CartRepository;
+import com.sh.weiyue.ordersys.web.persistence.repository.MacRepository;
 import com.sh.weiyue.ordersys.web.persistence.repository.OrderRepository;
+import com.sh.weiyue.ordersys.web.persistence.repository.OrderitemRepository;
 import com.sh.weiyue.ordersys.web.service.ShoppingCart;
 
 import java.io.BufferedReader;
@@ -15,6 +20,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +34,9 @@ import com.alipay.config.*;
 import com.alipay.util.*;
 
 import java.util.HashMap;
+
 import com.sh.weiyue.ordersys.web.persistence.repository.OrderRepository;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -47,8 +55,14 @@ import org.springframework.stereotype.Component;
 public class AliPayController {
 	@Autowired
 	private ShoppingCart shoppingCart;
-	
-	
+	@Autowired
+	OrderRepository orderRepos;
+	@Autowired
+	OrderitemRepository orderitemRepos;
+	@Autowired
+    CartRepository cartRepos;
+	@Autowired
+    MacRepository macRepos;
 	
 //	post 一个 string 对象
 	public static String strPost(String url, String jsonString) {
@@ -161,8 +175,28 @@ public class AliPayController {
 		{
 			if (order.getOutTradeNo().equals(out_trade_no))
 			{
+//				List<Orderitem> items = order.getOrderitems();
+//				
+//				// 先清空当前 order 对应的 orderitems
+//				for(Orderitem item : items)
+//				{
+//					orderitemRepos.delete(item.getOrderitemId());
+//					//shoppingCart.rmFromCart(item.getFood().getFoodId());
+//				}
+//				
+				
+//				Mac mac = macRepos.findByOrder(order);
+
+//				System.out.println("delete macAddress => " + mac.getMacId() + "<===== ＋ ====>"+order.getOrderId().toString());
+				
+				//macRepos.delete(mac.getMacId());
+				//macRepos.deleteMacAddressById(mac.getMacId());
+				System.out.println("order_out_trade_no =>"+out_trade_no+"will be deleted!!!");
 				orderRepos.delete(order.getOrderId());
-				shoppingCart.setOrderId(-1);
+//				shoppingCart.setOrderId(-1);
+				shoppingCart.clear();
+				
+//				System.out.print( shoppingCart.getOrderId() + "=========!!!!xxxxxxx");
 				return 1;
 			}
 		}
@@ -181,14 +215,20 @@ public class AliPayController {
 			String out_trade_no = params.get("out_trade_no")[0];
 			
 			int  ret = deleteOrderByOutTradeNum(out_trade_no);
+			
+			Enumeration<String> em = request.getSession().getAttributeNames();
+	        while(em.hasMoreElements()){
+	            request.getSession().removeAttribute(em.nextElement().toString());
+	        }
+	        request.getSession().invalidate();
+			
 			return "home";
 		}
 		
 		return "home";
 	}
 	
-	@Autowired
-	OrderRepository orderRepos;
+	
 	@RequestMapping("return_url")
 	public String aliPayApiReturn(Model model, HttpServletRequest request){
 		

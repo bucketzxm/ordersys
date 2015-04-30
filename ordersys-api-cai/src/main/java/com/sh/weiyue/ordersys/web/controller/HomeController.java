@@ -34,6 +34,7 @@ public class HomeController
 		 setDeskButtons( model );
 		 setMobileDiscount( model );
 		 setBusRecommend( model );
+		 System.out.println("####fuck in home####"+shoppingCart.getOrderId());
 		 return "home";
 	}
 	

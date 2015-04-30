@@ -44,6 +44,10 @@ public class PrePayController
 		}
 		model.addAttribute( "myOrderList", myOrderList );
 		
+		//TODO: 判断order是否已经删除
+		if(shoppingCart.getOrder() == null){
+			return "home";
+		}
 		int personNum = shoppingCart.getOrder().getOrderPersonNum();
 		BigDecimal averageCost = shoppingCart.getAvgCost();
 		BigDecimal totalCost = shoppingCart.getTotalCost();

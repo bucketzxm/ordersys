@@ -44,11 +44,11 @@ public class ShoppingCart
     MacRepository macRepos;
 	
    // just a plain java class - member variables and methods as usual
-   private int orderId = -1;//-1表示该用户当前还没有订单
+   private static int orderId = -1;//-1表示该用户当前还没有订单
    private String macAddress;
 
 	public int getOrderId() {
-		return orderId;
+		return this.orderId;
 	}
 	
 	public void setOrderId(int orderId) {
@@ -83,14 +83,21 @@ public class ShoppingCart
 	   Orderitem orderitem = findOrderitem(foodId);
 	   if(orderitem == null)
 	   {
+		   
 		   Food food = foodRepos.findOne(foodId);
 		   Order order = orderRepos.findOne(orderId);
+		   System.out.print("=====!!!!!! orderitem is null !!!!=====" + orderId);
+		   System.out.print("foodid => " + foodId + "<===");
 		   orderitem = new Orderitem(order,food);
-		   //System.out.println( "该菜之前没有被点过" );
+		   System.out.println( "该菜之前没有被点过" );
+		   System.out.println("xxxxxxfuckxxxxxx");
+		   
 		   orderitemRepos.save(orderitem);
+		   System.out.println( "该菜之前没有被点过2222" );
 	   }
 	   else
 	   {
+		   System.out.print("=====!!!!!! orderitem is not null !!!!=====");
 		  //System.out.println( "该菜之前被点过" );
 		  orderitem.setOrderitemAmount(orderitem.getOrderitemAmount()+1);
 		  orderitem.setOrderitemPrice(orderitem.getOrderitemPrice().add(orderitem.getFood().getRealPrice()));
@@ -156,7 +163,7 @@ public class ShoppingCart
    public void clear()
    {
 	   System.out.println("执行了clear()!------------------");
-	   orderId=-1;
+	   this.orderId=-1;
    }
    
    public Map<String,Object> getPayAssign()
@@ -209,6 +216,7 @@ public class ShoppingCart
 	
 	public void checkMac(HttpServletRequest request)
 	{
+		System.out.println("fucccccccck############");
 		 if(this.getOrderId() > 0)
 		 {
 			 //若sesion已有值，则不需要检查
@@ -249,12 +257,15 @@ public class ShoppingCart
         	       //若不存在或最近订单已完成，则生成新订单，并在mac中加一条新记录
         		   if((macRepos.findMacAddressCount(macAddress) == 0) || macRepos.findLatestOrderState(macAddress))
         		   { 
+        			   System.out.println("没找到啊草！！！");
         			   return;
         		   }
         		   //若存在则将找到的记录Id，赋给session
         		   else
         		   {
         			   int orderId = macRepos.findLatestOrderId(macAddress);
+
+        			   System.out.println("找到了日！！！"+orderId);
         			   this.setOrderId(orderId);
         		   }
         	       
