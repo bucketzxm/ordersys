@@ -44,7 +44,7 @@ public class ShoppingCart
     MacRepository macRepos;
 	
    // just a plain java class - member variables and methods as usual
-   private static int orderId = -1;//-1表示该用户当前还没有订单
+   private int orderId = -1;//-1表示该用户当前还没有订单
    private String macAddress;
 
 	public int getOrderId() {
@@ -257,15 +257,12 @@ public class ShoppingCart
         	       //若不存在或最近订单已完成，则生成新订单，并在mac中加一条新记录
         		   if((macRepos.findMacAddressCount(macAddress) == 0) || macRepos.findLatestOrderState(macAddress))
         		   { 
-        			   System.out.println("没找到啊草！！！");
         			   return;
         		   }
         		   //若存在则将找到的记录Id，赋给session
         		   else
         		   {
         			   int orderId = macRepos.findLatestOrderId(macAddress);
-
-        			   System.out.println("找到了日！！！"+orderId);
         			   this.setOrderId(orderId);
         		   }
         	       

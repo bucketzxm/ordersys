@@ -23,7 +23,7 @@ import com.sh.weiyue.ordersys.web.service.ShoppingCart;
 public class CartManagementController //负责选桌相关的ajax请求
 {
    @Autowired
-   private ShoppingCart shoppingCart;
+   ShoppingCart shoppingCart;
    @Autowired
    FoodRepository repository;
    @Autowired
@@ -91,8 +91,17 @@ public class CartManagementController //负责选桌相关的ajax请求
    @RequestMapping(value="isSelectDesk", method = RequestMethod.POST)
    public @ResponseBody String isSelectDesk()
    {
+	  int orderid = shoppingCart.getOrderId();
+	  
+	  if (orderRepos.findByOrderId(orderid) == null)
+	  {
+		  shoppingCart.setOrderId(-1);
+		  return "false";
+	  }
+//	  if (orderRepos.findByOrderId(orderid))
 	  if( shoppingCart.getOrderId() > 0){
-		  System.out.println(shoppingCart.getOrderId() + "ccccccccc" );
+		  System.out.println(shoppingCart.getOrderId() + "ccccccccc" +"ssssss"+orderRepos.findByOrderId(orderid));
+		  
 		  return "true";
 	  }
 	  else

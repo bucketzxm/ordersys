@@ -66,8 +66,8 @@ class Producer(Thread):
                 condition.wait()
             time.sleep(1)
 
-query_url = "http://139.159.34.121:9347/confirm_status"
-#query_url = "http://localhost:8000/confirm_status"
+#query_url = "http://139.159.34.121:9347/confirm_status"
+query_url = "http://localhost:8000/confirm_status"
 #delete_url = "http://192.168.146.141:8088/deleteOrderByOutTradeNum"
 delete_url = "http://localhost:8088/deleteOrderByOutTradeNum"
 class Consumer(Thread):
@@ -97,7 +97,7 @@ class Consumer(Thread):
                             pass
                         print "url ==> " + delete_url+'?'+"out_trade_no="+to_send
                 else:
-                    print "request failed ==> "+ str( r.status_code ) + " request.res => "+r.text
+                    print "request failed ==> "+ str( r.status_code )
             except:
                 print "net work error"
                 pass

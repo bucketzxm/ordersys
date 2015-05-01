@@ -12,7 +12,7 @@ import com.sh.weiyue.ordersys.web.persistence.domain.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 	public Order findByOrderCode(String orderCode);
-	public Order findByorderId(int orderId);
+	public Order findByOrderId(int orderId);
 	
 	//public Order findByOutTradeNum(int outTradeNum);
 	

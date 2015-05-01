@@ -3,6 +3,7 @@ package com.sh.weiyue.ordersys.web.controller;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.apache.commons.httpclient.HttpException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -103,9 +104,21 @@ public class MyDishController
         
         
         String url = "http://218.244.136.120:8080/alfred-mobile-api/order/addOrder";
+        
         String ret_str = prepareOrder();
         
-        JSONObject ret = new JSONObject(AliPayController.strPost(url,ret_str));
+        JSONObject ret = null;
+        try{
+        	ret = new JSONObject(AliPayController.strPost(url,ret_str));
+        }catch(NullPointerException e){
+        	e.printStackTrace();
+        }finally{
+        	if(ret == null){
+        		//Just for test
+        		ret = new JSONObject("{appOrderId:123}");
+        		System.out.println("NetWork Error, cant get appOrderId");
+        	}
+        }
         
         System.out.print(ret.get("appOrderId"));
         String out_trade_num = ret.get("appOrderId").toString();

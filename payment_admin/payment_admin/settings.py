@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 """
 Django settings for payment_admin project.
 
@@ -68,11 +69,20 @@ DATABASES = {
 		'PORT': '3306',
     }
 }
+#
+#
+# ADMIN_CONFIG = {
+#     'ADMIN_NAME': u'后台管理',
+#     'MENU': (
+#         'sites',
+#         {'app': 'Orders','label':u'订单'},
+#     ),
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-CN'
 
 TIME_ZONE = 'UTC'
 

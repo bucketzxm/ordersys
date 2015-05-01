@@ -173,6 +173,7 @@ public class AliPayController {
 		List<Order> orders = orderRepos.findAll();
 		for(Order order: orders)
 		{
+			System.out.println("Now we are filtering " + order.getOutTradeNo());
 			if (order.getOutTradeNo().equals(out_trade_no))
 			{
 //				List<Orderitem> items = order.getOrderitems();
@@ -282,7 +283,14 @@ public class AliPayController {
 		//必填
 
 		//商户订单号
+		
 		Order ord = shoppingCart.getOrder();
+		
+		if (ord ==null ||  ord.getOrderId() == -1)
+		{
+			return "home";
+		}
+		
 		String out_trade_no = ord.getOutTradeNo();
 		//商户网站订单系统中唯一订单号，必填
 
