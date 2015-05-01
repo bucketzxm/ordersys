@@ -99,6 +99,8 @@ class Category(models.Model):
     class Meta:
         managed = False
         db_table = 'category'
+        verbose_name = "菜单分类"
+        verbose_name_plural = "菜单分类"
     def __str__(self):
         return self.category_name + " " + str(self.category_id)
 
@@ -178,6 +180,8 @@ class Food(models.Model):
     class Meta:
         managed = False
         db_table = 'food'
+        verbose_name ="食物管理"
+        verbose_name_plural ="食物管理"
     def __unicode__(self):
         return self.food_name+ " " + str(self.food_id)
     def __str__(self):
@@ -207,6 +211,9 @@ class Menuitem(models.Model):
         managed = False
         db_table = 'menuitem'
 
+        verbose_name ="分类菜品"
+        verbose_name_plural ="分类菜品"
+
     def __unicode__(self):
         return self.menuitem_category.category_name + " - " + self.menuitem_food.food_name + " - " + str(self.menuitem_id)
     def __str__(self):
@@ -228,20 +235,22 @@ class Order(models.Model):
     order_issent = models.TextField(db_column='order_isSent', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
     order_iswaiterconfirm = models.TextField(db_column='order_isWaiterConfirm', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
     order_ishumanpay = models.TextField(db_column='order_isHumanPay', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    out_trade_no = models.CharField(max_length=250, blank=True, null=True)
+    out_trade_no = models.CharField(max_length=250, blank=True, null=True,verbose_name="订单号")
 
     class Meta:
         managed = False
         db_table = 'order'
+        verbose_name ="订单" #single
+        verbose_name_plural="全部订单"
 
     def __str__(self):
         if self.out_trade_no == None:
             return "order_id " + str( self.order_id )
-        return "out_trade_no "+ self.out_trade_no
+        return "订单号: "+ self.out_trade_no
     def __unicode__(self):
         if self.out_trade_no == None:
             return "order_id " + str(self.order_id)
-        return "out_trade_no "+ self.out_trade_no
+        return "订单号: "+ self.out_trade_no
 
 class Orderitem(models.Model):
     orderitem_id = models.AutoField(primary_key=True)
@@ -301,6 +310,8 @@ class Special(models.Model):
     class Meta:
         managed = False
         db_table = 'special'
+        verbose_name ="特殊菜单"
+        verbose_name_plural ="特殊菜单"
 
     def __str__(self):
         return self.special_food.food_name + " " + str(self.special_id)
