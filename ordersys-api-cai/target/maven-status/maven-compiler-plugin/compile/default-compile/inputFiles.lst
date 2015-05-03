@@ -10,6 +10,7 @@
 /Users/simon/Work/Payment/ordersys-api-cai/src/main/java/com/sh/weiyue/ordersys/web/domain/package-info.java
 /Users/simon/Work/Payment/ordersys-api-cai/src/main/java/com/sh/weiyue/ordersys/web/persistence/domain/Mac.java
 /Users/simon/Work/Payment/ordersys-api-cai/src/main/java/com/sh/weiyue/ordersys/web/controller/CategoryController.java
+/Users/simon/Work/Payment/ordersys-api-cai/src/main/java/com/sh/weiyue/ordersys/web/controller/ServerSentController.java
 /Users/simon/Work/Payment/ordersys-api-cai/src/main/java/com/sh/weiyue/ordersys/web/controller/DishController.java
 /Users/simon/Work/Payment/ordersys-api-cai/src/main/java/com/sh/weiyue/ordersys/web/persistence/repository/RoleRepository.java
 /Users/simon/Work/Payment/ordersys-api-cai/src/main/java/com/sh/weiyue/ordersys/web/service/ShoppingCart.java
