@@ -1,0 +1,5 @@
+com/sh/weiyue/ordersys/web/service/ShoppingCart.class
+com/sh/weiyue/ordersys/web/persistence/repository/OrderRepository.class
+com/sh/weiyue/ordersys/web/persistence/domain/Food.class
+com/sh/weiyue/ordersys/web/persistence/repository/FoodRepository.class
+com/sh/weiyue/ordersys/web/controller/PrePayController.class

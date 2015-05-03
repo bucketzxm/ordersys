@@ -81,7 +81,7 @@ public class OrderRepositoryTest {
 		orderitemRepos.delete(ordi.getOrderitemId());
 		logger.info("findByOrderCode():completed");*/
 	
-		System.out.println("哈哈" + repository.setOrderState(true, 39));
+		//System.out.println("哈哈" + repository.setOrderState(true, 39));
 	}
 
 }

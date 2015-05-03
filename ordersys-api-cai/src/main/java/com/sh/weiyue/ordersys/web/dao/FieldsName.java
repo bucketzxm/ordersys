@@ -66,7 +66,7 @@ public class FieldsName {
     // order
     public static final String ORDER_TABLE="order_sys.order";
     public static final String ORDER_Id="order_id";
-    public static final String OUT_TRADE_NUM = "out_trade_num";
+    public static final String OUT_TRADE_NUM = "out_trade_no";
     public static final String ORDER_Generatedate="order_generatedate";
     public static final String ORDER_State="order_state";
     public static final String ORDER_Desk="order_deskId";

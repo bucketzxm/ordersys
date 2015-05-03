@@ -6,6 +6,6 @@
 	</head>
 
 	<body>
-		${sHtmlText}
+		${apiHtmlText}
 	</body>
 </html>

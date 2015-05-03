@@ -1,7 +1,14 @@
 package com.sh.weiyue.ordersys.web.controller;
 
+import com.sh.weiyue.ordersys.web.persistence.repository.OrderRepository;
+
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +24,34 @@ public class PrePayController
 {
 	@Autowired
 	private ShoppingCart shoppingCart;
-	
+	@Autowired
+	private OrderRepository orderRepo;
 	@RequestMapping("humanPayConfirm")
-    public String humanPayConfirm()
+    public String humanPayConfirm(Model model) throws IOException
 	{	
+		
+		String out_trade_no = shoppingCart.getOrder().getOutTradeNo();	
+
+		String get_url = "http://localhost:8088/receiveCheckOut/?out_trade_no="+out_trade_no;
+
+		URL realUrl = new URL(get_url);
+		
+		System.out.print(get_url);
+		
+		URLConnection conn = realUrl.openConnection();
+		conn.setRequestProperty("accept", "*/*");  
+        conn.setRequestProperty("connection", "Keep-Alive");  
+        conn.setRequestProperty("user-agent",  
+                "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)");  
+		conn.connect();
+		Map<String,List<String>> map = null;
+		map = conn.getHeaderFields();
+		
+		for (String key : map.keySet())
+		{
+			System.out.println(key + "-->" + map.get(key));
+		}
+		model.addAttribute("out_trade_no",out_trade_no);
 		return "humanPayConfirm";
 	}
 	

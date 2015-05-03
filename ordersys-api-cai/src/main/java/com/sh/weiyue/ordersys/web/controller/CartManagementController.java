@@ -51,7 +51,7 @@ public class CartManagementController //负责选桌相关的ajax请求
 		   }
 	   }
 
-	   if(orderRepos.findByorderDeskIdAndOrderState( deskId, false ).size()>0)
+	   if(orderRepos.findByorderDeskIdAndOrderState( deskId, "TRADE_NOT_FINISHED" ).size()>0)
 	   {
 		   return "0";//该位子当前已被占，不能被选
 	   }
@@ -100,8 +100,7 @@ public class CartManagementController //负责选桌相关的ajax请求
 	  }
 //	  if (orderRepos.findByOrderId(orderid))
 	  if( shoppingCart.getOrderId() > 0){
-		  System.out.println(shoppingCart.getOrderId() + "ccccccccc" +"ssssss"+orderRepos.findByOrderId(orderid));
-		  
+		  System.out.println(shoppingCart.getOrderId() + "ccccccccc");
 		  return "true";
 	  }
 	  else

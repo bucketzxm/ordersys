@@ -39,130 +39,213 @@
 	    } , 
 	});
 	
-	var myData;
-	myData = "deskId=1";
 	$.ajax({  
 	    type : "post",  
-	    url : "orderOfDesk", 
+	    url : "showOrderitem1", 
 	    dataType:"text",  
-	    data:myData,
 	    success : function( ret ) 
 	    {
-	    	$("#orderOfDesk").text( "1号桌所点菜[订单项编号,菜名,数量]：" + ret );
+	    	$("#showOrderitem1").text( "已下单的订单项：" + ret );
+	    } , 
+	});	
+	
+	$.ajax({  
+	    type : "post",  
+	    url : "showOrderitem2", 
+	    dataType:"text",  
+	    success : function( ret ) 
+	    {
+	    	$("#showOrderitem2").text( "已下单的订单项：" + ret );
 	    } , 
 	});
 	
 	$.ajax({  
 	    type : "post",  
-	    url : "sumOfDesk", 
+	    url : "showOrderitem3", 
 	    dataType:"text",  
-	    data:myData,
 	    success : function( ret ) 
 	    {
-	    	$("#sumOfDesk").text( "1号桌应付金额：" + ret );
+	    	$("#showOrderitem3").text( "已下单的订单项：" + ret );
 	    } , 
 	});
 	
 	$(function(){
-	 	 $( "#addOrderitem" ).click(
-			 function(){
-				 $.ajax({  
-				    type : "post",  
-				    url : "addOrderitem", 
-				    dataType:"text",  
-				    data:"orderitemId=30",
-				    success : function( ret ) 
-				    {
-				    	location.reload();   
-				    } , 
-				});
-			 }
-		 );
+		$( "#addOrderitem" ).click(
+				 function(){
+					 var a = "orderitemId=";
+					 var tmp = prompt("请输入食物订单项编号");
+					 var itemid = a + tmp;
+					 $.ajax({  
+					    type : "post",  
+					    url : "addOrderitem", 
+					    dataType:"text",  
+					    data:itemid,
+					    success : function( ret ) 
+					    {
+					    	location.reload();   
+					    } , 
+					});
+				 }
+			 );
 	 	 
 	 	$( "#cutOrderitem" ).click(
-			 function(){
-				$.ajax({  
-				    type : "post",  
-				    url : "cutOrderitem", 
-				    dataType:"text",  
-				    data:"orderitemId=30",
-				    success : function() 
-				    {
-				    	location.reload();   
-				    } , 
-				});
-			 }
-		 );
+				 function(){
+					 var a = "orderitemId=";
+					 var tmp = prompt("请输入食物订单项编号");
+					 var itemid = a + tmp;
+					$.ajax({  
+					    type : "post",  
+					    url : "cutOrderitem", 
+					    dataType:"text",  
+					    data:itemid,
+					    success : function() 
+					    {
+					    	location.reload();   
+					    } , 
+					});
+				 }
+			 );
 	 	
 	 	$( "#deleteOrderitem" ).click(
-			 function(){
-				$.ajax({  
-				    type : "post",  
-				    url : "deleteOrderitem", 
-				    dataType:"text",  
-				    data:"orderitemId=32",
-				    success : function() 
-				    {
-				    	location.reload();   
-				    } , 
-				});
-			 }
-		);
+				 function(){
+					 var a = "orderitemId=";
+					 var tmp = prompt("请输入食物订单项编号");
+					 var itemid = a + tmp;
+					$.ajax({  
+					    type : "post",  
+					    url : "deleteOrderitem", 
+					    dataType:"text",  
+					    data:itemid,
+					    success : function() 
+					    {
+					    	location.reload();   
+					    } , 
+					});
+				 }
+			);
 	 	
-	 	$( "#doWaiterConfirm" ).click(
-			 function(){
-				$.ajax({  
-				    type : "post",  
-				    url : "doWaiterConfirm", 
-				    dataType:"text",  
-				    data:"deskId=1",
-				    success : function() 
-				    {
-				    	alert("已确认！");
-				    } , 
-				});
-			 }
-		);
+		$.ajax({  
+		    type : "post",  
+		    url : "needConfirm", 
+		    dataType:"text",  
+		    success : function( ret ) 
+		    {
+		    	$("#needConfirm").text( "需确认的订单编号：" + ret );
+		    } , 
+		});
+	 	
+		$( "#doWaiterConfirm" ).click(
+				 function(){
+					 	var a = "deskId=";
+						var tmp = prompt("请输入桌号","7");
+						var deskid = a + tmp;
+					$.ajax({  
+					    type : "post",  
+					    url : "doWaiterConfirm", 
+					    dataType:"text",  
+					    data:deskid,
+					    success : function() 
+					    {
+					    	alert("已确认！");
+					    } , 
+					});
+				 }
+			);
+	 	
+		$.ajax({  
+		    type : "post",  
+		    url : "showOrder", 
+		    dataType:"text",  
+		    success : function( ret ) 
+		    {
+		    	$("#showOrder").text( "已下单的订单编号：" + ret );
+		    } , 
+		});
 	 	
 	 	$( "#deleteOrder" ).click(
-			 function(){
-				$.ajax({  
-				    type : "post",  
-				    url : "deleteOrder", 
-				    dataType:"text",  
-				    data:"deskId=7",
-				    success : function() 
-				    {
-				    	alert("已删除！");
-				    } , 
-				});
-			 }
-		);
+				 function(){
+					var a = "deskId=";
+					var tmp = prompt("请输入桌号","7");
+					var deskid = a + tmp;
+					$.ajax({ 
+					    type : "post",  
+					    url : "deleteOrder", 
+					    dataType:"text",  
+					    data:deskid,
+					    success : function() 
+					    {
+					    	alert("已删除！");
+					    	location.reload();
+					    } , 
+					});
+				 }
+			);
+	 	
+	 	$( "#choosedesk" ).click(
+				 function(){
+					var a = "deskId=";
+					var tmp = prompt("请输入桌号","7");
+					var deskid = a + tmp;
+					$.ajax({  
+					    type : "post",  
+					    url : "orderOfDesk", 
+					    dataType:"text",  
+					    data:deskid,
+					    success : function( ret ) 
+					    {
+					    	$("#orderOfDesk").text( tmp+"号桌所点菜[订单项编号,菜名,数量]：" + ret );
+					    } , 
+					});
+					$.ajax({  
+					    type : "post",  
+					    url : "sumOfDesk", 
+					    dataType:"text",  
+					    data:deskid,
+					    success : function( ret ) 
+					    {
+					    	$("#sumOfDesk").text( tmp+"号桌应付金额：" + ret );
+					    } , 
+					});
+				 }
+			);
+	 
 	 });
 </script>
 </head>
 <body>
-	<h3>deskAlreadySentOrder</h3>
+	<h3>已下单桌号</h3>
 	<div id="deskAlreadySentOrder"></div>
-	<h3>deskAlreadyConfirm</h3>
+	<h3>已确认订单的桌号</h3>
 	<div id="deskAlreadyConfirm"></div>
-	<h3>deskSendHumanPay</h3>
+	<h3>要求人工支付的桌号</h3>
 	<div id="deskSendHumanPay"></div>	
-	<h3>orderOfDesk</h3>
+	
+	<h3>指定桌号的订单内容</h3>
+	<button id="choosedesk">显示指定卓详细</button>
 	<div id="orderOfDesk"></div>
-	<h3>sumOfDesk</h3>
+	
+	<h3>指定桌号的总消费</h3>
 	<div id="sumOfDesk"></div>
 	
-	<h3>addOrderitem</h3>
-	<button id="addOrderitem">30号订单项数量+1</button>
-	<h3>cutOrderitem</h3>
-	<button id="cutOrderitem">30号订单项数量-1</button>
-	<h3>deleteOrderitem</h3>
-	<button id="deleteOrderitem">删除32号订单项</button>
-	<h3>doWaiterConfirm</h3>
-	<button id="doWaiterConfirm">确认1号桌的订单</button>
-	<h3>deleteOrder</h3>
-	<button id="deleteOrder">删除7号桌的订单</button>
+	<h3>项目数量加1</h3>
+	<div id="showOrderitem1"></div>
+	<button id="addOrderitem">订单项数量+1</button>
+	
+	<h3>项目数量减1</h3>
+	<div id="showOrderitem2"></div>
+	<button id="cutOrderitem">订单项数量-1</button>
+	
+	<h3>删除项目</h3>
+    <div id="showOrderitem3"></div>
+	<button id="deleteOrderitem">删除该订单项</button>
+	
+	<h3>需确认的订单</h3>
+    <div id="needConfirm"></div>
+	<button id="doWaiterConfirm">确认订单</button>
+	
+	<h3>删除订单</h3>
+	<div id="showOrder"></div>
+	<button id="deleteOrder">删除订单</button>
 </body>
 </html>
 

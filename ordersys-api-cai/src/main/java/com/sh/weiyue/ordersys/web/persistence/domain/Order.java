@@ -45,7 +45,7 @@ public class Order implements Serializable {
 	private BigDecimal orderMermoney;
 
 	@Column(name="order_state")
-	private Boolean orderState;
+	private String orderState;
 	
 	@Column(name="order_isSent")
 	private Boolean orderIsSent;
@@ -99,7 +99,7 @@ public class Order implements Serializable {
 	public Order( Integer deskId,Integer orderPersonNum) {
 		this.orderDeskId = deskId;
 		this.orderGeneratedate = new Date().toLocaleString();
-		this.orderState=false;//订单刚开始创建，状态为“未付款”
+		this.orderState="TRADE_NOT_PAID";//订单刚开始创建，状态为“未付款”
 		this.orderPersonNum = orderPersonNum;
 		this.orderIsSent = false;
 	}
@@ -112,7 +112,7 @@ public class Order implements Serializable {
 		this.orderFinishdate = null;
 		this.orderMermoney = orderMermoney;
 		this.orderDeskId = deskId;
-		this.orderState = false;
+		this.orderState = "TRADE_NOT_PAID";
 		this.orderIsSent = false;
 		this.pay = null;
 		this.user = null;
@@ -174,11 +174,11 @@ public class Order implements Serializable {
 		this.orderMermoney = orderMermoney;
 	}
 
-	public Boolean getOrderState() {
+	public String getOrderState() {
 		return this.orderState;
 	}
 
-	public void setOrderState(Boolean orderState) {
+	public void setOrderState(String orderState) {
 		this.orderState = orderState;
 	}
 

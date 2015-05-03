@@ -99,6 +99,10 @@ function setMask()
 	    		$(".mask").show(); 
 				$(".popWindow").show(); 
 	    	}
+	    	if (msg == "true")
+	    	{
+	    		
+	    	}
 	    } , 
 	    error:function(error)
 	    {

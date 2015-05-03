@@ -30,8 +30,9 @@ public class EvaluateController {
 	@RequestMapping("evaluate")
     public String evaluate( Model model )
 	{
+		
 		// 把订单设为完成状态	
-		orderRepos.setOrderState(true, shoppingCart.getOrderId());
+		orderRepos.setOrderState("TRADE_FINISHED", shoppingCart.getOrder().getOutTradeNo());
 		//先表格
 		String myOrderList="";
 		//orderRepos.setOrderState(true, shoppingCart.getOrderId());

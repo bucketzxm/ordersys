@@ -39,6 +39,15 @@
 		   <td>在线支付</td>
 		   <td><img src="icon/arrowRight-gray.png"></td>
 		</tr>
+		
+		<tr>
+		   <td>
+				<div></div>
+				<img src="icon/支付宝.png">
+		   </td>
+		   <td>客户端支付</td>
+		   <td><img src="icon/arrowRight-gray.png"></td>
+		</tr>
     </table>	
  </body>
 </html>

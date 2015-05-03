@@ -325,6 +325,7 @@ function orderItemCut( obj )
 		    	var strArray = result.split(" ");
 		    	$("avg").text( strArray[0] );
 	    		$("sum").text( strArray[1] );
+	    		return result;
 		    }
 		});
 

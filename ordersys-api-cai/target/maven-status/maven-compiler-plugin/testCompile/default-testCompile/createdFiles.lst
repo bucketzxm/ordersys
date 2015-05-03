@@ -1,0 +1,13 @@
+com/sh/weiyue/ordersys/web/persistence/repository/SpecialRepositoryTest.class
+com/sh/weiyue/ordersys/web/persistence/repository/CartRepositoryTest.class
+com/sh/weiyue/ordersys/web/persistence/repository/PayRepositoryTest.class
+com/sh/weiyue/ordersys/web/persistence/repository/RoleRepositoryTest.class
+com/sh/weiyue/ordersys/web/ApplicationConfigTest.class
+com/sh/weiyue/ordersys/web/persistence/repository/MacRepositoryTest.class
+com/sh/weiyue/ordersys/web/controller/StubDevice.class
+com/sh/weiyue/ordersys/web/persistence/repository/CategoryRepositoryTest.class
+com/sh/weiyue/ordersys/web/persistence/repository/OrderitemRepositoryTest.class
+com/sh/weiyue/ordersys/web/persistence/repository/DeskRepositoryTest.class
+com/sh/weiyue/ordersys/web/persistence/repository/UserRepositoryTest.class
+com/sh/weiyue/ordersys/web/persistence/repository/MenuitemRepositoryTest.class
+com/sh/weiyue/ordersys/web/persistence/repository/FoodRepositoryTest.class
