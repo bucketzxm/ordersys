@@ -13,21 +13,19 @@
 		<button onclick="clearText()">清空</button>
 		
 		<textarea id = "displayTextArea" readonly="readonly" rows="30"></textarea>
-		<li>
 		
-		
-		</li>
 		<script>
 			var eventSource = null;
 			
 			function start(){
-				eventSource = new EventSource("http://localhost:8088/eventStream");
-				eventSource.onopen = function(){
+				eventSource = new EventSource("http://192.168.100.135:8088/receiveCheckOut/serverSent");
+				/* eventSource.onopen = function(){
 					displayTextArea.value += "Connected... "+ "\n";
-				};
+				}; */
 				
 				eventSource.onmessage = function(message)
 				{
+					//alert(message);
 					displayTextArea.value += message.data + '\n\n';
 				};
 				

@@ -56,79 +56,41 @@ public class ServerSentController {
 }
 	
 	
-	@RequestMapping("serverSent")
-	public @ResponseBody  String sendMessage(HttpServletResponse response, Model model) throws IOException
+	@RequestMapping("receiveCheckOut/serverSent")
+	public void sendMessage(HttpServletResponse response) throws IOException
 	{
-		Random r = new Random();
 		response.setContentType("text/event-stream");
-		
 		response.setCharacterEncoding("UTF-8");
-		PrintWriter out = null;
+		PrintWriter out = response.getWriter();;
 		String checkOutOrder = "";
-		while(true)
-		{
-			try{
-				out =  response.getWriter();
-				
-				List<Order> orders = orderRepos.findByOrderState("TRADE_WAIT_TO_FINISH");
-				
-				for(Order o: orders)
-				{
-					checkOutOrder += o.getOutTradeNo()+";";
-				}
-
-				System.out.println("start to find trade_wait_to_finish orders"+" ==> " + checkOutOrder);
-				out.write(checkOutOrder);
-				
-				try{
-					response.flushBuffer();
-				}catch(Exception e){  
-					break;
-				}
-			}catch(IOException e)
+		
+			
+		try{
+			List<Order> orders = orderRepos.findByOrderState("TRADE_WAIT_TO_FINISH");
+			for(Order o: orders)	
 			{
-				out.close();
-				e.printStackTrace();
-				break;
-			}catch(Exception e){
-				break;
-			}		
+				checkOutOrder = "<ul>" +
+						o.getOutTradeNo()+ "<button>abc</button>"+
+						"</ul>";
+				orderRepos.setOrderState("TRADE_NOTIFY_WAITER",o.getOutTradeNo());
+				out.write("data: "+checkOutOrder+"\n\n");
+				try{
+					Thread.sleep(1000);
+				}catch(InterruptedException e){
+					e.printStackTrace();	
+				}	
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			out.close();
 		}
-		return "serverSent";
+		out.close();
 	}
 	
 	
 	@RequestMapping("receiveCheckOut")
 	public String waiterCheckOut(HttpServletResponse response, Model model){
-		PrintWriter out = null;
-		String checkOutOrder = "";
-		while(true){
-			try{
-				out = response.getWriter();
-				List<Order> orders = orderRepos.findByOrderState("TRADE_WAIT_TO_FINISH");
-				for(Order o: orders)
-				{
-					checkOutOrder = "<ul>" +
-									o.getOutTradeNo()+ "<button>abc</button>"+
-									"</ul>";
-					orderRepos.setOrderState("TRADE_NOTIFY_WAITER",o.getOutTradeNo());
-					out.write(checkOutOrder);
-				}	
-				try{
-					response.flushBuffer();
-				}catch(Exception e){
-					e.printStackTrace();
-					break;
-				}
-			}catch(IOException e){
-				e.printStackTrace();
-				out.close();
-			}catch(Exception e){
-				e.printStackTrace();
-				out.close();
-				break;
-			}
-		}
+		
 		return "receiveCheckOut";
 	}
 	
