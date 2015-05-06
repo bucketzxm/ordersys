@@ -92,9 +92,9 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Category(models.Model):
-    category_id = models.AutoField(primary_key=True)
-    category_name = models.CharField(max_length=40, blank=True, null=True)
-    category_picture = models.CharField(max_length=45, blank=True, null=True)
+    category_id = models.AutoField(primary_key=True,verbose_name="类别编号")
+    category_name = models.CharField(max_length=40, blank=True, null=True,verbose_name="类别名字")
+    category_picture = models.CharField(max_length=45, blank=True, null=True,verbose_name="类别图片")
 
     class Meta:
         managed = False
@@ -170,12 +170,12 @@ class Evaluate(models.Model):
 
 
 class Food(models.Model):
-    food_id = models.AutoField(primary_key=True)
-    food_score = models.DecimalField(max_digits=10, decimal_places=1, blank=True, null=True)
-    food_name = models.CharField(max_length=40, blank=True, null=True)
-    food_price = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
-    food_picture = models.CharField(max_length=40, blank=True, null=True)
-    food_description = models.CharField(max_length=400, blank=True, null=True)
+    food_id = models.AutoField(primary_key=True, verbose_name="食物编号")
+    food_score = models.DecimalField(max_digits=10, decimal_places=1, blank=True, null=True,verbose_name="食物分数")
+    food_name = models.CharField(max_length=40, blank=True, null=True,verbose_name="食物名字")
+    food_price = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True,verbose_name="食物价格")
+    food_picture = models.CharField(max_length=40, blank=True, null=True,verbose_name="食物图片")
+    food_description = models.CharField(max_length=400, blank=True, null=True,verbose_name="食品描述")
 
     class Meta:
         managed = False
@@ -201,11 +201,11 @@ class Mac(models.Model):
 
 
 class Menuitem(models.Model):
-    menuitem_id = models.AutoField(primary_key=True)
+    menuitem_id = models.AutoField(primary_key=True,verbose_name="分类食品编号")
     menuitem_bigsale = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
     menuitem_status = models.IntegerField(blank=True, null=True)
-    menuitem_food = models.ForeignKey(Food, db_column='menuitem_food', blank=True, null=True)
-    menuitem_category = models.ForeignKey(Category, db_column='menuitem_category')
+    menuitem_food = models.ForeignKey(Food, db_column='menuitem_food', blank=True, null=True, verbose_name="菜单分类食物")
+    menuitem_category = models.ForeignKey(Category, db_column='menuitem_category', verbose_name="分类菜品所在目录")
 
     class Meta:
         managed = False
@@ -222,16 +222,16 @@ class Menuitem(models.Model):
 
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
-    order_code = models.CharField(max_length=40, blank=True, null=True)
-    order_generatedate = models.CharField(max_length=50, blank=True, null=True)
-    order_finishdate = models.CharField(max_length=50, blank=True, null=True)
-    order_state = models.CharField(max_length=50, blank=True, null=True)
+    order_code = models.CharField(max_length=40, blank=True, null=True,verbose_name="订单二维码")
+    order_generatedate = models.CharField(max_length=50, blank=True, null=True, verbose_name="订单生成日期")
+    order_finishdate = models.CharField(max_length=50, blank=True, null=True,verbose_name="订单结束日期")
+    order_state = models.CharField(max_length=50, blank=True, null=True,verbose_name="订单状态")
     order_mermoney = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
     order_commoney = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
     order_pay = models.ForeignKey('Pay', db_column='order_pay', blank=True, null=True)
-    order_deskid = models.IntegerField(db_column='order_deskId', blank=True, null=True)  # Field name made lowercase.
-    order_user = models.ForeignKey('User', db_column='order_user', blank=True, null=True)
-    order_personnum = models.IntegerField(db_column='order_personNum', blank=True, null=True)  # Field name made lowercase.
+    order_deskid = models.IntegerField(db_column='order_deskId', blank=True, null=True, verbose_name="订单桌号")  # Field name made lowercase.
+    order_user = models.ForeignKey('User', db_column='order_user', blank=True, null=True,verbose_name="订单用户")
+    order_personnum = models.IntegerField(db_column='order_personNum', blank=True, null=True, verbose_name="订单人数")  # Field name made lowercase.
     order_issent = models.TextField(db_column='order_isSent', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
     order_iswaiterconfirm = models.TextField(db_column='order_isWaiterConfirm', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
     order_ishumanpay = models.TextField(db_column='order_isHumanPay', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
