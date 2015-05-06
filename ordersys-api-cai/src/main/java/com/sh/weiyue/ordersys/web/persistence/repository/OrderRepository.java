@@ -11,14 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sh.weiyue.ordersys.web.persistence.domain.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
+	
 	public Order findByOrderCode(String orderCode);
 	public Order findByOrderId(int orderId);
+	public List<Order> findByOrderState(String orderState);
+	public List<Order> findByorderDeskIdAndOrderState(Integer deskId,String state);
+	
 	
 	@Query("select orderId from Order where out_trade_no=?1")
 	public int findByOutTradeNum(String outTradeNum);
-	
-	public List<Order> findByOrderState(String orderState);
-	public List<Order> findByorderDeskIdAndOrderState(Integer deskId,String state);
 	
 	@Modifying@Transactional
 	@Query("update Order o set o.orderState = ?1 where o.out_trade_no = ?2")
@@ -50,8 +51,4 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	
 	@Query("delete from Order where orderid = ?1")
 	public void deleteOrder(int id);
-	
-//	@Query("select  from Order where o.order_state == ?1")
-//	public List<Order> getSpecOrder(String order_state);
-	
 }

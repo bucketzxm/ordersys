@@ -44,13 +44,12 @@ public class CartManagementController //负责选桌相关的ajax请求
 		   return "-1";//没有这张桌号
 	   if(order != null)//如果订单已存在,且选号没变
 	   {
-
 		   if( order.getOrderDeskId() == deskId)
 		   {
 			   return "1";
 		   }
 	   }
-
+	   
 	   if(orderRepos.findByorderDeskIdAndOrderState( deskId, "TRADE_NOT_FINISHED" ).size()>0)
 	   {
 		   return "0";//该位子当前已被占，不能被选

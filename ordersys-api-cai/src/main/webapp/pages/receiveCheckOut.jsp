@@ -7,13 +7,16 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<button id="startButton" onclick="start()">Start</button>
-		<button onclick="stop()">Stop</button>
+		<button id="startButton" onclick="start()">开始上班</button>
+		<button onclick="stop()">停止接受</button>
 		
-		<button onclick="clearText()">Clear</button>
+		<button onclick="clearText()">清空</button>
 		
 		<textarea id = "displayTextArea" readonly="readonly" rows="30"></textarea>
+		<li>
 		
+		
+		</li>
 		<script>
 			var eventSource = null;
 			

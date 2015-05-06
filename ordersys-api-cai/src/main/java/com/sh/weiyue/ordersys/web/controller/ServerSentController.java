@@ -33,7 +33,7 @@ public class ServerSentController {
 	private List<Order> orders =null;
 	
 	
-public int deleteOrderByOutTradeNum(String out_trade_no){
+	public int deleteOrderByOutTradeNum(String out_trade_no){
 		
 		List<Order> orders = orderRepos.findAll();
 		for(Order order: orders)
@@ -70,11 +70,19 @@ public int deleteOrderByOutTradeNum(String out_trade_no){
 			try{
 				out =  response.getWriter();
 				
+				List<Order> orders = orderRepos.findByOrderState("TRADE_WAIT_TO_FINISH");
+				
+				for(Order o: orders)
+				{
+					checkOutOrder += o.getOutTradeNo()+";";
+				}
+
+				System.out.println("start to find trade_wait_to_finish orders"+" ==> " + checkOutOrder);
 				out.write(checkOutOrder);
 				
 				try{
 					response.flushBuffer();
-				}catch(Exception e){
+				}catch(Exception e){  
 					break;
 				}
 			}catch(IOException e)
@@ -84,21 +92,55 @@ public int deleteOrderByOutTradeNum(String out_trade_no){
 				break;
 			}catch(Exception e){
 				break;
-			}
-				
+			}		
 		}
-		
 		return "serverSent";
 	}
 	
+	
 	@RequestMapping("receiveCheckOut")
-	public void receiveCheckOut(HttpServletRequest request){
+	public String waiterCheckOut(HttpServletResponse response, Model model){
+		PrintWriter out = null;
+		String checkOutOrder = "";
+		while(true){
+			try{
+				out = response.getWriter();
+				List<Order> orders = orderRepos.findByOrderState("TRADE_WAIT_TO_FINISH");
+				for(Order o: orders)
+				{
+					checkOutOrder = "<ul>" +
+									o.getOutTradeNo()+ "<button>abc</button>"+
+									"</ul>";
+					orderRepos.setOrderState("TRADE_NOTIFY_WAITER",o.getOutTradeNo());
+					out.write(checkOutOrder);
+				}	
+				try{
+					response.flushBuffer();
+				}catch(Exception e){
+					e.printStackTrace();
+					break;
+				}
+			}catch(IOException e){
+				e.printStackTrace();
+				out.close();
+			}catch(Exception e){
+				e.printStackTrace();
+				out.close();
+				break;
+			}
+		}
+		return "receiveCheckOut";
+	}
+	
+	@RequestMapping("setOrderFinished")
+	public void setOrderFinished(HttpServletRequest request){
 		String out_trade_no = request.getParameter("out_trade_no");
 		
 		orderRepos.setOrderState("TRADE_WAIT_TO_FINISH", out_trade_no);
 		System.out.println("xxxxxxTRADE_WAIT_TO_FINISH"+out_trade_no);
 		
 	}
+	
 	@RequestMapping("deleteCheckOut")
 	public void deleteCheckOut(HttpServletRequest request){
 		String out_trade_no = request.getParameter("out_trade_no");
