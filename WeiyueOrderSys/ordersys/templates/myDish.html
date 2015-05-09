@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <div id="popSetting" align="center">
+        <table class="headBar">
+            <tr>
+                <th>我的菜</th>
+            </tr>
+        </table>
+
+        <div id="mainContent">
+            <div id="orderInfo">
+                <img src="icon/user-active.png">
+
+                <div>
+                    <div id="circleMark"></div>
+                    <span><personNum>${personNum}</personNum>人 <deskId>${deskId}</deskId>号桌 <setting>[设置]
+                    </setting></span>
+
+                    <div>
+                        <font>人均 ￥
+                            <avg>${avg}</avg>
+                        </font> | 2冷菜 3热菜 1汤 2甜点
+                    </div>
+                </div>
+            </div>
+
+            <table id="dishList">
+                <tr>
+                    <th> 菜 单 <font>|</font></th>
+                    <th> 数 量 <font>|</font></th>
+                    <th> 单价(RMB)</th>
+                </tr>
+                ${myOrderList}
+            </table>
+            <hr/>
+        </div>
+
+        <table id="sumBar">
+            <tr>
+                <th>合计：￥
+                    <sum>${sum}</sum>
+                </th>
+                <th>
+				<span class="iconBtn">
+					<img src="/images/icon/add-dish.png"/>
+					加菜
+				</span>
+				<span class="iconBtn">
+					<img src="/images/icon/confirm-order.png"/>
+					下单
+				</span>
+                </th>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

@@ -16,12 +16,14 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.conf.urls import include, url
 from django.contrib import admin
+import ordersys.urls
 import settings
 from ordersys import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', views.index),
+    # url(r'^$',ordersys.views.index()),
+    url(r'', include(ordersys.urls)),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
