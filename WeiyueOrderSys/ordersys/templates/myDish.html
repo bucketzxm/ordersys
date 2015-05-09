@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+<script src="/js/myDish.js"></script>
 {% block main %}
     <div id="popSetting" align="center">
         <table class="headBar">
@@ -10,7 +10,7 @@
 
         <div id="mainContent">
             <div id="orderInfo">
-                <img src="icon/user-active.png">
+                <img src="/images/icon/user-active.png">
 
                 <div>
                     <div id="circleMark"></div>
@@ -43,12 +43,11 @@
                 </th>
                 <th>
 				<span class="iconBtn">
-					<img src="/images/icon/add-dish.png"/>
-					加菜
+					<img src="/images/icon/add-dish-btn.png"/>
 				</span>
+                    
 				<span class="iconBtn">
-					<img src="/images/icon/confirm-order.png"/>
-					下单
+					<img src="/images/icon/confirm-order-btn.png"/>
 				</span>
                 </th>
             </tr>
