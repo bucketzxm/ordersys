@@ -14,3 +14,4 @@ Dump20140617/*
 *.apk
 *.jar
 *.tar.gz
+migrations/
