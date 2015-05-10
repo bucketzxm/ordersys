@@ -6,17 +6,17 @@ class Category(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="目录编号")  # 唯一编号
     name = models.CharField(max_length=128, verbose_name="目录名称")  # 调料名字
     image_url = models.URLField(default="", verbose_name="图片路径")  # 图片路径
-    description = models.TextField(verbose_name="调料描述")
+    description = models.TextField(verbose_name="目录描述")
 
     class Meta:
         verbose_name = "目录"
         verbose_name_plural = "目录"
 
     def __str__(self):
-        return "目录 " + self.id + " : " + self.name;
+        return "目录 " + self.id + " : " + self.name
 
     def __unicode__(self):
-        return "目录 " + self.id + " : " + self.name;
+        return "目录 " + self.id + " : " + self.name
 
 
 class Sauce(models.Model):
@@ -31,10 +31,10 @@ class Sauce(models.Model):
         verbose_name_plural = "调料"
 
     def __str__(self):
-        return "调料 " + self.id + " : " + self.name;
+        return "调料 " + self.id + " : " + self.name
 
     def __unicode__(self):
-        return "调料 " + self.id + " : " + self.name;
+        return "调料 " + self.id + " : " + self.name
 
 
 class Food(models.Model):
@@ -49,15 +49,21 @@ class Food(models.Model):
 
     sauces = models.ManyToManyField(Sauce, verbose_name="调料")  #
 
+    def get_price(self):
+        return self.price
+
+    def get_id(self):
+        return self.id
+
     class Meta:
         verbose_name = "食物"
         verbose_name_plural = "食物"
 
     def __str__(self):
-        return "食物 " + self.id + " : " + self.name;
+        return "食物 " + self.id + " : " + self.name
 
     def __unicode__(self):
-        return "食物 " + self.id + " : " + self.name;
+        return "食物 " + self.id + " : " + self.name
 
 
 class Order(models.Model):
@@ -68,20 +74,57 @@ class Order(models.Model):
     custom_id = models.CharField(max_length=256, default="0", verbose_name="顾客会员号")  # 会员顾客
     state = models.CharField(max_length=50, verbose_name="订单状态")
     money = models.FloatField(default=0, verbose_name="订单金额")  # 订单原始金额
-
     bonus = models.BigIntegerField(default=0, verbose_name="会员积分")  # 积分
     discount = models.FloatField(default=0, verbose_name="折扣")  # 折扣
-
     description = models.TextField(verbose_name="订单附加描述")  # 对订单的附加描述
-
     foods = models.ManyToManyField(Food, verbose_name="食物")
 
     class Meta:
         verbose_name = "订单"
         verbose_name_plural = "订单"
 
+
     def __str__(self):
-        return "订单: " + self.out_trade_num;
+        return "订单: " + self.out_trade_num
 
     def __unicode__(self):
-        return "订单: " + self.out_trade_num;
+        return "订单: " + self.out_trade_num
+
+
+class LineItem(models.Model):
+    product = models.ForeignKey(Food, verbose_name="食品")
+    unite_price = models.FloatField(default=0, verbose_name="食物价格")
+    quantity = models.IntegerField(default=0, verbose_name="食品数量")
+
+    class Meta:
+        verbose_name = "单品"
+        verbose_name_plural = "单品"
+
+    def __str__(self):
+        return "单品: " + self.product
+
+    def __unicode__(self):
+        return "单品: " + self.product
+
+
+class Cart(object):
+    def __init__(self):
+        self.items = []
+        self.total_price = 0
+
+    def add_product(self, product):
+        self.total_price += product.get_price()
+
+        # 如果购物车中有重复的商品，则+1
+        for item in self.items:
+            if product.get_id() == item.get_id():
+                item.quantity += 1
+                return
+
+        # 全新的一种商品
+        self.items.append(LineItem(product, product.get_price(), 1))
+        return
+
+
+
+
