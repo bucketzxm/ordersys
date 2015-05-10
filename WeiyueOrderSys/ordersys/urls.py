@@ -7,5 +7,5 @@ import views
 urlpatterns = [
     url(r'^$',views.index),
     url(r'^category/', views.category),
-    url(r'^mydish',views.mydish)
+    url(r'^myDish',views.view_cart)
 ]

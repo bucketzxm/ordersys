@@ -80,6 +80,37 @@ function selectDeskAndPerson()
 	});	
 }
 
+function setMask()
+{
+	$.ajax({  
+        type : "post",  
+        url : "isSelectDesk", 
+        dataType:"text",  
+	    success : function(msg) 
+	    { 
+	    	if( msg == "alreadySentOrder")
+	    	{
+	    		alert( "你已下单，请先去支付。");
+	    		location.href = "/prePay" ; 
+	    		return;
+	    	}
+	    	if( msg == "false" )
+	    	{
+	    		$(".mask").show(); 
+				$(".popWindow").show(); 
+	    	}
+	    	if (msg == "true")
+	    	{
+	    		
+	    	}
+	    } , 
+	    error:function(error)
+	    {
+	     	console.log(error+"isSelectDesk");
+ 		}
+	});	
+}
+
 function initCarousel()
 {
   $("#owl-demo").owlCarousel({
@@ -104,6 +135,34 @@ function initCarousel()
 			showArrows();
 	   	}
   });
+
+  var owl = $("#deskSlider");
+  owl.owlCarousel({     
+      itemsCustom : [
+        [0, 3],
+        [1600, 3]
+      ],
+      pagination:false,
+	  addClassActive:true,
+	  afterMove:function(){
+		  updateFocus(0);
+      }
+  }); 
+  owl.data('owlCarousel').goTo(1);
+  
+  owl = $("#personSlider");
+  owl.owlCarousel({     
+      itemsCustom : [
+        [0, 3],
+        [1600, 3]
+      ],
+      pagination:false,
+	  addClassActive:true,
+	  afterMove:function(){
+		  updateFocus(1);
+      }
+  });
+  owl.data('owlCarousel').goTo(1);
 }
 
 //显示和隐藏箭头

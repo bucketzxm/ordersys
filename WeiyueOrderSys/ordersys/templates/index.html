@@ -1,11 +1,32 @@
-{% extends "base.html" %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>优惠首页</title>
+    <script src="/js/jquery.js"></script>
+    <link rel="stylesheet" href="/js/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/js/owl-carousel/owl.theme.css">
+    <link rel="stylesheet" href="/css/myCss/home.css">
 
-{% block main %}
+    <script src="/js/owl-carousel/owl.carousel.js"></script>
+    <script src="/js/myJs/cart.js"></script>
+    <script src="/js/myJs/home.js"></script>
+
+    <style type="text/css">
+    </style>
+
+</head>
+
+<body>
+<div class="mask"></div>
+
+
 <div id="allWrapper">
     <div class="wrapper">
-        <!--单张的旋转木马-->
+
         <div id="owl-demo" class="owl-carouse1 owl-theme markCarousel">
 
+            ${aFavor}
         </div>
 
         <!--圆点导航条-->
@@ -16,6 +37,7 @@
     <div class="wrapper">
         <!--第二排的旋转木马-->
         <div id="owl-recommend" class="markCarousel">
+
             ${bFavor}
         </div>
 
@@ -31,7 +53,7 @@
 
     <!--优惠信息-->
     <div id="discountInfo">
-        <img src="images/icon/realLogo.png">
+        <img src="/images/icon/realLogo.png">
 
         <div>
             <strong>近期优惠</strong><br/>
@@ -41,6 +63,22 @@
             </div>
         </div>
     </div>
-</div>
 
-{% endblock %}
+
+    <!--底部导航条-->
+    <table class="navBar">
+        <tr>
+            <th><a href="/"><img src="/images/icon/首页.png"></a>
+
+                <p>首 页</p></th>
+            <th><a href="category"><img src="/images/icon/全部菜单-active.png"></a>
+
+                <p>全部菜单</p></th>
+            <th><a href="/myDish"><img src="/images/icon/我的菜.png"></a>
+
+                <p>我的菜</p></th>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

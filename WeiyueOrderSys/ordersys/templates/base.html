@@ -3,25 +3,19 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>菜品种类</title>
+    <title>{% block title %}{% endblock %}</title>
     <script src="/js/jquery.js"></script>
     <link rel="stylesheet" href="/css/category.css">
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/main.css">
-    {#    <script src="js/jquery.imagesloaded.js"></script>#}
-    <script src="/js/jquery.wookmark.js"></script>
-    <script src="/js/category.js"></script>
-    <script src="/js/owl.carousel.js"></script>
 </head>
 
 <body>
 <table class="headBar">
     <tr>
-        <th></th>
+        <th>{{ title }}</th>
     </tr>
 </table>
-
-
 {% block main %}
 
 {% endblock %}

@@ -108,7 +108,7 @@ class LineItem(models.Model):
 
 
 class Cart(object):
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         self.items = []
         self.total_price = 0
 
@@ -123,7 +123,7 @@ class Cart(object):
 
         # 全新的一种商品
         self.items.append(LineItem(product, product.get_price(), 1))
-        return
+
 
 
 
