@@ -3,10 +3,14 @@ from django.shortcuts import render_to_response,HttpResponse
 from django.template.loader import get_template
 from django.contrib.sessions import serializers
 
-from models import Cart
+from models import Cart, Food
 
 def index(request):
     title = "首页"
+
+    special = Food.objects.filter(special=True)
+    if not special:
+        pass
     return render_to_response('index.html', locals())
 
 
@@ -29,3 +33,12 @@ def view_cart(request):
     request.session['cart_total_price'] = cart.total_price
     request.session['cart_total_items'] = cart.items
     return render_to_response("view_cart.html",locals())
+
+
+
+def add_to_cart(request):
+    if request.method == "POST":
+        # deal with food request
+        pass
+    else:
+        pass

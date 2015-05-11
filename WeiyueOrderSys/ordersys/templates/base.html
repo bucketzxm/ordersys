@@ -1,58 +1,30 @@
-<!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
+<head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>{% block title %}{% endblock %}</title>
     <script src="/js/jquery.js"></script>
-    <link rel="stylesheet" href="/css/category.css">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/main.css">
-</head>
+    <link rel="stylesheet" href="/js/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/js/owl-carousel/owl.theme.css">
+    <link rel="stylesheet" href="/css/myCss/home.css">
 
+    <script src="/js/owl-carousel/owl.carousel.js"></script>
+    <script src="/js/myJs/cart.js"></script>
+    <script src="/js/myJs/home.js"></script>
+
+    <style type="text/css">
+    </style>
+</head>
 <body>
-<table class="headBar">
-    <tr>
-        <th>{{ title }}</th>
-    </tr>
-</table>
-{% block main %}
+
+
+
+
+{% block body %}
+
 
 {% endblock %}
 
 
-<!--填充用div-->
-<div class="holdPlace"></div>
-
-<!--底部导航条-->
-<table class="navBar">
-    <tr>
-        <th>
-            <a href="/">
-                <img src="/images/icon/index-active.png">
-
-                <p>首 页</p>
-            </a>
-        </th>
-        <th>
-            <a href="/category">
-                <img src="/images/icon/all-order-active.png">
-
-                <p>全部菜单</p>
-            </a>
-        </th>
-
-        <th>
-            <a href="/mydish">
-                <img src="/images/icon/my-dishes.png">
-
-                <p>我的菜</p>
-            </a>
-        </th>
-    </tr>
-</table>
-
 </body>
-</html>
-
 </html>
