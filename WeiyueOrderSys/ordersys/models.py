@@ -3,10 +3,10 @@ from django.db import models
 
 # Create your models here.
 class Category(models.Model):
+
     id = models.AutoField(primary_key=True, verbose_name="目录编号")  # 唯一编号
     name = models.CharField(max_length=128, verbose_name="目录名称")  # 调料名字
-    image_url = models.URLField(default="", verbose_name="图片网络路径")
-    image_local_url = models.FilePathField(default="",verbose_name="图片本地路径")
+    image_url = models.CharField(max_length=128,verbose_name="图片路径")
     description = models.TextField(verbose_name="目录描述")
 
     class Meta:
@@ -14,10 +14,10 @@ class Category(models.Model):
         verbose_name_plural = "目录"
 
     def __str__(self):
-        return "目录 " + self.id + " : " + self.name
+        return u"目录 %s: %s" % (str(self.id), self.name)
 
     def __unicode__(self):
-        return "目录 " + self.id + " : " + self.name
+        return u"目录 %s: %s" % (str(self.id), self.name)
 
 
 class Sauce(models.Model):
@@ -25,7 +25,6 @@ class Sauce(models.Model):
     name = models.CharField(max_length=128, verbose_name="调料名字")  # 调料名字
     price = models.FloatField(default=0, verbose_name="单品价格")  # 单品价格
     image_url = models.URLField(default="", verbose_name="图片网络路径")
-    image_local_url = models.FilePathField(default="",verbose_name="图片本地路径")
     description = models.TextField(verbose_name="调料描述")
 
     class Meta:
@@ -33,10 +32,10 @@ class Sauce(models.Model):
         verbose_name_plural = "调料"
 
     def __str__(self):
-        return "调料 " + self.id + " : " + self.name
+        return u"调料 %s : %s" % ( str(self.id), self.name)
 
     def __unicode__(self):
-        return "调料 " + self.id + " : " + self.name
+        return u"调料 %s : %s" % ( str(self.id), self.name)
 
 
 class Food(models.Model):
@@ -45,7 +44,6 @@ class Food(models.Model):
 
     category = models.ForeignKey(Category, verbose_name="类别")  # 食物类别
     image_url = models.URLField(default="", verbose_name="图片网络路径")
-    image_local_url = models.FilePathField(default="",verbose_name="图片本地路径")
     price = models.FloatField(default=0, verbose_name="食物价格")
     description = models.TextField(verbose_name="食物描述")
     special = models.BooleanField(default=False, verbose_name="是否特价")
@@ -63,10 +61,10 @@ class Food(models.Model):
         verbose_name_plural = "食物"
 
     def __str__(self):
-        return "食物 " + self.id + " : " + self.name
+        return u"食物 %s: %s" % (str(self.id), self.name)
 
     def __unicode__(self):
-        return "食物 " + self.id + " : " + self.name
+        return u"食物 %s: %s" % (str(self.id), self.name)
 
 
 class Order(models.Model):
@@ -88,10 +86,10 @@ class Order(models.Model):
 
 
     def __str__(self):
-        return "订单: " + self.out_trade_num
+        return u"订单 %s: %s" % (self.out_trade_num)
 
     def __unicode__(self):
-        return "订单: " + self.out_trade_num
+        return u"订单 %s: %s" % (self.out_trade_num)
 
 
 class LineItem(models.Model):
@@ -104,10 +102,10 @@ class LineItem(models.Model):
         verbose_name_plural = "单品"
 
     def __str__(self):
-        return "单品: " + self.product
+        return u"单品: ％s" % (self.product)
 
     def __unicode__(self):
-        return "单品: " + self.product
+        return u"单品: ％s" % (self.product)
 
 
 class Cart(object):
