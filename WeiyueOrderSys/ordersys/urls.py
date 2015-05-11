@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^category/', views.category),
     url(r'^myDish',views.view_cart),
     url(r'^addToCart',views.add_to_cart),
+    url(r'^dish',views.dishes),
 ]

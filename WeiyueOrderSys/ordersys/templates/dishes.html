@@ -5,4 +5,46 @@
 {% endblock %}
 
 {% block main %}
+
+    <table class="headBar">
+        <tr>
+            <th>{{ cg.name }}</th>
+        </tr>
+    </table>
+
+    <div id="mainContent">
+        <ul>
+            {% for food in food_list %}
+                <li foodid={{ food.id }} >
+                <img src = {{ food.image_url }}
+
+
+                </li>
+
+            {% endfor %}
+        </ul>
+    </div>
+
+
+
+{% endblock %}
+
+{% block footBar %}
+    <!--填充用div-->
+    <div class="holdPlace"></div>
+    <!--底部导航条-->
+    <table class="navBar">
+        <tr>
+            <th><a href="/"><img src="/images/icon/首页-active.png"></a>
+
+                <p>首 页</p></th>
+            <th><img src="/images/icon/全部菜单-active.png">
+
+                <p>全部菜单</p></th>
+            <th><a href="/myDish"><img src="/images/icon/我的菜-active.png"></a>
+
+                <p>我的菜</p></th>
+        </tr>
+    </table>
+
 {% endblock %}

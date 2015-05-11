@@ -8,47 +8,52 @@
     </table>
 
     <div id="allWrapper">
-        <div class="wrapper">
+    <div class="wrapper">
 
-            <div id="owl-demo" class="owl-carouse1 owl-theme markCarousel">
-                ${aFavor}
-            </div>
-
-            <!--圆点导航条-->
-            <div class='owl-theme' id="pointNavHolder"></div>
-            <div class="demoMark">超低价抢购中</div>
+        <div id="owl-demo" class="owl-carouse1 owl-theme markCarousel">
+            ${aFavor}
         </div>
 
-        <div class="wrapper">
-            <!--第二排的旋转木马-->
-            <div id="owl-recommend" class="markCarousel">
+        <!--圆点导航条-->
+        <div class='owl-theme' id="pointNavHolder"></div>
+        <div class="demoMark">超低价抢购中</div>
+    </div>
 
-                ${bFavor}
-            </div>
+    <div class="wrapper">
+        <!--第二排的旋转木马-->
+        <div id="owl-recommend" class="markCarousel">
 
-            <!--左右两个箭头-->
-            <div id="leftArrowHolder">
-                &lt;
-            </div>
-            <div id="rightArrowHolder">
-                &gt;
-            </div>
-            <div class="recommendMark">优惠进行中</div>
+            ${bFavor}
         </div>
 
-        <!--优惠信息-->
-        <div id="discountInfo">
-            <img src="/images/icon/realLogo.png">
+        <!--左右两个箭头-->
+        <div id="leftArrowHolder">
+            &lt;
+        </div>
+        <div id="rightArrowHolder">
+            &gt;
+        </div>
+        <div class="recommendMark">优惠进行中</div>
+    </div>
+
+    <!--优惠信息-->
+    <div id="discountInfo">
+        <img src="/images/icon/realLogo.png">
+
+        <div>
+            <strong>近期优惠</strong><br/>
 
             <div>
-                <strong>近期优惠</strong><br/>
-
-                <div>
-                    优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息
-                </div>
+                优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息
             </div>
         </div>
+    </div>
 
+
+
+{% endblock %}
+
+{% block footBar %}
     </div>
     <!--底部导航条-->
     <table class="navBar">
@@ -64,6 +69,4 @@
                 <p>我的菜</p></th>
         </tr>
     </table>
-
 {% endblock %}
-

@@ -1,9 +1,9 @@
 #-*- coding: utf-8 -*-
-from django.shortcuts import render_to_response,HttpResponse
+from django.shortcuts import render_to_response,HttpResponse, redirect
 from django.template.loader import get_template
 from django.contrib.sessions import serializers
 
-from models import Cart, Food
+from models import Cart, Food, Category
 
 def index(request):
     title = "首页"
@@ -16,12 +16,22 @@ def index(request):
 
 def category(request):
     title = "目录"
+    cg_list = Category.objects.all()
     return render_to_response("category.html", locals())
 
 
 def dishes(request):
-    title = "菜品"
-    return render_to_response("dishes.html",locals())
+    if request.method == "GET":
+        cgId = request.GET['cgId']
+        category = Category.objects.filter(id = cgId)[0]
+        dish_list = []
+        title = ""
+
+        if category:
+            dish_list = Food.objects.all().filter( category = category )
+            title = category.name
+        return render_to_response("dishes.html",locals())
+    redirect('/')
 
 def view_cart(request):
     title = "购物车"

@@ -24,7 +24,7 @@ class Sauce(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="调料编号")  # 唯一编号
     name = models.CharField(max_length=128, verbose_name="调料名字")  # 调料名字
     price = models.FloatField(default=0, verbose_name="单品价格")  # 单品价格
-    image_url = models.URLField(default="", verbose_name="图片网络路径")
+    image_url = models.CharField(max_length=128,verbose_name="图片路径")
     description = models.TextField(verbose_name="调料描述")
 
     class Meta:
@@ -43,7 +43,7 @@ class Food(models.Model):
     name = models.CharField(max_length=128, verbose_name="食物名称")
 
     category = models.ForeignKey(Category, verbose_name="类别")  # 食物类别
-    image_url = models.URLField(default="", verbose_name="图片网络路径")
+    image_url = models.CharField(max_length=128,verbose_name="图片路径")
     price = models.FloatField(default=0, verbose_name="食物价格")
     description = models.TextField(verbose_name="食物描述")
     special = models.BooleanField(default=False, verbose_name="是否特价")
