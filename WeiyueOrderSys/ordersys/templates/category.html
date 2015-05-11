@@ -3,6 +3,10 @@
 {% block extfile %}
     <script src="/js/myJs/category.js"></script>
     <link rel="stylesheet" href="/css/myCss/category.css">
+
+    <link rel="stylesheet" href="/js/wookmark/reset.css">
+    <link rel="stylesheet" href="/js/wookmark/main.css">
+
 {% endblock %}
 {% block body %}
 
@@ -15,7 +19,7 @@
     <div id="mainContent">
         <ul id="tiles">
             {% for cg in cg_list %}
-                <li cgId={{ cg.id }}>
+                <li cgid={{ cg.id }}>
                     <img src= {{ cg.image_url }}>
                     <div>
                         {{ cg.name }}

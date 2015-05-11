@@ -17,7 +17,7 @@
   })(jQuery);
  
  $(function(){
-	 setTimeout( '$(window).resize()', 500 ); 
+	 setTimeout( '$(window).resize()', 500 );
 	 $( "#tiles li" ).click(
 		 function(){
 			 location.href = "/dish?cgId=" + $(this).attr("cgId");
