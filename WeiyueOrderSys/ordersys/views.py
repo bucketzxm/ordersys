@@ -1,9 +1,10 @@
-#-*- coding: utf-8 -*-
-from django.shortcuts import render_to_response,HttpResponse, redirect
+# -*- coding: utf-8 -*-
+from django.shortcuts import render_to_response, HttpResponse, redirect, RequestContext
 from django.template.loader import get_template
 from django.contrib.sessions import serializers
 
 from models import Cart, Food, Category
+
 
 def index(request):
     title = "首页"
@@ -22,34 +23,43 @@ def category(request):
 
 def dishes(request):
     if request.method == "GET":
+        c = {}
+        # c.update(csrf(request))
+
         cgId = request.GET['cgId']
-        category = Category.objects.filter(id = cgId)[0]
+        category = Category.objects.filter(id=cgId)[0]
 
         food_list = []
         if category:
-            food_list = Food.objects.all().filter(category= category )
+            food_list = Food.objects.all().filter(category=category)
             title = category.name
 
-        return render_to_response("dishes.html",locals())
+        c['cgId'] = cgId
+        c['food_list'] = food_list
+        c['title'] = title
+        return render_to_response("dishes.html", c)
     redirect('/')
+
 
 def view_cart(request):
     title = "购物车"
-    cart = request.session.get('cart',None)
+    cart = request.session.get('cart', None)
     if not cart:
         # 购物车空
         cart = Cart()
-
-    request.session['cart_total_price'] = cart.total_price
-    request.session['cart_total_items'] = cart.items
-    return render_to_response("view_cart.html",locals())
+        request.session['cart'] = cart
 
 
+    return render_to_response("view_cart.html")
 
 def add_to_cart(request):
     if request.method == "POST":
-        # deal with food request
-        return "1 2"
-        pass
-    else:
-        pass
+        food_id = request.POST['foodId']
+        food = Food.objects.get(id=food_id)
+        cart = request.session.get('cart', None)
+
+        if not cart:
+            cart = Cart()
+            request.session['cart'] = cart
+        cart.add_product(food)
+        return view_cart(request)

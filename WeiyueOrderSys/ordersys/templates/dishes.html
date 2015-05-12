@@ -14,12 +14,12 @@
 
     <table class="headBar">
         <tr>
-            <th>{{ cg.name }}</th>
+            <th>{{ title }}</th>
         </tr>
     </table>
 
     <div id="mainContent">
-    {% csrf_token %}
+
         <ul>
             {% for food in food_list %}
                 <li foodid='{{ food.id }}' class = "beChoiced">
