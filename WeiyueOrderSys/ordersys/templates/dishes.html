@@ -4,7 +4,13 @@
     {{ title }}
 {% endblock %}
 
-{% block main %}
+{% block extfile %}
+    <script src="/js/myJs/dish.js"></script>
+    <script src="/js/myJs/cart.js"></script>
+    <link rel="stylesheet" href="/css/myCss/dish.css">
+{% endblock %}
+
+{% block body %}
 
     <table class="headBar">
         <tr>
@@ -13,9 +19,10 @@
     </table>
 
     <div id="mainContent">
+    {% csrf_token %}
         <ul>
             {% for food in food_list %}
-                <li foodid={{ food.id }}>
+                <li foodid='{{ food.id }}' class = "beChoiced">
                     <img src= {{ food.image_url }}>
 
                     <h3> {{ food.name }}</h3>
@@ -42,7 +49,7 @@
             <th><a href="/"><img src="/images/icon/首页-active.png"></a>
 
                 <p>首 页</p></th>
-            <th><img src="/images/icon/全部菜单-active.png">
+            <th><a href="category"><img src="/images/icon/全部菜单-active.png"></a>
 
                 <p>全部菜单</p></th>
             <th><a href="/myDish"><img src="/images/icon/我的菜-active.png"></a>

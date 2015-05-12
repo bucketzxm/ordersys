@@ -49,6 +49,7 @@ def view_cart(request):
 def add_to_cart(request):
     if request.method == "POST":
         # deal with food request
+        return "1 2"
         pass
     else:
         pass
