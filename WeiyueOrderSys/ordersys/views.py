@@ -2,8 +2,14 @@
 from django.shortcuts import render_to_response, HttpResponse, redirect, RequestContext
 from django.template.loader import get_template
 from django.contrib.sessions import serializers
-
+from django.core import serializers
 from models import Cart, Food, Category
+
+
+try:
+    import cPickle as pickle
+except:
+    import pickle
 
 
 def index(request):
@@ -41,16 +47,42 @@ def dishes(request):
     redirect('/')
 
 
+
+
+# deserialize django models object
+def deserialize_to_object_list(data, format):
+    ret = []
+    for obj in serializers.deserialize(format, data):
+        ret.append(obj)
+    return ret
+
+# serialize django models object
+def serialize(object_list, new_object, format):
+    object_list.append(new_object)
+    data = serializers.serialize(format, object_list)
+    return data
+
+
+def pickle_dump(object_list, new_object):
+    object_list.append(new_object)
+    return pickle.dumps(object_list)
+
+def pickle_load(data):
+    object_list = pickle.load(data)
+    return object_list
+
 def view_cart(request):
     title = "购物车"
     cart = request.session.get('cart', None)
     if not cart:
         # 购物车空
         cart = Cart()
-        request.session['cart'] = cart
+        data = pickle_dump([], cart)
+        request.session['cart'] = data
+    t = get_template("view_cart.html")
+    c = RequestContext(request,locals())
+    return HttpResponse(t.render(c))
 
-
-    return render_to_response("view_cart.html")
 
 def add_to_cart(request):
     if request.method == "POST":
@@ -58,8 +90,14 @@ def add_to_cart(request):
         food = Food.objects.get(id=food_id)
         cart = request.session.get('cart', None)
 
+        data = ""
         if not cart:
-            cart = Cart()
-            request.session['cart'] = cart
-        cart.add_product(food)
+            # data = serialize([], Cart(), 'json')
+            data = pickle_dump([], Cart())
+        else:
+            # origin_list = deserialize_to_object_list(cart, 'json')
+            # data = serialize(origin_list, cart)
+            origin_list = pickle_load(cart)
+            data = pickle_dump(origin_list, cart)
+        cart.add_product(data)
         return view_cart(request)
