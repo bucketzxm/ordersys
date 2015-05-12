@@ -24,12 +24,12 @@ def dishes(request):
     if request.method == "GET":
         cgId = request.GET['cgId']
         category = Category.objects.filter(id = cgId)[0]
-        dish_list = []
-        title = ""
 
+        food_list = []
         if category:
-            dish_list = Food.objects.all().filter( category = category )
+            food_list = Food.objects.all().filter(category= category )
             title = category.name
+
         return render_to_response("dishes.html",locals())
     redirect('/')
 

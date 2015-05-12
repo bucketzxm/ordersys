@@ -48,7 +48,7 @@ class Food(models.Model):
     description = models.TextField(verbose_name="食物描述")
     special = models.BooleanField(default=False, verbose_name="是否特价")
 
-    sauces = models.ManyToManyField(Sauce, verbose_name="调料")  #
+    sauces = models.ManyToManyField(Sauce, default= None, verbose_name="调料")  #
 
     def get_price(self):
         return self.price

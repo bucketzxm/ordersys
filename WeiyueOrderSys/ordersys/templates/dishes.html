@@ -15,11 +15,14 @@
     <div id="mainContent">
         <ul>
             {% for food in food_list %}
-                <li foodid={{ food.id }} >
-                <img src = {{ food.image_url }}>
-                <h3> {{ food.name }}</h3>
-                <p>￥{{ food.price }}</p>
-                <div
+                <li foodid={{ food.id }}>
+                    <img src= {{ food.image_url }}>
+
+                    <h3> {{ food.name }}</h3>
+
+                    <p>￥{{ food.price }}</p>
+
+                    <div
                 </li>
 
             {% endfor %}
