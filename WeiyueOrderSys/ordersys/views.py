@@ -47,14 +47,13 @@ def dishes(request):
     redirect('/')
 
 
-
-
 # deserialize django models object
 def deserialize_to_object_list(data, format):
     ret = []
     for obj in serializers.deserialize(format, data):
         ret.append(obj)
     return ret
+
 
 # serialize django models object
 def serialize(object_list, new_object, format):
@@ -63,13 +62,18 @@ def serialize(object_list, new_object, format):
     return data
 
 
-def pickle_dump(object_list, new_object):
-    object_list.append(new_object)
-    return pickle.dumps(object_list)
+def pickle_dump(new_object):
+    return pickle.dumps(new_object)
+
 
 def pickle_load(data):
-    object_list = pickle.load(data)
-    return object_list
+    if isinstance(data, unicode):
+        data_str = data.encode('utf-8')
+    elif isinstance(data, str):
+        data_str = data
+    ret = pickle.loads(data_str)
+    return ret
+
 
 def view_cart(request):
     title = "购物车"
@@ -80,7 +84,7 @@ def view_cart(request):
         data = pickle_dump([], cart)
         request.session['cart'] = data
     t = get_template("view_cart.html")
-    c = RequestContext(request,locals())
+    c = RequestContext(request, locals())
     return HttpResponse(t.render(c))
 
 
@@ -88,16 +92,16 @@ def add_to_cart(request):
     if request.method == "POST":
         food_id = request.POST['foodId']
         food = Food.objects.get(id=food_id)
-        cart = request.session.get('cart', None)
+        cart_session = request.session.get('cart', None)
 
         data = ""
-        if not cart:
-            # data = serialize([], Cart(), 'json')
-            data = pickle_dump([], Cart())
+        if not cart_session:
+            cart = Cart()
+            cart.add_product(food)
         else:
-            # origin_list = deserialize_to_object_list(cart, 'json')
-            # data = serialize(origin_list, cart)
-            origin_list = pickle_load(cart)
-            data = pickle_dump(origin_list, cart)
-        cart.add_product(data)
-        return view_cart(request)
+            cart = pickle_load(cart_session)
+            cart.add_product(food)
+        cart.total_price += food.price
+        data = pickle_dump(cart)
+        request.session['cart'] = data
+    return HttpResponse("")

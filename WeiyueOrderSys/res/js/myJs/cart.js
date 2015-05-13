@@ -15,8 +15,6 @@ function getCookie(name) {
     return cookieValue;
 }
 var csrftoken = getCookie('csrftoken');
-
-
 $.ajaxSetup({
      beforeSend: function(xhr, settings) {
          function getCookie(name) {

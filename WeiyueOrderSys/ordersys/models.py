@@ -124,17 +124,17 @@ class Cart(object):
         self.items = []
         self.total_price = 0
 
-    def add_product(self, product):
-        self.total_price += product.get_price()
+    def add_product(self, food):
+        self.total_price += food.price
 
         # 如果购物车中有重复的商品，则+1
         for item in self.items:
-            if product.get_id() == item.get_id():
+            if food.id == item.id:
                 item.quantity += 1
                 return
 
         # 全新的一种商品
-        self.items.append(LineItem(product, product.get_price(), 1))
+        self.items.append(LineItem(food, food.price, 1))
 
 
 
