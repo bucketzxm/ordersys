@@ -11,7 +11,7 @@
 #!-*- coding: utf-8 -*-
 from django.contrib import admin
 
-from models import Food, Category, Order, Sauce
+from models import Food, Category, Order, Sauce, LineItem
 
 
 class SauceAdmin(admin.ModelAdmin):
@@ -30,7 +30,11 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('time', 'order_num', 'state', 'money')
 
 
+class LineItemAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(Sauce, SauceAdmin)
 admin.site.register(Food, FoodAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Order, OrderAdmin)
+admin.site.register(LineItem,LineItemAdmin)
