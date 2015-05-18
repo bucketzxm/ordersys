@@ -28,7 +28,7 @@ function homeClick( obj )
 {
 	$(obj).css( "background", "white" );
 	$(obj).css( "color", "#D31C64" );
-	$(obj).find("img").attr( "src", "../icon/首页-active.png" );
+	$(obj).find("img").attr( "src", "/images/icon/首页-active.png" );
 	$(".popQuery:nth-child(2) .middleLine").hide();
 	$(obj).find( "div:nth-child(2)" ).show();
 	setTimeout(
@@ -41,7 +41,7 @@ function confrimClick( obj )
 {
 	$(obj).css( "background", "white" );
 	$(obj).css( "color", "#D31C64" );
-	$(obj).find("img").attr( "src", "icon/确认-active.png" );
+	$(obj).find("img").attr( "src", "/images/icon/确认-active.png" );
 	$(".popQuery:nth-child(2) .middleLine").hide();
 	$(obj).find( "div:nth-child(2)" ).show();
 	sendOrder();
@@ -61,6 +61,7 @@ function confrimClick( obj )
 	 		}
 	});*/
 }
+
 function noClick( obj )
 {
 	$(obj).css( "background", "white" );
@@ -88,6 +89,12 @@ $(function(){
 			$(".popQuery:nth-child(2)").show();
 		}
 	);
+    $("#sumBar span:nth-child(3)").click(
+        function()
+        {
+            location.href="/clearCart"
+        }
+    );
 
 	$(".popQuery:nth-child(2) th:nth-child(1)").click(//点击是否要再点优惠菜的"首页"
 			function()
@@ -224,7 +231,7 @@ function initCarousel()
 	  addClassActive:true,
 	  afterMove:function(){
 		  updateFocus(0);
-      },
+      }
   });
   owl.data('owlCarousel').goTo(1);
 
@@ -238,7 +245,7 @@ function initCarousel()
 	  addClassActive:true,
 	  afterMove:function(){
 		  updateFocus(1);
-      },
+      }
   });
   owl.data('owlCarousel').goTo(1);
 }

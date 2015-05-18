@@ -2,7 +2,7 @@
 
 {% block extfile %}
     <script src="/js/myJs/home.js"></script>
-     <script src="/js/myJs/cart.js"></script>
+    <script src="/js/myJs/cart.js"></script>
     <link rel="stylesheet" href="/css/myCss/home.css">
 {% endblock %}
 
@@ -18,8 +18,28 @@
     <div class="wrapper">
 
         <div id="owl-demo" class="owl-carouse1 owl-theme markCarousel">
-            ${aFavor}
+
+            {% for special in special_list %}
+                <div class="item beChoiced" foodid={{ special.id }}>
+                    <img src={{ special.image_url }}>
+
+                    <div class="description">
+                        <div>
+                            {{ special.name }}
+                        </div>
+                        <div>抢购价
+                            <spcialPrice>￥ {{ special.price }} </spcialPrice>
+                        </div>
+                    </div>
+
+                    <div class="addDish">
+                        <button>{{ special.amount }}</button>
+                        <button class="addButton">抢购</button>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
+
 
         <!--圆点导航条-->
         <div class='owl-theme' id="pointNavHolder"></div>
@@ -27,26 +47,31 @@
     </div>
 
     <div class="wrapper">
-        <!--第二排的旋转木马-->
-        <div id="owl-recommend" class="markCarousel">
+    <!--第二排的旋转木马-->
+    <div id="owl-recommend" class="markCarousel">
+        {% for special in special_list %}
+            <div class="item beChoiced" foodid={{ special.id }}>
+                <img src={{ special.image_url }}>
 
-            ${bFavor}
-        </div>
+                <div class="description">
+                    <div>
+                        {{ special.name }}
+                    </div>
+                    <div>抢购价
+                        <spcialPrice>￥ {{ special.price }} </spcialPrice>
+                    </div>
+                </div>
 
-        <!--左右两个箭头-->
-        <div id="leftArrowHolder">
-            &lt;
-        </div>
-        <div id="rightArrowHolder">
-            &gt;
-        </div>
-        <div class="recommendMark">优惠进行中</div>
+                <div class="addDish">
+                    <button>{{ special.amount }}</button>
+                    <button class="addButton">抢购</button>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 
-    <!--优惠信息-->
     <div id="discountInfo">
         <img src="/images/icon/realLogo.png">
-
         <div>
             <strong>近期优惠</strong><br/>
 
@@ -55,7 +80,6 @@
             </div>
         </div>
     </div>
-
 
 
 {% endblock %}
