@@ -26,7 +26,6 @@ def get_wait_to_pay_orders(request):
     return HttpResponse(json.dumps(tmp))
 
 
-
 @csrf_exempt
 def delete_wait_to_pay(request):
     if not request.POST.has_key('out_trade_num') or not request.POST.has_key('order_num'):
@@ -98,9 +97,6 @@ def pickle_load(data):
     return ret
 
 
-
-
-
 def index(request):
     title = "首页"
     special_list = Food.objects.filter(special=True)
@@ -116,7 +112,6 @@ def category(request):
 def dishes(request):
     if request.method == "GET":
         c = {}
-
         cgId = request.GET['cgId']
         category = Category.objects.filter(id=cgId)[0]
 
@@ -135,11 +130,16 @@ def dishes(request):
             item_list = pickle_load(cart).items
         else:
             item_list = []
-        print cart
         # generate food name with
-        amount_dict = dict([ (key.food,key.quantity) for key in item_list ])
-        c["amount"] = amount_dict
 
+        # amount_dict = dict([(key.food, {key.quantity: 'beChoiced'}) for key in item_list])
+        amount_dict = dict([(key, {0:"notChoiced"}) for key in food_list] )
+
+        for item in item_list:
+            amount_dict[item.food] = {item.quantity:"beChoiced"}
+
+        print amount_dict
+        c["amount"] = amount_dict
         return render_to_response("dishes.html", c)
     redirect('/')
 
@@ -147,18 +147,15 @@ def dishes(request):
 def view_cart(request):
     title = "购物车"
     cart = request.session.get('cart', None)
-
     # if cart is null, pickle_load will raise error
     if cart:
         cart = pickle_load(cart)
-
     line_items = []
     if not cart:
         # 购物车空
         line_items = []
     else:
         line_items = cart.items
-
 
     t = get_template("view_cart.html")
     c = RequestContext(request, locals())
@@ -200,6 +197,7 @@ def add_to_cart(request):
         data = pickle_dump(cart)
         request.session['cart'] = data
     return HttpResponse("")
+
 
 def clear_cart(request):
     request.session['cart'] = None

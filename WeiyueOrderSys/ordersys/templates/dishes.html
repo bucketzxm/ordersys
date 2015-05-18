@@ -21,26 +21,21 @@
     <div id="mainContent">
 
         <ul>
-            {% for food in food_list %}
-                 {%  if food in amounts.items.keys %}
-                     {% with beChoiced = "beChoiced" %}
-                     {% endwith %}
-                 {% endif %}
-                <li foodid='{{ food.id }}' class = {{ beChoiced }}>
-                    <img src= {{ food.image_url }}/>
-                    <h3> {{ food.name }}</h3>
+            {% for food_key, value in amount.items %}
 
-                    {% for food_selected, num in amount.items %}
-                            {%  if food_selected.name  == food.name  %}
-                                <button>{{ num }}</button>
-                            {% endif %}
-                    {% endfor %}
-{#                    <button>{{ num }}</button>#}
-                    <p>￥{{ food.price }}</p>
+                {% for  number , choiced in value.items %}
+                    <li foodid='{{ food_key.id }}' class= {{ choiced }}>
+                        <img src= {{ food_key.image_url }}/>
+                        <h3> {{ food_key.name }}</h3>
+{#                        {% if choiced == "beChoiced" %}#}
+                            <button>{{ number }}</button>
+{#                        {% endif %}#}
+                        <p>￥{{ food_key.price }}</p>
+                    </li>
 
-                </li>
+                {% endfor %}
+                {% endfor %}
 
-            {% endfor %}
         </ul>
     </div>
 
