@@ -3,7 +3,65 @@ from django.shortcuts import render_to_response, HttpResponse, redirect, Request
 from django.template.loader import get_template
 from django.contrib.sessions import serializers
 from django.core import serializers
-from models import Cart, Food, Category, LineItem
+from models import Cart, Food, Category, LineItem, Order
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+ERROR_CODE = {
+    '1000': {"status": "1000", "desc": "执行成功"},
+    '1001': {"status": "1001", "desc": "缺少参数"},
+    '1002': {"status": "1002", "desc": "执行异常"}
+    # '1003':{"status": "1002", "desc": "执行错误"},
+}
+
+
+@csrf_exempt
+def get_wait_to_pay_orders(request):
+    tmp = []
+    for order in Order.objects.filter(state=Order.WAIT_TO_PAY):
+        tmp.append(order.to_dict())
+        print 'food:'
+        for line_item in order.foods.all():
+            print line_item
+    return HttpResponse(json.dumps(tmp))
+
+
+
+@csrf_exempt
+def delete_wait_to_pay(request):
+    if not request.POST.has_key('out_trade_num') or not request.POST.has_key('order_num'):
+        return HttpResponse(json.dumps(ERROR_CODE['1001']))
+    else:
+        try:
+            out_trade_num = request.POST.get('out_trade_num')
+            order_num = request.POST.get('order_num')
+            tmp = []
+            for order in Order.objects.filter(out_trade_num=out_trade_num, order_num=order_num):
+                tmp.append(order.to_dict())
+            return HttpResponse(json.dumps(tmp))
+        except Exception, e:
+            tmp = ERROR_CODE['1002']
+            tmp['desc'] += (":" + str(e))
+            return HttpResponse(json.dumps(tmp))
+
+
+@csrf_exempt
+def confirm_wait_to_pay_to_success(request):
+    print request.POST
+    if not request.POST.has_key('out_trade_num') or not request.POST.has_key('order_num'):
+        return HttpResponse(json.dumps(ERROR_CODE['1001']))
+    else:
+        try:
+            out_trade_num = request.POST.get('out_trade_num')
+            order_num = request.POST.get('order_num')
+            for order in Order.objects.filter(out_trade_num=out_trade_num, order_num=order_num):
+                order.state = order.SUCCESS_TO_PAY
+                order.save()
+            return HttpResponse(json.dumps(ERROR_CODE['1000']))
+        except Exception, e:
+            tmp = ERROR_CODE['1002']
+            tmp['desc'] += (":" + str(e))
+            return HttpResponse(json.dumps(tmp))
 
 
 try:
@@ -71,16 +129,17 @@ def dishes(request):
         c['food_list'] = food_list
         c['title'] = title
 
-
         cart = request.session.get('cart', None)
 
         if cart:
             item_list = pickle_load(cart).items
         else:
             item_list = []
+        print cart
         # generate food name with
         amount_dict = dict([ (key.food,key.quantity) for key in item_list ])
         c["amount"] = amount_dict
+
         return render_to_response("dishes.html", c)
     redirect('/')
 
@@ -92,6 +151,7 @@ def view_cart(request):
     # if cart is null, pickle_load will raise error
     if cart:
         cart = pickle_load(cart)
+
     line_items = []
     if not cart:
         # 购物车空
@@ -110,8 +170,6 @@ def add_to_cart(request):
         food_id = request.POST['foodId']
         food = Food.objects.get(id=food_id)
         cart_session = request.session.get('cart', None)
-
-
         # Lineitem save in cart
         # session is empty
         if not cart_session:
@@ -142,7 +200,6 @@ def add_to_cart(request):
         data = pickle_dump(cart)
         request.session['cart'] = data
     return HttpResponse("")
-
 
 def clear_cart(request):
     request.session['cart'] = None

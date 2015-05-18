@@ -64,8 +64,7 @@ function addToCart(obj) {
             //	location.href = "/prePay" ;
             //	return;
             //}
-
-            //result也可标志菜已卖
+            ////result也可标志菜已卖
             if (!($(obj).hasClass("beChoiced")))
                 $(obj).addClass("beChoiced");
             else {
