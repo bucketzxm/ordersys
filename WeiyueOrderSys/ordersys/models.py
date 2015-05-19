@@ -1,6 +1,8 @@
 #!-*- coding:utf-8 -*-
 from django.db import models
 
+import datetime
+
 # Create your models here.
 class Category(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="目录编号")  # 唯一编号
@@ -84,6 +86,14 @@ class LineItem(models.Model):
         return u"单品 %s" % str(self.id)
 
 
+class OrderNum(models.Model):
+    num = models.IntegerField(verbose_name="餐厅排队号码")
+    is_used = models.BooleanField(default= False)
+
+    def __str__(self):
+        pass
+
+
 class Order(models.Model):
     WAIT_TO_PAY = "WP"
     SUCCESS_TO_PAY = "SP"
@@ -105,11 +115,33 @@ class Order(models.Model):
     discount = models.FloatField(default=0, verbose_name="折扣")  # 折扣
     description = models.TextField(blank=True, verbose_name="订单附加描述")  # 对订单的附加描述
     # foods = models.ManyToManyField(Food, verbose_name="食物")
-    foods = models.ManyToManyField(LineItem, blank=True, verbose_name="食物")
+    line_item = models.ManyToManyField(LineItem, blank=True, verbose_name="食物")
 
     class Meta:
         verbose_name = "订单"
         verbose_name_plural = "订单"
+
+
+
+
+    @classmethod
+    def create(cls, line_items, total_price):
+
+        for line_item in line_items:
+            food = line_item.food
+            quantity = line_item.quantity
+            sauces = line_item.sauces
+
+            cls(time=datetime.datetime.now(), )
+
+        else:
+            # line_item is not the model
+            return None
+
+
+    @staticmethod
+    def gen_order_num():
+        pass
 
 
     def __str__(self):

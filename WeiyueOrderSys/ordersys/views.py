@@ -162,6 +162,21 @@ def view_cart(request):
     return HttpResponse(t.render(c))
 
 
+
+def order(request):
+    if request.method == "POST":
+        cart_session = request.session.get('cart', None)
+
+        if not cart_session:
+            # custom did not order any thing
+            #TODO hint it
+            return HttpResponse("")
+        else:
+            cart = pickle_load(cart_session)
+            Order.create(cart.items, total_price)
+
+
+
 def add_to_cart(request):
     if request.method == "POST":
         food_id = request.POST['foodId']
