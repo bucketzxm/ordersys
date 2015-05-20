@@ -9,8 +9,6 @@ Dump20140617/*
 *.sql
 *.doc
 *.docs
-*.jpg
-*.png
 *.apk
 *.jar
 *.tar.gz
