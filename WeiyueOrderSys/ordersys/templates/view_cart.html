@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/js/owl-carousel/owl.theme.css">
     <script src="/js/myJs/myDish.js"></script>
     <script src="/js/owl-carousel/owl.carousel.js"></script>
+    <script src="/js/owl-carousel/owl.carousel.min.js"></script>
 {% endblock %}
 
 
@@ -17,49 +18,9 @@
             <th>{{ title }}</th>
         </tr>
     </table>
-    <div class="popQuery">
-        <img src="/images/icon/realLogo.png" class="logo">
 
-        <div>
-            确认下单，不需要再点些优惠菜了吗？
-        </div>
-        <table>
-            <tr>
-                <th>
-                    <img src="/images/icon/首页-white.png">
-                    首页
-                    <div class="thFocuseMark"></div>
-                    <div class="middleLine"></div>
-                </th>
-                <th>
-                    <img src="/images/icon/确认.png">
-                    确定
-                    <div class="thFocuseMark"></div>
-                </th>
-            </tr>
-        </table>
-    </div>
 
-    <div class="popQuery">
-        <img src="/images/icon/realLogo.png" class="logo">
 
-        <div>
-            等服务员确定后，您可以将我保存在桌面就餐后再结账
-        </div>
-        <table>
-            <tr>
-                <th>
-                    是
-                    <div class="thFocuseMark"></div>
-                    <div class="middleLine"></div>
-                </th>
-                <th>
-                    否
-                    <div class="thFocuseMark"></div>
-                </th>
-            </tr>
-        </table>
-    </div>
 
     <table class="headBar">
         <tr>
@@ -91,7 +52,7 @@
             </tr>
 
             {% for item in line_items %}
-                <tr foodid== {{ item.food.id }}>
+                <tr foodid = {{ item.food.id }}>
                     <td>
                         <div></div>
                         {{ item.food.name }}

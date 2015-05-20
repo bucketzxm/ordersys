@@ -133,10 +133,10 @@ def dishes(request):
         # generate food name with
 
         # amount_dict = dict([(key.food, {key.quantity: 'beChoiced'}) for key in item_list])
-        amount_dict = dict([(key, {0:"notChoiced"}) for key in food_list] )
+        amount_dict = dict([(key, {0: "notChoiced"}) for key in food_list])
 
         for item in item_list:
-            amount_dict[item.food] = {item.quantity:"beChoiced"}
+            amount_dict[item.food] = {item.quantity: "beChoiced"}
 
         print amount_dict
         c["amount"] = amount_dict
@@ -162,24 +162,23 @@ def view_cart(request):
     return HttpResponse(t.render(c))
 
 
-
 def order(request):
     if request.method == "POST":
         cart_session = request.session.get('cart', None)
 
         if not cart_session:
             # custom did not order any thing
-            #TODO hint it
+            # TODO hint it
             return HttpResponse("")
         else:
             cart = pickle_load(cart_session)
-            Order.create(cart.items, total_price)
-
+            # Order.create(cart.items, total_price)
 
 
 def add_to_cart(request):
     if request.method == "POST":
         food_id = request.POST['foodId']
+        print "add food : %s" % (str(food_id) )
         food = Food.objects.get(id=food_id)
         cart_session = request.session.get('cart', None)
         # Lineitem save in cart
@@ -211,6 +210,29 @@ def add_to_cart(request):
         cart.total_price += food.price
         data = pickle_dump(cart)
         request.session['cart'] = data
+    return HttpResponse("")
+
+
+def cut_from_cart(request):
+    if request.method == "POST":
+        food_id = request.POST['foodId']
+        print "cut food : %s" % (str(food_id) )
+        food = Food.objects.get(id=food_id)
+        cart_session = request.session.get('cart', None)
+        # Lineitem save in cart
+        # session is empty
+
+        cart = pickle_load(cart_session)
+        for li in cart.items:
+            if li.food.id == food.id:
+                li.quantity -= 1
+                cart.total_price -= food.price
+                if li.quantity == 0:
+                    cart.items.remove(li)
+
+        data = pickle_dump(cart)
+        request.session['cart'] = data
+
     return HttpResponse("")
 
 

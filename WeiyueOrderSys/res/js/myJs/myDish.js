@@ -1,3 +1,39 @@
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+$.ajaxSetup({
+     beforeSend: function(xhr, settings) {
+         function getCookie(name) {
+             var cookieValue = null;
+             if (document.cookie && document.cookie != '') {
+                 var cookies = document.cookie.split(';');
+                 for (var i = 0; i < cookies.length; i++) {
+                     var cookie = jQuery.trim(cookies[i]);
+                     // Does this cookie string begin with the name we want?
+                 if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                     break;
+                 }
+             }
+         }
+         return cookieValue;
+         }
+         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+     }
+});
 function sendOrder()
 {
 	$.ajax({
@@ -75,7 +111,7 @@ function noClick( obj )
 }
 
 $(function(){
-	initCarousel();
+	//initCarousel();
 	$("#sumBar span:nth-child(1)").click(//点击加菜
 			function()
 			{
@@ -96,19 +132,6 @@ $(function(){
         }
     );
 
-	$(".popQuery:nth-child(2) th:nth-child(1)").click(//点击是否要再点优惠菜的"首页"
-			function()
-			{
-				homeClick( this );
-			}
-		);
-
-	$(".popQuery:nth-child(2) th:nth-child(2)").click(//点击是否要再点优惠菜的"确定"
-		function()
-		{
-			confrimClick( this );
-		}
-	);
 
 	$("#dishList td img").click(
 			function()
@@ -182,73 +205,6 @@ $(function(){
 	);
 });
 
-function selectDeskAndPerson()
-{
-	var deskId = $("#deskSlider").nextAll(".focusCircle").text();
-	var personNum = $("#personSlider").nextAll(".focusCircle").text();
-	//console.log( "桌号：" + deskId + " 人数：" + personNum );
-
-	var myData = "deskId=" + deskId + "&personNum=" + personNum;
-	$.ajax({
-        type : "post",
-        url : "selectDeskAndPerson",
-        dataType:"text",
-        data: myData,
-	    success : function(msg1)
-	    {
-	    	if(msg1 == "0")
-			{
-				alert( "该桌已被选，请选择其他桌！");
-				return false;
-			}
-	    	if(msg1 == "-1")
-			{
-	    		alert( "没有这一桌，请重新选择！");
-				return false;
-			}
-	    	//console.log( "选桌成功！" );
-	    	$( "personNum" ).text( personNum );
-	    	$( "deskId" ).text( deskId );
-	    	$(".mask").hide();
-			$("#popSetting").hide();
-	    } ,
-	    error:function(error)
-	    {
-	     	console.log(error+"selectDesk");
- 		}
-	});
-}
-
-function initCarousel()
-{
-  var owl = $("#deskSlider");
-  owl.owlCarousel({
-      itemsCustom : [
-        [0, 3],
-        [1600, 3]
-      ],
-      pagination:false,
-	  addClassActive:true,
-	  afterMove:function(){
-		  updateFocus(0);
-      }
-  });
-  owl.data('owlCarousel').goTo(1);
-
-  owl = $("#personSlider");
-  owl.owlCarousel({
-      itemsCustom : [
-        [0, 3],
-        [1600, 3]
-      ],
-      pagination:false,
-	  addClassActive:true,
-	  afterMove:function(){
-		  updateFocus(1);
-      }
-  });
-  owl.data('owlCarousel').goTo(1);
-}
 
 function updateFocus( flag ){
    var focusNum = $( $(".focusCircle")[flag] );
@@ -260,8 +216,9 @@ function updateFocus( flag ){
 
 function addToCart( obj )
 {
-	var foodId = $(obj).parents("tr").attr("foodid");
+	var foodId = $(obj).parents("tr").attr("foodId");
 	var myData="foodId=" + foodId;
+
 	$.ajax({
         type : "post",
         url : "addToCart",
@@ -269,33 +226,17 @@ function addToCart( obj )
         data: myData,
 	    success : function( result )
 	    {
-	    	if( result == "notYetSelectDesk" )
-	    	{
-	    		alert( "你还未选桌，请先选桌!页面将跳转");
-	    		setTimeout( 'location.href = "/"', 0 );
-	    		return;
-	    	}
-	    	if( result == "alreadySentOrder")
-	    	{
-	    		alert( "你已下单，请先去支付。");
-	    		location.href = "/prePay" ;
-	    		return;
-	    	}
-	    	if( result == "soldOut" )
-	    	{
-	    		alert( "该菜品已售罄！");
-	    		return;
-	    	}
     		var numObj = $( $(obj).next("amount")[0] );
     		var num = parseInt( numObj.text() );
     		numObj.text( num + 1 );
+            console.log(num+1);
     		var strArray = result.split(" ");
     		$("avg").text( strArray[0] );
     		$("sum").text( strArray[1] );
 	    } ,
 	    error:function(error)
 	    {
-	     	console.log(error+"selectDesk");
+	     	console.log(error+"addItemFalse");
  		}
 	});
 }
@@ -310,23 +251,11 @@ function orderItemCut( obj )
 	{
 		$.ajax({
 	        type : "post",
-	        url : "rmFromCart",
+	        url : "cutFromCart",
 	        dataType:"text",
 	        data: myData,
 		    success : function(result)
 		    {
-		    	if( result == "notYetSelectDesk" )
-		    	{
-		    		alert( "你还未选桌，请先选桌!页面将跳转");
-		    		setTimeout( 'location.href = "/"', 0 );
-		    		return;
-		    	}
-		    	if( result == "alreadySentOrder")
-		    	{
-		    		alert( "你已下单，请先去支付。");
-		    		location.href = "/prePay" ;
-		    		return;
-		    	}
 		    	currentTr = $(obj).parents("tr").first();
 		    	currentTr.remove();
 		    	var strArray = result.split(" ");
@@ -335,29 +264,16 @@ function orderItemCut( obj )
 	    		return result;
 		    }
 		});
-
 	}
 	else
 	{
 		$.ajax({
 	        type : "post",
-	        url : "orderItemCut",
+	        url : "cutFromCart",
 	        dataType:"text",
 	        data: myData,
 		    success : function( result )
 		    {
-		    	if( result == "notYetSelectDesk" )
-		    	{
-		    		alert( "你还未选桌，请先选桌!页面将跳转");
-		    		setTimeout( 'location.href = "/"', 0 );
-		    		return;
-		    	}
-		    	if( result == "alreadySentOrder")
-		    	{
-		    		alert( "你已下单，请先去支付。");
-		    		location.href = "/prePay" ;
-		    		return;
-		    	}
 	    		var num = parseInt( numObj.text() );
 	    		numObj.text( num - 1 );
 	    		var strArray = result.split(" ");
