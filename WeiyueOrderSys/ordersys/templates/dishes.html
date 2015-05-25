@@ -26,15 +26,16 @@
                 {% for  number , choiced in value.items %}
                     <li foodid='{{ food_key.id }}' class= {{ choiced }}>
                         <img src= {{ food_key.image_url }}/>
+
                         <h3> {{ food_key.name }}</h3>
-{#                        {% if choiced == "beChoiced" %}#}
-                            <button>{{ number }}</button>
-{#                        {% endif %}#}
+                        {#                        {% if choiced == "beChoiced" %}#}
+                        <button>{{ number }}</button>
+                        {#                        {% endif %}#}
                         <p>￥{{ food_key.price }}</p>
                     </li>
 
                 {% endfor %}
-                {% endfor %}
+            {% endfor %}
 
         </ul>
     </div>

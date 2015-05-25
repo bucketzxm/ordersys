@@ -20,7 +20,7 @@
         <div id="owl-demo" class="owl-carouse1 owl-theme markCarousel">
 
             {% for special in special_list %}
-                <div class="item beChoiced" foodid={{ special.id }}>
+                <div class="item "+{{ beChoiced }} foodid={{ special.id }}>
                     <img src={{ special.image_url }}>
 
                     <div class="description">
@@ -50,7 +50,7 @@
     <!--第二排的旋转木马-->
     <div id="owl-recommend" class="markCarousel">
         {% for special in special_list %}
-            <div class="item beChoiced" foodid={{ special.id }}>
+            <div class="item"+{{ beChoiced }} foodid={{ special.id }}>
                 <img src={{ special.image_url }}>
 
                 <div class="description">
@@ -85,7 +85,7 @@
 {% endblock %}
 
 {% block footBar %}
-    </div>
+
     <!--底部导航条-->
     <table class="navBar">
         <tr>

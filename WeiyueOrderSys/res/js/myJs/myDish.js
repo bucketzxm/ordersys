@@ -226,11 +226,17 @@ function addToCart( obj )
         data: myData,
 	    success : function( result )
 	    {
+
     		var numObj = $( $(obj).next("amount")[0] );
     		var num = parseInt( numObj.text() );
+            // amount add one
     		numObj.text( num + 1 );
-            console.log(num+1);
-    		var strArray = result.split(" ");
+
+            //TODO
+            var priceObj = document.getElemetById("sumBar").getElementsByTagName("sum");
+            priceObj.text();
+
+            var strArray = result.split(" ");
     		$("avg").text( strArray[0] );
     		$("sum").text( strArray[1] );
 	    } ,
@@ -240,6 +246,7 @@ function addToCart( obj )
  		}
 	});
 }
+
 
 function orderItemCut( obj )
 {

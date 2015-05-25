@@ -100,6 +100,16 @@ def pickle_load(data):
 def index(request):
     title = "首页"
     special_list = Food.objects.filter(special=True)
+
+    cart = request.session.get('cart', None)
+    if cart:
+        item_list = pickle_load(cart).items
+    else:
+        item_list = []
+    amount_dict = dict([(key, {0: "notChoiced"}) for key in special_list])
+
+    for item in item_list:
+        amount_dict[item.food] = {item.quantity: "beChoiced"}
     return render_to_response('index.html', locals())
 
 
