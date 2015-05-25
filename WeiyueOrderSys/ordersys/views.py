@@ -106,7 +106,7 @@ def index(request):
         item_list = pickle_load(cart).items
     else:
         item_list = []
-    amount_dict = dict([(key, {0: "notChoiced"}) for key in special_list])
+    amount_dict = dict( [(key, {0: "notChoiced"}) for key in special_list])
 
     for item in item_list:
         amount_dict[item.food] = {item.quantity: "beChoiced"}

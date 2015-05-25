@@ -36,33 +36,35 @@ $.ajaxSetup({
      }
 });
 
-function addToCart(obj) {
-    //if( $(obj).hasClass( "soldOut" ) )
-    //	return;
-    var foodId = $(obj).attr("foodid");
-    //var myData = "foodId=" + foodId;
+function addToCart( obj )
+{
+	var foodId = $(obj).parents("tr").attr("foodId");
+	var myData="foodId=" + foodId;
 
-    $.ajax({
-        type: "post",
-        url: "addToCart",
-        dataType: "text",
-        data: {
-            foodId: foodId
-        },
+	$.ajax({
+        type : "post",
+        url : "addToCart",
+        dataType:"text",
+        data: myData,
+	    success : function( result )
+	    {
 
-        success: function (result) {
+    		var numObj = $( $(obj).next("amount")[0] );
+    		var num = parseInt( numObj.text() );
+            // amount add one
+    		numObj.text( num + 1 );
 
-            //if (!($(obj).hasClass("beChoiced")))
-            //    $(obj).addClass("beChoiced");
-            //else {
-            //    var numObj = $($(obj).find("button")[0]);
-            //    var num = parseInt(numObj.text());
-            //    numObj.text(num + 1);
-            //}
-            location.reload()
-        },
-        error: function (error) {
-            console.log(error.message);
-        }
-    });
+            //TODO
+            var priceObj = document.getElemetById("sumBar").getElementsByTagName("sum");
+            priceObj.text();
+
+            var strArray = result.split(" ");
+    		$("avg").text( strArray[0] );
+    		$("sum").text( strArray[1] );
+	    } ,
+	    error:function(error)
+	    {
+	     	console.log(error+"addItemFalse");
+ 		}
+	});
 }

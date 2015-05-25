@@ -18,25 +18,42 @@
     <div class="wrapper">
 
         <div id="owl-demo" class="owl-carouse1 owl-theme markCarousel">
+            {% for food_key, value in amount.items %}
 
-            {% for special in special_list %}
-                <div class="item "+{{ beChoiced }} foodid={{ special.id }}>
-                    <img src={{ special.image_url }}>
+                {% for  number , choiced in value.items %}
+                    <li foodid='{{ food_key.id }}' class= {{ choiced }}>
+                        <img src= {{ food_key.image_url }}/>
+
+                        <h3> {{ food_key.name }}</h3>
+                        {#                        {% if choiced == "beChoiced" %}#}
+                        <button>{{ number }}</button>
+                        {#                        {% endif %}#}
+                        <p>￥{{ food_key.price }}</p>
+                    </li>
+
+                {% endfor %}
+            {% endfor %}
+
+            {% for food_key, value in amount_dict.items %}
+                {% for number, choiced in value.items %}
+                <div class="item beChoiced" foodid={{ food_key.id }}>
+                    <img src={{ food_key.image_url }}>
 
                     <div class="description">
                         <div>
-                            {{ special.name }}
+                            {{ food_key.name }}
                         </div>
                         <div>抢购价
-                            <spcialPrice>￥ {{ special.price }} </spcialPrice>
+                            <specialPrice>￥ {{ food_key.price }} </specialPrice>
                         </div>
                     </div>
 
                     <div class="addDish">
-                        <button>{{ special.amount }}</button>
+                        <button> {{ number }}</button>
                         <button class="addButton">抢购</button>
                     </div>
                 </div>
+                {% endfor %}
             {% endfor %}
         </div>
 
@@ -96,7 +113,6 @@
 
                 <p>全部菜单</p></th>
             <th><a href="/myDish"><img src="/images/icon/我的菜.png"></a>
-
                 <p>我的菜</p></th>
         </tr>
     </table>
