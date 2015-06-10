@@ -19,18 +19,16 @@
     </table>
 
     <div id="mainContent">
-
         <ul>
             {% for food_key, value in amount.items %}
 
                 {% for  number , choiced in value.items %}
-                    <li foodid='{{ food_key.id }}' class= {{ choiced }}>
+
+                    <li foodId='{{ food_key.id }}' class= {{ choiced }}>
                         <img src= {{ food_key.image_url }}/>
 
                         <h3> {{ food_key.name }}</h3>
-                        {#                        {% if choiced == "beChoiced" %}#}
                         <button>{{ number }}</button>
-                        {#                        {% endif %}#}
                         <p>￥{{ food_key.price }}</p>
                     </li>
 
@@ -51,10 +49,13 @@
     <table class="navBar">
         <tr>
             <th><a href="/"><img src="/images/icon/首页-active.png"></a>
+
                 <p>首 页</p></th>
             <th><a href="category"><img src="/images/icon/全部菜单-active.png"></a>
+
                 <p>全部菜单</p></th>
             <th><a href="/myDish"><img src="/images/icon/我的菜-active.png"></a>
+
                 <p>我的菜</p></th>
         </tr>
     </table>

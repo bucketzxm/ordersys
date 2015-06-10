@@ -4,8 +4,10 @@ from django.template.loader import get_template
 from django.contrib.sessions import serializers
 from django.core import serializers
 from models import Cart, Food, Category, LineItem, Order
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
+
+import uuid
 
 ERROR_CODE = {
     '1000': {"status": "1000", "desc": "执行成功"},
@@ -13,6 +15,7 @@ ERROR_CODE = {
     '1002': {"status": "1002", "desc": "执行异常"}
     # '1003':{"status": "1002", "desc": "执行错误"},
 }
+
 
 
 @csrf_exempt
@@ -172,8 +175,9 @@ def view_cart(request):
     return HttpResponse(t.render(c))
 
 
-def order(request):
-    if request.method == "POST":
+
+def make_order(request):
+    if request.method == "GET":
         cart_session = request.session.get('cart', None)
 
         if not cart_session:
@@ -182,14 +186,20 @@ def order(request):
             return HttpResponse("")
         else:
             cart = pickle_load(cart_session)
-            # Order.create(cart.items, total_price)
+            order = Order.create(cart.items, cart.total_price)
+            print(order.money)
 
 
+    return HttpResponse("")
+@csrf_exempt
 def add_to_cart(request):
     if request.method == "POST":
         food_id = request.POST['foodId']
-        print "add food : %s" % (str(food_id) )
+
         food = Food.objects.get(id=food_id)
+        # food.name = food.name.encode('utf-8')
+        # food.save()
+        print "add food : %s" % (food.name )
         cart_session = request.session.get('cart', None)
         # Lineitem save in cart
         # session is empty
@@ -222,7 +232,7 @@ def add_to_cart(request):
         request.session['cart'] = data
     return HttpResponse("")
 
-
+@csrf_exempt
 def cut_from_cart(request):
     if request.method == "POST":
         food_id = request.POST['foodId']
@@ -250,3 +260,54 @@ def clear_cart(request):
     request.session['cart'] = None
     return redirect("/myDish")
 
+
+
+@csrf_exempt
+def get_category(request):
+    categories = Category.objects.all()
+    data = serializers.serialize("json", categories)
+    json_list = []
+    for tmp_json_obj in json.loads(data):
+        tmp_json_dict = tmp_json_obj['fields']
+        tmp_json_dict['id'] = tmp_json_obj['pk']
+        json_list.append(tmp_json_dict)
+    return HttpResponse(json.dumps(json_list))
+
+
+@csrf_exempt
+def get_unpay_order(request):
+    orders = Order.objects.all()
+    order_json_array = []
+    for o in orders:
+        tmp_order_json = {'id': str(o.id), 'time': o.time.strftime('%y-%b-%d %H:%M:%S'),
+                          'out_trade_num': str(o.out_trade_num),
+                          'order_num': str(o.order_num),
+                          'custom_id': str(o.custom_id), 'state': o.state, 'money': str(o.money), 'bonus': str(o.bonus),
+                          'discount': str(o.discount), 'description': o.description, 'line_item': []}
+        for i in o.line_item.all():
+            tmp_line_item_json = {'id': str(i.id), 'unite_price': str(i.unite_price), 'quantity': str(i.quantity),
+                                  'sauces': None}
+
+            # 处理食物
+            tmp_food = i.food
+            tmp_food_json = {'id': str(tmp_food.id), 'name': tmp_food.name, 'image_url': tmp_food.image_url,
+                             'price': str(tmp_food.price), 'description': tmp_food.description,
+                             'special': str(tmp_food.special),
+                             'sauces': None}
+            tmp_category = tmp_food.category
+            tmp_category_json = {'id': str(tmp_category.id), 'name': tmp_category.name,
+                                 'image_url': tmp_category.image_url,
+                                 'description': tmp_category.description}
+            tmp_food_json['category'] = tmp_category_json
+            tmp_line_item_json['food'] = tmp_food_json
+
+            # 处理配料
+            tmp_sauces = i.sauces
+            if tmp_sauces:
+                tmp_sauces_json = {'id': str(tmp_sauces.id), 'name': tmp_sauces.name, 'price': str(tmp_sauces.price),
+                                   'image_url': tmp_sauces.image_url, 'description': tmp_sauces.description}
+                tmp_line_item_json['sauces'] = tmp_sauces_json
+            tmp_order_json['line_item'].append(tmp_line_item_json)
+        order_json_array.append(tmp_order_json)
+    # print order_json_array
+    return HttpResponse(json.dumps(order_json_array))

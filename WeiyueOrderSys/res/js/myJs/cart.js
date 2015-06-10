@@ -38,8 +38,10 @@ $.ajaxSetup({
 
 function addToCart( obj )
 {
-	var foodId = $(obj).parents("tr").attr("foodId");
-	var myData="foodId=" + foodId;
+	var foodId = $(obj).attr("foodid");
+    var myData="foodId=" + foodId;
+
+    var numObj =  $( $(obj).children()[2]);
 
 	$.ajax({
         type : "post",
@@ -48,19 +50,14 @@ function addToCart( obj )
         data: myData,
 	    success : function( result )
 	    {
-
-    		var numObj = $( $(obj).next("amount")[0] );
     		var num = parseInt( numObj.text() );
             // amount add one
+
+            if(num == 0){
+                $(obj).attr("class",'beChoiced');
+            }
+
     		numObj.text( num + 1 );
-
-            //TODO
-            var priceObj = document.getElemetById("sumBar").getElementsByTagName("sum");
-            priceObj.text();
-
-            var strArray = result.split(" ");
-    		$("avg").text( strArray[0] );
-    		$("sum").text( strArray[1] );
 	    } ,
 	    error:function(error)
 	    {

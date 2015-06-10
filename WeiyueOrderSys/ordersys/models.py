@@ -1,7 +1,7 @@
 #!-*- coding:utf-8 -*-
 from django.db import models
 
-import datetime
+import datetime, random
 
 # Create your models here.
 class Category(models.Model):
@@ -68,30 +68,39 @@ class Food(models.Model):
         return u"食物 %s: %s" % (str(self.id), self.name)
 
 
-class LineItem(models.Model):
-    id = models.AutoField(primary_key=True)
-    food = models.ForeignKey(Food, default="", verbose_name="食品")
-    unite_price = models.FloatField(default=0, verbose_name="食物价格")
-    quantity = models.IntegerField(default=0, verbose_name="食品数量")
-    sauces = models.ForeignKey(Sauce, null = True, blank=True, verbose_name="调料")
-
-    class Meta:
-        verbose_name = "单品"
-        verbose_name_plural = "单品"
-
-    def __str__(self):
-        return u"单品 %s" % str(self.id)
-
-    def __unicode__(self):
-        return u"单品 %s" % str(self.id)
-
 
 class OrderNum(models.Model):
     num = models.IntegerField(verbose_name="餐厅排队号码")
-    is_used = models.BooleanField(default= False)
+    is_used = models.BooleanField(default=False)
+
+
+    @staticmethod
+    def create():
+        for i in range(1,10000):
+            n = OrderNum(num=i, is_used=False)
+            n.save()
 
     def __str__(self):
-        pass
+        return u"餐厅内点餐号码: %s" % str(self.num)
+    def __unicode__(self):
+        return u"餐厅内点餐号码: %s" % str(self.num)
+
+class LineItem(models.Model):
+    id = models.AutoField(primary_key=True)
+    food = models.ForeignKey(Food, default="", verbose_name=u"食品")
+    unite_price = models.FloatField(default=0, verbose_name=u"食物价格")
+    quantity = models.IntegerField(default=0, verbose_name=u"食品数量")
+    sauces = models.ForeignKey(Sauce, null=True, blank=True, verbose_name=u"调料")
+    # order = models.ForeignKey(Order,null=True, blank=True, verbose_name=u'订单')
+    class Meta:
+        verbose_name = u"单品"
+        verbose_name_plural = u"单品"
+
+    def __str__(self):
+        return u'单品'
+    def __unicode__(self):
+        return u'单品'
+
 
 
 class Order(models.Model):
@@ -115,40 +124,51 @@ class Order(models.Model):
     discount = models.FloatField(default=0, verbose_name="折扣")  # 折扣
     description = models.TextField(blank=True, verbose_name="订单附加描述")  # 对订单的附加描述
     # foods = models.ManyToManyField(Food, verbose_name="食物")
-    line_item = models.ManyToManyField(LineItem, blank=True, verbose_name="食物")
+    line_item = models.ManyToManyField(LineItem, blank=True, verbose_name=u"单品")
 
     class Meta:
         verbose_name = "订单"
         verbose_name_plural = "订单"
 
-
-
-
-    @classmethod
-    def create(cls, line_items, total_price):
-
-        for line_item in line_items:
-            food = line_item.food
-            quantity = line_item.quantity
-            sauces = line_item.sauces
-
-            cls(time=datetime.datetime.now(), )
-
-        else:
-            # line_item is not the model
-            return None
-
-
     @staticmethod
-    def gen_order_num():
-        pass
+    def create(items, total_price):
+        cls = Order()
+        cls.time = datetime.datetime.now()
+        cls.order_num = cls.gen_order_num()
+        cls.out_trade_num = cls.gen_out_trade_num()
+        cls.state = cls.WAIT_TO_PAY
+        cls.money = total_price
+        for li in items:
+            cls.line_item.add(li)
 
+        cls.save()
+        return cls
+
+
+
+    def gen_out_trade_num(self):
+        otn = str( datetime.datetime.now() )
+        otn = otn.replace('-','')
+        otn = otn.replace(' ','')
+        otn = otn.replace(':','')
+        otn = otn.replace('.','')
+        otn = otn + str( random.randint(1,100000000))
+        return otn
+
+    def gen_order_num(self):
+        custom_id = OrderNum.objects.all().filter(is_used=False)[0]
+        custom_id.is_used = True
+        return custom_id.num
 
     def __str__(self):
         return u"订单 %s" % (self.out_trade_num)
 
     def __unicode__(self):
         return u"订单 %s" % (self.out_trade_num)
+
+
+
+
 
 
 class Cart(object):
@@ -167,6 +187,13 @@ class Cart(object):
         # 全新的一种商品
         self.items.append(line_item)
 
+
+
+
+class Coupon(models.Model):
+    id = models.AutoField(primary_key=True)
+    time = models.DateTimeField(verbose_name="优惠时间")
+    info = models.TextField(verbose_name="优惠信息")
 
 
 

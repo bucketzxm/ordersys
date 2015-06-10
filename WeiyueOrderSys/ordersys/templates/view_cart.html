@@ -52,18 +52,20 @@
             </tr>
 
             {% for item in line_items %}
-                <tr foodid = {{ item.food.id }}>
-                    <td>
-                        <div></div>
-                        {{ item.food.name }}
-                    </td>
-                    <td>
-                        <img src='/images/icon/plus-black.png'>
-                        <amount>{{ item.quantity }}</amount>
-                        <img src='/images/icon/minus-black.png'>
-                    </td>
-                    <td>￥{{ item.unite_price }}</td>
-                </tr>
+
+                    <tr foodId={{ item.food.id }}>
+                        <td>
+                            <div></div>
+                            {{ item.food.name }}
+                        </td>
+                        <td>
+                            <img src='/images/icon/plus-black.png'>
+                            <amount>{{ item.quantity }}</amount>
+                            <img src='/images/icon/minus-black.png'>
+                        </td>
+                        <td>￥{{ item.unite_price }}</td>
+                    </tr>
+
             {% endfor %}
 
         </table>
@@ -82,7 +84,7 @@
 					    加菜
 				    </span>
                 </a>
-                <a href="#">
+                <a href="/makeOrder">
                     <span class="iconBtn">
                         <img src="/images/icon/下单.png"/>
                         下单

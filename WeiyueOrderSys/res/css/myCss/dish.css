@@ -16,7 +16,7 @@
 	width:100%;
 	height:60px;
 }
-/*µ×²¿µ¼º½À¸*/
+/*ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 table.navBar
 {
 	position:fixed;
@@ -26,12 +26,12 @@ table.navBar
 	text-align:center;
 	height:30px;
 	background-color:#FFFFFF;
-	-moz-box-shadow: 0px -3px 3px #E0E0E0; /* ÀÏµÄ Firefox */
+	-moz-box-shadow: 0px -3px 3px #E0E0E0; /* ï¿½Ïµï¿½ Firefox */
 	box-shadow: 0px -3px 3px #E0E0E0;
 	z-index:1;
-	background-color:rgba(255,255,255,0.8);  /*±ê×¼ä¯ÀÀÆ÷ Ö»ÐèÕâ¾ä*/
-	background-color:#FFF\9;      /*IE ÏµÁÐ*/
-	filter:alpha(opacity=80);     /*IE ÏµÁÐ*/
+	background-color:rgba(255,255,255,0.8);  /*ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ Ö»ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	background-color:#FFF\9;      /*IE Ïµï¿½ï¿½*/
+	filter:alpha(opacity=80);     /*IE Ïµï¿½ï¿½*/
 }
 
 .navBar th img{
@@ -56,7 +56,7 @@ ul {
 }
 
 li{
-  float: left;/*Ô­±¾liµÄ¿í¶ÈÊÇÌî³ä¸¸ÔªËØ£¬floatÉèÎªleftºó¿í¶È±äÎª°ü¹üÄÚÈÝ*/
+  float: left;/*Ô­ï¿½ï¿½liï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä¸¸Ôªï¿½Ø£ï¿½floatï¿½ï¿½Îªleftï¿½ï¿½ï¿½È±ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
   background:white;
   width:160px;
   /*padding: 7px 7px 0 7px;*/
