@@ -1,6 +1,7 @@
 .DS_Store
 venv/*
 .idea/
+.metadata
 alipay/*
 Dump20140617/*
 *.rar
