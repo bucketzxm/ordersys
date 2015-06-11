@@ -143,9 +143,8 @@ def dishes(request):
             item_list = pickle_load(cart).items
         else:
             item_list = []
-        # generate food name with
 
-        # amount_dict = dict([(key.food, {key.quantity: 'beChoiced'}) for key in item_list])
+
         amount_dict = dict([(key, {0: "notChoiced"}) for key in food_list])
 
         for item in item_list:
@@ -183,7 +182,7 @@ def make_order(request):
         if not cart_session:
             # custom did not order any thing
             # TODO hint it
-            return HttpResponse("")
+            return redirect("/view_cart")
         else:
             cart = pickle_load(cart_session)
             order = Order.create(cart.items, cart.total_price)

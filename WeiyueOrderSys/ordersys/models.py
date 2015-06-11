@@ -102,7 +102,6 @@ class LineItem(models.Model):
         return u'单品%s: %s' % (self.id, self.food.name)
 
 
-
 class Order(models.Model):
     WAIT_TO_PAY = "WP"
     SUCCESS_TO_PAY = "SP"
@@ -157,9 +156,14 @@ class Order(models.Model):
         return otn
 
     def gen_order_num(self):
-        custom_id = OrderNum.objects.all().filter(is_used=False)[0]
-        custom_id.is_used = True
-        return custom_id.num
+        order_num = OrderNum.objects.all().filter(is_used=False)[0]
+        order_num.is_used = True
+        order_num.save()
+        return order_num.num
+
+    def destory(self):
+        order_num = OrderNum.objects.get(id= self.order_num)
+        order_num.is_used = False
 
     def __str__(self):
         return u"订单 %s" % (self.out_trade_num)
