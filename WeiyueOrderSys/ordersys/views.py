@@ -187,10 +187,13 @@ def make_order(request):
         else:
             cart = pickle_load(cart_session)
             order = Order.create(cart.items, cart.total_price)
-            print(order.money)
+            if order:
+                request.session['cart'] = None
+                return redirect("/")
+            else:
+                return HttpResponse("")
 
 
-    return HttpResponse("")
 @csrf_exempt
 def add_to_cart(request):
     if request.method == "POST":

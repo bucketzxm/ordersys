@@ -97,9 +97,9 @@ class LineItem(models.Model):
         verbose_name_plural = u"单品"
 
     def __str__(self):
-        return u'单品'
+        return u'单品%s: %s' % (self.id, self.food.name)
     def __unicode__(self):
-        return u'单品'
+        return u'单品%s: %s' % (self.id, self.food.name)
 
 
 
@@ -138,6 +138,7 @@ class Order(models.Model):
         cls.out_trade_num = cls.gen_out_trade_num()
         cls.state = cls.WAIT_TO_PAY
         cls.money = total_price
+        cls.save()
         for li in items:
             cls.line_item.add(li)
 
