@@ -66,6 +66,10 @@ def confirm_wait_to_pay_to_success(request):
             return HttpResponse(json.dumps(tmp))
 
 
+
+
+
+
 try:
     import cPickle as pickle
 except:
@@ -182,15 +186,15 @@ def make_order(request):
         if not cart_session:
             # custom did not order any thing
             # TODO hint it
-            return redirect("/view_cart")
+            return redirect("/myDish")
         else:
             cart = pickle_load(cart_session)
             order = Order.create(cart.items, cart.total_price)
             if order:
                 request.session['cart'] = None
-                return redirect("/")
+                return redirect("/pay/choosePayMethod/?out_trade_num="+ str(order.out_trade_num) )
             else:
-                return HttpResponse("")
+                return HttpResponse("/")
 
 
 @csrf_exempt

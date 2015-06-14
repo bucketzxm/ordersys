@@ -91,6 +91,7 @@ class LineItem(models.Model):
     unite_price = models.FloatField(default=0, verbose_name=u"食物价格")
     quantity = models.IntegerField(default=0, verbose_name=u"食品数量")
     sauces = models.ForeignKey(Sauce, null=True, blank=True, verbose_name=u"调料")
+    printed = models.BooleanField(default=False, verbose_name="是否出单")
     # order = models.ForeignKey(Order,null=True, blank=True, verbose_name=u'订单')
     class Meta:
         verbose_name = u"单品"

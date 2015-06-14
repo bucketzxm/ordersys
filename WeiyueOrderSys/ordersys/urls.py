@@ -14,5 +14,5 @@ urlpatterns = [
     url(r'^clearCart', views.clear_cart),
     url(r'^makeOrder', views.make_order),
     url(r'^getCategory', views.get_category),
-    url(r'^getUnPayedOrder', views.get_unpay_order)
+    url(r'^getUnPayedOrder', views.get_unpay_order),
 ]
