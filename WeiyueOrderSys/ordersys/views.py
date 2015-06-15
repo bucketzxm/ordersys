@@ -225,6 +225,7 @@ def add_to_cart(request):
                 if li.food.id == food.id:
                     li.quantity += 1
                     has_food = True
+                    cart.total_price += food.price
             if not has_food:
                 li = LineItem()
                 li.food = food
@@ -232,11 +233,10 @@ def add_to_cart(request):
                 li.quantity = 1
                 li.save()
                 cart.add_product(li)
-
-        cart.total_price += food.price
+        cart.total_price = round( cart.total_price , 2)
         data = pickle_dump(cart)
         request.session['cart'] = data
-    return HttpResponse("")
+    return HttpResponse(cart.total_price)
 
 @csrf_exempt
 def cut_from_cart(request):
@@ -256,10 +256,12 @@ def cut_from_cart(request):
                 if li.quantity == 0:
                     cart.items.remove(li)
 
+
+        cart.total_price = round( cart.total_price , 2)
         data = pickle_dump(cart)
         request.session['cart'] = data
 
-    return HttpResponse("")
+    return HttpResponse(cart.total_price)
 
 
 def clear_cart(request):

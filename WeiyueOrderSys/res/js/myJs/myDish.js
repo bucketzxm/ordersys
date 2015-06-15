@@ -222,12 +222,13 @@ function addToCart(obj) {
 
             var priceObj = document.getElementById("sumBar").getElementsByTagName("sum")[0];
             var totalPrice = parseFloat(priceObj.textContent);
-            console.log(priceObj[0]);
-            $(priceObj).text(totalPrice + unitePrice);
 
-            var strArray = result.split(" ");
-            $("avg").text(strArray[0]);
-            $("sum").text(strArray[1]);
+            $(priceObj).text(String(totalPrice + unitePrice));
+
+
+            console.log(result);
+            //$("avg").text(strArray[0]);
+            $("sum").text(result);
         },
         error: function (error) {
             console.log(error + "addItemFalse");
@@ -250,22 +251,19 @@ function orderItemCut(obj) {
             data: myData,
             success: function (result) {
 
-
-
                 var unitePrice_str = $(obj).parents("tr").children()[2].textContent;
                 unitePrice_str = unitePrice_str.replace("￥", "");
                 var unitePrice = parseFloat(unitePrice_str);
                 var priceObj = document.getElementById("sumBar").getElementsByTagName("sum")[0];
                 var totalPrice = parseFloat(priceObj.textContent);
-                console.log(priceObj[0]);
-                $(priceObj).text(totalPrice - unitePrice);
+
+                $(priceObj).text(String(totalPrice - unitePrice));
 
                 currentTr = $(obj).parents("tr").first();
                 currentTr.remove();
-                var strArray = result.split(" ");
-                $("avg").text(strArray[0]);
-                $("sum").text(strArray[1]);
-                return result;
+                console.log(result);
+                //$("avg").text(strArray[0]);
+                $("sum").text(result);
             }
         });
     }
@@ -287,13 +285,13 @@ function orderItemCut(obj) {
 
                 var priceObj = document.getElementById("sumBar").getElementsByTagName("sum")[0];
                 var totalPrice = parseFloat(priceObj.textContent);
-                console.log(priceObj[0]);
-                $(priceObj).text(totalPrice - unitePrice);
+
+                $(priceObj).text(String(totalPrice - unitePrice));
 
 
-                var strArray = result.split(" ");
-                $("avg").text(strArray[0]);
-                $("sum").text(strArray[1]);
+                console.log(result);
+                //$("avg").text(strArray[0]);
+                $("sum").text(result);
             }
         });
     }
