@@ -117,7 +117,7 @@ def call_back(request):
         order = Order.objects.get(out_trade_num = out_trade_num)
         order.state = Order.SUCCESS_TO_PAY
         order.save()
-        
+
     return render_to_response("call_back.html")
 
 

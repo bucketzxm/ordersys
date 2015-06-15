@@ -14,8 +14,8 @@
     </table>
 
     <div id="allWrapper">
-    <div class="wrapper">
-        <div id="owl-demo" class="owl-carouse1 owl-theme markCarousel">
+        <div class="wrapper">
+            <div id="owl-demo" class="owl-carouse1 owl-theme markCarousel">
 
                 {% for food_key, value in amount_dict.items %}
                     {% for number, choiced in value.items %}
@@ -31,29 +31,25 @@
                                 </div>
                             </div>
 
-                            <div  class="addDish">
+                            <div class="addDish">
                                 <button> {{ number }}</button>
                                 <button class="addButton">抢购</button>
                             </div>
                         </div>
-
                     {% endfor %}
-
                 {% endfor %}
+            </div>
 
-
+{#            <!--圆点导航条-->#}
+{#            <div class='owl-theme' id="pointNavHolder"></div>#}
+{#            <div class="demoMark">超低价抢购中</div>#}
         </div>
 
-        <!--圆点导航条-->
-        <div class='owl-theme' id="pointNavHolder"></div>
-        <div class="demoMark">超低价抢购中</div>
-    </div>
+        <div class="wrapper">
+            <!--第二排的旋转木马-->
+            <div id="owl-recommend" class="markCarousel">
 
-    <div class="wrapper">
-    <!--第二排的旋转木马-->
-    <div id="owl-recommend" class="markCarousel">
-
-             {% for food_key, value in amount_dict.items %}
+                {% for food_key, value in amount_dict.items %}
                     {% for number, choiced in value.items %}
                         <div id="food_item" class="item" foodId={{ food_key.id }}>
                             <img src={{ food_key.image_url }}>
@@ -77,16 +73,18 @@
 
                 {% endfor %}
 
-    </div>
+            </div>
 
-    <div id="discountInfo">
-        <img src="/images/icon/realLogo.png">
+            <div id="discountInfo">
+                <img src="/images/icon/realLogo.png">
 
-        <div>
-            <strong>近期优惠</strong><br/>
+                <div>
+                    <strong>近期优惠</strong><br/>
 
-            <div>
-                优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息
+                    <div>
+                        优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息优惠信息
+                    </div>
+                </div>
             </div>
         </div>
     </div>
