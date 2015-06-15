@@ -196,14 +196,15 @@ div.wrapper {
     bottom: 0px;
     left: 0px;
     padding-top: 10px;
-    padding-left: 25px;
-    width: 100%;
+    padding-left: 3%;
+    width: 90%;
     height: 80px;
+    margin: 2px
 
     color: white;
-    background: #808080;
-    background-color: rgba(128, 128, 128, 0.7); /*��׼����� ֻ�����*/
-    background-color: #FFF \9;
+    /*background: #808080;*/
+    /*background-color: rgba(128, 128, 128, 0.7); *//*��׼����� ֻ�����*/
+    /*background-color: #FFF \9;*/
     filter: alpha(opacity=70);
 }
 

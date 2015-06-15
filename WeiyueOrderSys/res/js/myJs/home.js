@@ -38,11 +38,10 @@ function silderClick(obj) {
 
 function initCarousel() {
     $("#owl-demo").owlCarousel({
-        navigation: true, // Show next and prev buttons
+        navigation: false, // Show next and prev buttons
         slideSpeed: 300,
         paginationSpeed: 400,
         singleItem: true,
-        navigation: false,
         afterInit: function (elem) {
             var that = this;
             that.owlControls.prependTo($("#pointNavHolder"));
@@ -125,15 +124,13 @@ function addToCart(obj) {
         data: myData,
         success: function (result) {
 
-            numObj = $(numObj.children()[0]);
-
-            var num = parseInt(numObj.text());
-
-
+            //numObj = $(numObj.children()[0]);
+            numObj = $(obj).find("button")[0];
+            var num = parseInt(numObj.textContent);
             // amount add one
-            numObj.text(num + 1);
+            numObj.textContent = num + 1;
 
-            num = parseInt(numObj.text());
+            num = parseInt(numObj.textContent);
             if (num > 0) {
                 $(obj).attr("class", 'item beChoiced');
             }
@@ -153,8 +150,8 @@ $(function ($) {
     var it;
     for(var i=0 ;i<items.length;i++){
         it = items[i];
-        var num = parseInt( it.children[2].children[0].textContent );
-
+        //var num = parseInt( it.children[2].children[0].textContent );
+        var num = parseInt( $(it).find("button")[0].textContent);
         if( num >0){
             it.className = "item beChoiced";
         }
@@ -166,6 +163,16 @@ $(function ($) {
         function () {
             li_obj = this.parentElement;
             console.log(this);
+            addToCart(li_obj);
+        }
+    );
+
+
+
+    $("div.item").click(
+        function(){
+            li_obj = this;
+            console.log("ok");
             addToCart(li_obj);
         }
     );

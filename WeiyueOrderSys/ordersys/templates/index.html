@@ -40,9 +40,9 @@
                 {% endfor %}
             </div>
 
-{#            <!--圆点导航条-->#}
-{#            <div class='owl-theme' id="pointNavHolder"></div>#}
-{#            <div class="demoMark">超低价抢购中</div>#}
+            <!--圆点导航条-->
+            <div class='owl-theme' id="pointNavHolder"></div>
+            <div class="demoMark">超低价抢购中</div>
         </div>
 
         <div class="wrapper">
@@ -51,10 +51,10 @@
 
                 {% for food_key, value in amount_dict.items %}
                     {% for number, choiced in value.items %}
-                        <div id="food_item" class="item" foodId={{ food_key.id }}>
+                        <div id="food_item" class="item"  foodId={{ food_key.id }}>
                             <img src={{ food_key.image_url }}>
 
-                            <div class="description" style="width:300px">
+                            <div class="description" >
                                 <div>
                                     {{ food_key.name }}
                                 </div>
@@ -63,10 +63,11 @@
                                 </div>
                             </div>
 
-                            <div class="addDish">
-                                <button> {{ number }}</button>
-                                <button class="addButton">抢购</button>
-                            </div>
+{#                            <div class="addDish">#}
+{#                                <button> {{ number }}</button>#}
+{#                                <button class="addButton">抢购</button>#}
+{#                            </div>#}
+                          <button>{{ number }}</button>
                         </div>
 
                     {% endfor %}
@@ -89,7 +90,6 @@
         </div>
     </div>
 
-
 {% endblock %}
 
 {% block footBar %}
@@ -97,8 +97,7 @@
     <!--底部导航条-->
     <table class="navBar">
         <tr>
-            <th><a href="/"><img src="/images/icon/首页-active.png"></a>
-
+            <th><img src="/images/icon/首页-active.png">
                 <p>首 页</p></th>
             <th><a href="category"><img src="/images/icon/全部菜单.png"></a>
 
