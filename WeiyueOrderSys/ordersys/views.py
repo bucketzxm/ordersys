@@ -113,10 +113,13 @@ def index(request):
         item_list = pickle_load(cart).items
     else:
         item_list = []
-    amount_dict = dict( [(key, {0: "notChoiced"}) for key in special_list])
-
+    amount_dict = dict( [(key, {0: "notChoiced"}) for key in special_list[3:]   ])
+    big_amount_dict = dict( [ (key, {0:"notChoiced"}) for key in special_list[0:3] ])
     for item in item_list:
-        amount_dict[item.food] = {item.quantity: "beChoiced"}
+        if amount_dict.get(item.food):
+            amount_dict[item.food] = {item.quantity: "beChoiced"}
+        if big_amount_dict.get(item.food):
+            big_amount_dict[item.food] = {item.quantity: "beChoiced"}
     return render_to_response('index.html', locals())
 
 
@@ -131,7 +134,7 @@ def dishes(request):
         c = {}
         cgId = request.GET['cgId']
         category = Category.objects.filter(id=cgId)[0]
-
+        title = ""
         food_list = []
         if category:
             food_list = Food.objects.all().filter(category=category)

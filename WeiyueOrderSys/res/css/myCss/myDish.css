@@ -14,8 +14,11 @@
 	z-index:1;
 	color:white
 }
+a{
+    text-decoration: None;
+}
 
-/*µ×²¿µ¼º½À¸*/
+/*ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 table.navBar
 {
 	position:fixed;
@@ -25,12 +28,12 @@ table.navBar
 	text-align:center;
 	height:30px;
 	background-color:#FFFFFF;
-	-moz-box-shadow: 0px -3px 3px #E0E0E0; /* ÀÏµÄ Firefox */
+	-moz-box-shadow: 0px -3px 3px #E0E0E0; /* ï¿½Ïµï¿½ Firefox */
 	box-shadow: 0px -3px 3px #E0E0E0;
 	z-index:1;
-	background-color:rgba(255,255,255,0.8);  /*±ê×¼ä¯ÀÀÆ÷ Ö»ÐèÕâ¾ä*/
-	background-color:#FFF\9;      /*IE ÏµÁÐ*/
-	filter:alpha(opacity=80);     /*IE ÏµÁÐ*/
+	background-color:rgba(255,255,255,0.8);  /*ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ Ö»ï¿½ï¿½ï¿½ï¿½ï¿½*/
+	background-color:#FFF\9;      /*IE Ïµï¿½ï¿½*/
+	filter:alpha(opacity=80);     /*IE Ïµï¿½ï¿½*/
 }
 
 .navBar th img{
@@ -143,11 +146,11 @@ table.navBar
 	cursor:pointer;
 }
 
-#dishList tr img:nth-child(1){/*¼ÓºÅ*/
+#dishList tr img:nth-child(1){/*ï¿½Óºï¿½*/
 	margin-right:10px;
 }
 
-#dishList tr img:nth-child(3){/*¼õºÅ*/
+#dishList tr img:nth-child(3){/*ï¿½ï¿½ï¿½ï¿½*/
 	margin-left:10px;
 	margin-bottom:4px;
 }
@@ -192,13 +195,13 @@ table.navBar
 	height:60px;
 }
 
-/*ÓÃÓÚµ¯´°±³¾°µÄÍ¸Ã÷ºÚÄ»*/
+/*ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½Ä»*/
 div.mask{
 	width:100%;
 	height:100%;
 	background:black;
 	opacity:0.7;
-	filter:alpha(opacity=70); /* Õë¶Ô IE8 ÒÔ¼°¸üÔçµÄ°æ±¾ */
+	filter:alpha(opacity=70); /* ï¿½ï¿½ï¿½ IE8 ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Ä°æ±¾ */
 	position:fixed; /* absolute position (so we can position it where we want)*/
 	left:0px; /* position will be on bottom */
 	top:0px;
@@ -258,6 +261,7 @@ div.mask{
 	font-weight:normal;
 }
 
+
 .popQuery table th:nth-child(1)
 {
 	border-bottom-left-radius:7px;
@@ -275,7 +279,7 @@ div.mask{
 	top:2px
 }
 
-.thFocuseMark/*focuse·´À¡±ê¼Ç*/
+.thFocuseMark/*focuseï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 {
 	position:absolute;
 	width:100%;
@@ -336,13 +340,13 @@ div.mask{
 	border-radius: 50%;
 }
 
-#popSetting > div:nth-child(1)/*ÇëÑ¡Ôñ×ÀºÅ*/
+#popSetting > div:nth-child(1)/*ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 {
 	margin-top:20px;
 }
 
 
-#popSetting > div:nth-child(3)/*ÇëÑ¡ÔñÈËÊý*/
+#popSetting > div:nth-child(3)/*ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 {
 	margin-top:20px;
 }

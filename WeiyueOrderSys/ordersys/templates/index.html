@@ -17,7 +17,7 @@
         <div class="wrapper">
             <div id="owl-demo" class="owl-carouse1 owl-theme markCarousel">
 
-                {% for food_key, value in amount_dict.items %}
+                {% for food_key, value in big_amount_dict.items %}
                     {% for number, choiced in value.items %}
                         <div id="food_item" class="item" foodId={{ food_key.id }}>
                             <img src={{ food_key.image_url }}>
@@ -51,6 +51,7 @@
 
                 {% for food_key, value in amount_dict.items %}
                     {% for number, choiced in value.items %}
+
                         <div id="food_item" class="item"  foodId={{ food_key.id }}>
                             <img src={{ food_key.image_url }}>
 
@@ -63,10 +64,6 @@
                                 </div>
                             </div>
 
-{#                            <div class="addDish">#}
-{#                                <button> {{ number }}</button>#}
-{#                                <button class="addButton">抢购</button>#}
-{#                            </div>#}
                           <button>{{ number }}</button>
                         </div>
 
