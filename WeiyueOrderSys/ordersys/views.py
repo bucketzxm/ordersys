@@ -2,9 +2,10 @@
 from django.shortcuts import render_to_response, HttpResponse, redirect, RequestContext
 from django.template.loader import get_template
 from django.contrib.sessions import serializers
-from django.core import serializers
+
 from models import Cart, Food, Category, LineItem, Order
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from utils.serialize import *
 import json
 
 import logging
@@ -24,9 +25,9 @@ def get_wait_to_pay_orders(request):
     tmp = []
     for order in Order.objects.filter(state=Order.WAIT_TO_PAY):
         tmp.append(order.to_dict())
-        print 'food:'
+        logger.debug('Append food: ')
         for line_item in order.foods.all():
-            print line_item
+            logger.debug('%s', line_item)
     return HttpResponse(json.dumps(tmp))
 
 
@@ -45,12 +46,12 @@ def delete_wait_to_pay(request):
         except Exception, e:
             tmp = ERROR_CODE['1002']
             tmp['desc'] += (":" + str(e))
+            logger.exception(str(e))
             return HttpResponse(json.dumps(tmp))
 
 
 @csrf_exempt
 def confirm_wait_to_pay_to_success(request):
-    print request.POST
     if not request.POST.has_key('out_trade_num') or not request.POST.has_key('order_num'):
         return HttpResponse(json.dumps(ERROR_CODE['1001']))
     else:
@@ -64,41 +65,9 @@ def confirm_wait_to_pay_to_success(request):
         except Exception, e:
             tmp = ERROR_CODE['1002']
             tmp['desc'] += (":" + str(e))
+            logger.exception(str(e))
             return HttpResponse(json.dumps(tmp))
 
-
-try:
-    import cPickle as pickle
-except:
-    import pickle
-
-
-# deserialize django models object
-def deserialize_to_object_list(data, format):
-    ret = []
-    for obj in serializers.deserialize(format, data):
-        ret.append(obj)
-    return ret
-
-
-# serialize django models object
-def serialize(object_list, new_object, format):
-    object_list.append(new_object)
-    data = serializers.serialize(format, object_list)
-    return data
-
-
-def pickle_dump(new_object):
-    return pickle.dumps(new_object)
-
-
-def pickle_load(data):
-    if isinstance(data, unicode):
-        data_str = data.encode('utf-8')
-    elif isinstance(data, str):
-        data_str = data
-    ret = pickle.loads(data_str)
-    return ret
 
 
 def index(request):
@@ -110,7 +79,9 @@ def index(request):
         item_list = pickle_load(cart).items
     else:
         item_list = []
+    # 对应首页第二排跑马灯
     amount_dict = dict([(key, {0: "notChoiced"}) for key in special_list[3:]])
+    # 对应首页第一排大的跑马灯
     big_amount_dict = dict([(key, {0: "notChoiced"}) for key in special_list[0:3]])
     for item in item_list:
         if amount_dict.get(item.food):
@@ -130,12 +101,19 @@ def dishes(request):
     if request.method == "GET":
         c = {}
         cgId = request.GET['cgId']
-        category = Category.objects.filter(id=cgId)[0]
-        title = ""
+        try:
+            category = Category.objects.filter(id=cgId)[0]
+        except IndexError as e:
+            logger.exception(str(e))
+            category = None
+
+
         food_list = []
+        title = ""
         if category:
             food_list = Food.objects.all().filter(category=category)
             title = category.name
+
 
         c['cgId'] = cgId
         c['food_list'] = food_list
@@ -153,7 +131,6 @@ def dishes(request):
         for item in item_list:
             amount_dict[item.food] = {item.quantity: "beChoiced"}
 
-        print amount_dict
         c["amount"] = amount_dict
         return render_to_response("dishes.html", c)
     redirect('/')
@@ -200,12 +177,11 @@ def add_to_cart(request, num=1):
     if request.method == "POST":
         food_id = request.POST['foodId']
         food = Food.objects.get(id=food_id)
-
-        print "add food : %s" % (food.name )
         cart_session = request.session.get('cart', None)
         # Lineitem save in cart
         # session is empty
         if not cart_session:
+            # 购物车中不存在物品的情况
             cart = Cart()
             li = LineItem()
             li.food = food
@@ -232,7 +208,10 @@ def add_to_cart(request, num=1):
         cart.total_price = round(cart.total_price, 2)
         data = pickle_dump(cart)
         request.session['cart'] = data
-    return HttpResponse(cart.total_price)
+        return HttpResponse(cart.total_price)
+    else:
+        logger.error('Get Request to add_to_cart')
+        return HttpResponse('request method err')
 
 
 @csrf_exempt
@@ -257,7 +236,10 @@ def cut_from_cart(request, num=1):
         data = pickle_dump(cart)
         request.session['cart'] = data
 
-    return HttpResponse(cart.total_price)
+        return HttpResponse(cart.total_price)
+    else:
+        logger.error('Get Request to cut_from_cart')
+        return HttpResponse("request method err")
 
 
 def clear_cart(request):

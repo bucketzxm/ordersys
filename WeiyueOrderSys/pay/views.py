@@ -118,7 +118,8 @@ def call_back(request):
         order.state = Order.SUCCESS_TO_PAY
         order.save()
 
-    return render_to_response("call_back.html")
+        return render_to_response("call_back.html")
+
 
 
 def notify_back(request):

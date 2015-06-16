@@ -162,7 +162,7 @@ class Order(models.Model):
         order_num.save()
         return order_num.num
 
-    def destory(self):
+    def destroy(self):
         order_num = OrderNum.objects.get(id= self.order_num)
         order_num.is_used = False
 
