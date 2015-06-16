@@ -175,15 +175,13 @@ class Order(models.Model):
 
 
 
-
-
 class Cart(object):
     def __init__(self, *args, **kwargs):
         self.items = []
         self.total_price = 0
 
-    def add_product(self, line_item):
-        self.total_price += line_item.unite_price
+    def add_product(self, line_item, num=1):
+        self.total_price += line_item.unite_price*num
 
         # 如果购物车中有重复的商品，则+1
         for item in self.items:

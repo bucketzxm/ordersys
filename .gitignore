@@ -14,3 +14,5 @@ Dump20140617/*
 *.jar
 *.tar.gz
 migrations/
+log/
+db.sqlite3

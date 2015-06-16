@@ -157,15 +157,15 @@ $(function ($) {
         }
     }
 
-    //$("#addBtn").click(
-    $("div.addDish").click(
-
-        function () {
-            li_obj = this.parentElement;
-            console.log(this);
-            addToCart(li_obj);
-        }
-    );
+    ////$("#addBtn").click(
+    //$("div.addDish").click(
+    //
+    //    function () {
+    //        li_obj = this.parentElement;
+    //        console.log(this);
+    //        addToCart(li_obj);
+    //    }
+    //);
 
 
 

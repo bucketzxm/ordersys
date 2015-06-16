@@ -86,16 +86,71 @@ DATABASES = {
 }
 
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'order_sys',
-#         'USER': 'root',
-#         'PASSWORD': '123456',
+# 'default': {
+# 'ENGINE': 'django.db.backends.mysql',
+# 'NAME': 'order_sys',
+# 'USER': 'root',
+# 'PASSWORD': '123456',
 #         'HOST': '',
 #         'PORT': '3306',
 #     }
 # }
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[%(levelname)s] %(asctime)s %(module)s %(process)d %(thread)d:\n %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s % (message)s'
+        }
+    },
+    'filters': {
+
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'formatter': 'verbose',
+            'filename': os.path.join(BASE_DIR, 'log/info.log')
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['null'],
+            'propagate': True,
+            'level': 'INFO',
+
+        },
+        'django.request': {
+            'handlers': ['console','file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'ordersys': {
+            'handlers': ['file','console','null'],
+            'level': 'DEBUG',
+        },
+        'alipay': {
+            'handlers': ['file','console','null'],
+            'level': 'DEBUG'
+        }
+
+
+    }
+}
 
 LANGUAGE_CODE = 'zh-hans'
 

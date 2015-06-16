@@ -7,7 +7,9 @@ from models import Cart, Food, Category, LineItem, Order
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
 
-import uuid
+import logging
+logger = logging.getLogger('ordersys')
+
 
 ERROR_CODE = {
     '1000': {"status": "1000", "desc": "执行成功"},
@@ -15,7 +17,6 @@ ERROR_CODE = {
     '1002': {"status": "1002", "desc": "执行异常"}
     # '1003':{"status": "1002", "desc": "执行错误"},
 }
-
 
 
 @csrf_exempt
@@ -66,10 +67,6 @@ def confirm_wait_to_pay_to_success(request):
             return HttpResponse(json.dumps(tmp))
 
 
-
-
-
-
 try:
     import cPickle as pickle
 except:
@@ -113,8 +110,8 @@ def index(request):
         item_list = pickle_load(cart).items
     else:
         item_list = []
-    amount_dict = dict( [(key, {0: "notChoiced"}) for key in special_list[3:]   ])
-    big_amount_dict = dict( [ (key, {0:"notChoiced"}) for key in special_list[0:3] ])
+    amount_dict = dict([(key, {0: "notChoiced"}) for key in special_list[3:]])
+    big_amount_dict = dict([(key, {0: "notChoiced"}) for key in special_list[0:3]])
     for item in item_list:
         if amount_dict.get(item.food):
             amount_dict[item.food] = {item.quantity: "beChoiced"}
@@ -151,7 +148,6 @@ def dishes(request):
         else:
             item_list = []
 
-
         amount_dict = dict([(key, {0: "notChoiced"}) for key in food_list])
 
         for item in item_list:
@@ -181,7 +177,6 @@ def view_cart(request):
     return HttpResponse(t.render(c))
 
 
-
 def make_order(request):
     if request.method == "GET":
         cart_session = request.session.get('cart', None)
@@ -195,19 +190,17 @@ def make_order(request):
             order = Order.create(cart.items, cart.total_price)
             if order:
                 request.session['cart'] = None
-                return redirect("/pay/choosePayMethod/?out_trade_num="+ str(order.out_trade_num) )
+                return redirect("/pay/choosePayMethod/?out_trade_num=" + str(order.out_trade_num))
             else:
                 return HttpResponse("/")
 
 
 @csrf_exempt
-def add_to_cart(request):
+def add_to_cart(request, num=1):
     if request.method == "POST":
         food_id = request.POST['foodId']
-
         food = Food.objects.get(id=food_id)
-        # food.name = food.name.encode('utf-8')
-        # food.save()
+
         print "add food : %s" % (food.name )
         cart_session = request.session.get('cart', None)
         # Lineitem save in cart
@@ -217,32 +210,33 @@ def add_to_cart(request):
             li = LineItem()
             li.food = food
             li.unite_price = food.price
-            li.quantity = 1
+            li.quantity = num
             li.save()
-            cart.add_product(li)
+            cart.add_product(li, num)
         else:
             cart = pickle_load(cart_session)
 
             has_food = False
             for li in cart.items:
                 if li.food.id == food.id:
-                    li.quantity += 1
+                    li.quantity += num
                     has_food = True
-                    cart.total_price += food.price
+                    cart.total_price += food.price*num
             if not has_food:
                 li = LineItem()
                 li.food = food
                 li.unite_price = food.price
-                li.quantity = 1
+                li.quantity = num
                 li.save()
-                cart.add_product(li)
-        cart.total_price = round( cart.total_price , 2)
+                cart.add_product(li, num)
+        cart.total_price = round(cart.total_price, 2)
         data = pickle_dump(cart)
         request.session['cart'] = data
     return HttpResponse(cart.total_price)
 
+
 @csrf_exempt
-def cut_from_cart(request):
+def cut_from_cart(request, num=1):
     if request.method == "POST":
         food_id = request.POST['foodId']
         print "cut food : %s" % (str(food_id) )
@@ -254,13 +248,12 @@ def cut_from_cart(request):
         cart = pickle_load(cart_session)
         for li in cart.items:
             if li.food.id == food.id:
-                li.quantity -= 1
+                li.quantity -= num
                 cart.total_price -= food.price
                 if li.quantity == 0:
                     cart.items.remove(li)
 
-
-        cart.total_price = round( cart.total_price , 2)
+        cart.total_price = round(cart.total_price, 2)
         data = pickle_dump(cart)
         request.session['cart'] = data
 
@@ -270,7 +263,6 @@ def cut_from_cart(request):
 def clear_cart(request):
     request.session['cart'] = None
     return redirect("/myDish")
-
 
 
 @csrf_exempt
@@ -287,6 +279,7 @@ def get_category(request):
 
 @csrf_exempt
 def get_unpay_order(request):
+    # 只显示今天的订单
     orders = Order.objects.all()
     order_json_array = []
     for o in orders:
