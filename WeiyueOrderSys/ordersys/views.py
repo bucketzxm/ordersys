@@ -158,6 +158,7 @@ def make_order(request):
     if request.method == "GET":
         cart_session = request.session.get('cart', None)
 
+        response = HttpResponse()
         if not cart_session:
             # custom did not order any thing
             # TODO hint it
@@ -165,12 +166,20 @@ def make_order(request):
         else:
             cart = pickle_load(cart_session)
             order = Order.create(cart.items, cart.total_price)
+            request.session['out_trade_num'] = order.out_trade_num
             if order:
-                request.session['cart'] = None
-                return redirect("/pay/choosePayMethod/?out_trade_num=" + str(order.out_trade_num))
+                return HttpResponse(order.order_num, status=200)
             else:
-                return HttpResponse("/")
+                return HttpResponse("", status=403)
 
+
+
+def choose_pay_method(request):
+    out_trade_num = request.session['out_trade_num']
+    if out_trade_num:
+        return redirect("/pay/choosePayMethod/?out_trade_num=" + str(out_trade_num))
+    else:
+        return HttpResponse("Order not exist")
 
 @csrf_exempt
 def add_to_cart(request, num=1):

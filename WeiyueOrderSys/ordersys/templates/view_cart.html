@@ -2,6 +2,7 @@
 
 
 {% block extfile %}
+
     <link rel="stylesheet" href="/css/myCss/myDish.css">
     <link rel="stylesheet" href="/js/owl-carousel/owl.carousel.css">
     <link rel="stylesheet" href="/js/owl-carousel/owl.theme.css">
@@ -18,6 +19,28 @@
             <th>{{ title }}</th>
         </tr>
     </table>
+
+    <div class="popQuery">
+		<img src="/images/icon/realLogo.png" class="logo">
+		<div>
+			您的单号是: <strong></strong>
+		</div>
+		<table>
+			<tr>
+				<th>
+					<img src="/images/icon/首页-white.png">
+					稍后现金支付
+					<div class="thFocuseMark"></div>
+					<div class="middleLine"></div>
+				</th>
+				<th>
+					<img src="/images/icon/确认.png">
+					在线支付
+					<div class="thFocuseMark"></div>
+				</th>
+			</tr>
+		</table>
+	</div>
 
 
 
@@ -84,7 +107,7 @@
 					    加菜
 				    </span>
                 </a>
-                <a href="/makeOrder">
+                <a href="#">
                     <span class="iconBtn">
                         <img src="/images/icon/下单.png"/>
                         下单
@@ -117,5 +140,9 @@
                 <p>我的菜</p></th>
         </tr>
     </table>
+
+
+
+
 
 {% endblock %}

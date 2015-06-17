@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^dish', views.dishes),
     url(r'^clearCart', views.clear_cart),
     url(r'^makeOrder', views.make_order),
+    url(r'^choosePayMethods', views.choose_pay_method),
     url(r'^getCategory', views.get_category),
     url(r'^getUnPayedOrder', views.get_unpay_order),
 ]

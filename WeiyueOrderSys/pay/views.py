@@ -11,7 +11,7 @@ from alipay.AlipaySubmit import AlipaySubmit
 from alipay.md5 import MD5
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
-from ordersys.models import Order
+from ordersys.models import Order, OrderNum
 
 
 class Alipay(AlipaySubmit, AlipayConfig):
@@ -116,8 +116,12 @@ def call_back(request):
 
         order = Order.objects.get(out_trade_num = out_trade_num)
         order.state = Order.SUCCESS_TO_PAY
-        order.save()
 
+        order_num = OrderNum.objects.get(order.order_num)
+        order_num.is_used = False
+        order_num.save()
+        order.save()
+        request.session['cart'] = None
         return render_to_response("call_back.html")
 
 

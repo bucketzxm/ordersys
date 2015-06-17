@@ -106,20 +106,47 @@ function noClick(obj) {
 
 $(function () {
     //initCarousel();
-    $("#sumBar span:nth-child(1)").click(//点击加菜
+    $("#sumBar span:eq(0)").click(//点击加菜
         function () {
             location.href = "/";
         }
     );
-    $("#sumBar span:nth-child(2)").click(//点击下单
+    $("#sumBar span:eq(1)").click(//点击下单
         function () {
+            $.ajax({
+                type: 'GET',
+                url: 'makeOrder/',
+                success: function(result){
+                    $(".popQuery strong").text(result);
+                    $(".mask").show();
+			        $(".popQuery").show();
+                },
+                error: function(e){
+                    console.log("Get Order Number Error " + e);
+                }
+
+            });
             $(".mask").show();
-            $(".popQuery:nth-child(2)").show();
+            $(".popQuery").show();
         }
     );
-    $("#sumBar span:nth-child(3)").click(
+    $("#sumBar span:eq(2)").click(
         function () {
             location.href = "/clearCart"
+        }
+    );
+
+    $(".popQuery th:eq(0)").click(
+        // 弹出框 现金支付按钮
+        function(){
+            location.href = '/'
+        }
+    );
+
+    $(".popQuery th:eq(1)").click(
+        //弹出框下单按钮
+        function(){
+            location.href = '/choosePayMethods'
         }
     );
 
@@ -143,28 +170,7 @@ $(function () {
         }
     );
 
-    $(".popQuery:nth-child(3) th:nth-child(1)").click(//点击是否保存app的"是"时
-        function () {
-            var ua = navigator.userAgent;
-            if (ua.indexOf("iPad") > -1 || ua.indexOf("iPone") > -1) {
-                location.href = "download?deviceType=ios";
-            } else if (ua.indexOf("Android") > 0) {
-                location.href = "download?deviceType=android";
-            } else {
-                alert("抱歉，app暂不支持你所用的终端设备。");
-                return;
-            }
-            alert("下载安装完成后，点击app即可进行加单和支付！");
-            $(".popQuery:nth-child(3)").hide();
-            $(".mask").hide();
-        }
-    );
 
-    $(".popQuery:nth-child(3) th:nth-child(2)").click(//点击是否保存app的"否"时
-        function () {
-            noClick(this);
-        }
-    );
 
     $("#confirmButton").click(
         function () {
