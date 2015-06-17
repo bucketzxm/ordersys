@@ -3,14 +3,14 @@ from django.shortcuts import render_to_response, HttpResponse, redirect, Request
 from django.template.loader import get_template
 from django.contrib.sessions import serializers
 
-from models import Cart, Food, Category, LineItem, Order
+from models import Cart, Food, Category, LineItem, Order, OrderNum
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from utils.serialize import *
 import json
 
 import logging
-logger = logging.getLogger('ordersys')
 
+logger = logging.getLogger('ordersys')
 
 ERROR_CODE = {
     '1000': {"status": "1000", "desc": "执行成功"},
@@ -60,6 +60,11 @@ def confirm_wait_to_pay_to_success(request):
             order_num = request.POST.get('order_num')
             for order in Order.objects.filter(out_trade_num=out_trade_num, order_num=order_num):
                 order.state = order.SUCCESS_TO_PAY
+
+                order_num = OrderNum.objects.get(num=order.order_num)
+                order_num.is_used = False
+                order_num.save()
+
                 order.save()
             return HttpResponse(json.dumps(ERROR_CODE['1000']))
         except Exception, e:
@@ -67,7 +72,6 @@ def confirm_wait_to_pay_to_success(request):
             tmp['desc'] += (":" + str(e))
             logger.exception(str(e))
             return HttpResponse(json.dumps(tmp))
-
 
 
 def index(request):
@@ -107,13 +111,11 @@ def dishes(request):
             logger.exception(str(e))
             category = None
 
-
         food_list = []
         title = ""
         if category:
             food_list = Food.objects.all().filter(category=category)
             title = category.name
-
 
         c['cgId'] = cgId
         c['food_list'] = food_list
@@ -173,13 +175,13 @@ def make_order(request):
                 return HttpResponse("", status=403)
 
 
-
 def choose_pay_method(request):
     out_trade_num = request.session['out_trade_num']
     if out_trade_num:
         return redirect("/pay/choosePayMethod/?out_trade_num=" + str(out_trade_num))
     else:
         return HttpResponse("Order not exist")
+
 
 @csrf_exempt
 def add_to_cart(request, num=1):
@@ -206,7 +208,7 @@ def add_to_cart(request, num=1):
                 if li.food.id == food.id:
                     li.quantity += num
                     has_food = True
-                    cart.total_price += food.price*num
+                    cart.total_price += food.price * num
             if not has_food:
                 li = LineItem()
                 li.food = food
