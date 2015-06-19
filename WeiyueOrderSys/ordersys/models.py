@@ -131,10 +131,13 @@ class Order(models.Model):
         verbose_name_plural = "订单"
 
     @staticmethod
-    def create(items, total_price):
+    def create(items, total_price, order_num=None):
         cls = Order()
         cls.time = datetime.datetime.now()
-        cls.order_num = cls.gen_order_num()
+        if isinstance(order_num, type(None)):
+            cls.order_num = cls.gen_order_num()
+        else:
+            cls.order_num = order_num
         cls.out_trade_num = cls.gen_out_trade_num()
         cls.state = cls.WAIT_TO_PAY
         cls.money = total_price

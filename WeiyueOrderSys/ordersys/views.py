@@ -168,7 +168,12 @@ def make_order(request):
             return HttpResponse("", status=503)
         else:
             cart = pickle_load(cart_session)
-            order = Order.create(cart.items, cart.total_price)
+            order_num = request.session.get('order_num', None)
+            if order_num:
+                order = Order.create(cart.items, cart.total_price, order_num)
+            else:
+                order = Order.create(cart.items, cart.total_price)
+                request.session['order_num'] = order.order_num
             request.session['out_trade_num'] = order.out_trade_num
             if order:
                 return HttpResponse(order.order_num, status=200)
