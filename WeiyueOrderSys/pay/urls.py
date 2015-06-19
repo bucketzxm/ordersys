@@ -7,4 +7,5 @@ import views
 urlpatterns = [
     url(r'^choosePayMethod', views.choose_pay_method),
     url(r'^alipaywap', views.alipay),
+    url(r'^callback', views.call_back),
 ]

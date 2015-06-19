@@ -123,11 +123,12 @@ $(function () {
                 },
                 error: function(e){
                     console.log("Get Order Number Error " + e);
+                    location.href('/myDish');
                 }
 
             });
-            $(".mask").show();
-            $(".popQuery").show();
+            //$(".mask").show();
+            //$(".popQuery").show();
         }
     );
     $("#sumBar span:eq(2)").click(

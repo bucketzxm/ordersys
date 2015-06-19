@@ -164,7 +164,7 @@ def make_order(request):
         if not cart_session:
             # custom did not order any thing
             # TODO hint it
-            return redirect("/myDish")
+            return HttpResponse("", status=503)
         else:
             cart = pickle_load(cart_session)
             order = Order.create(cart.items, cart.total_price)
@@ -172,7 +172,7 @@ def make_order(request):
             if order:
                 return HttpResponse(order.order_num, status=200)
             else:
-                return HttpResponse("", status=403)
+                return HttpResponse("", status=503)
 
 
 def choose_pay_method(request):

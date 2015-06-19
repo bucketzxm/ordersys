@@ -105,19 +105,20 @@ def call_back(request):
     :return:
     '''
     if request.method == "GET":
-        sign = request.GET['sign']
-        result = request.GET['result']
-        out_trade_num = request.GET['out_trade_num']
+
+        #sign = request.GET['sign']
+        #result = request.GET['result']
+        out_trade_num = request.GET['out_trade_no']
 
         # 支付宝中的流水号
-        trade_num = request.GET['trade_num']
+        #trade_num = request.GET['trade_num']
 
-        request_token = request.GET['request_token']
+        #request_token = request.GET['request_token']
 
         order = Order.objects.get(out_trade_num = out_trade_num)
         order.state = Order.SUCCESS_TO_PAY
 
-        order_num = OrderNum.objects.get(order.order_num)
+        order_num = OrderNum.objects.get(num = order.order_num)
         order_num.is_used = False
         order_num.save()
         order.save()

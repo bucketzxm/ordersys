@@ -34,7 +34,7 @@ class AlipayConfig(object):
      # 服务器异步通知页面
     notify_url = ""
     # 页面跳转同步通知页面
-    call_back_url = "http://121.40.164.39:8000/"
+    call_back_url = "http://121.40.164.39:8000/pay/callback"
      # 操作中断返回地址
     merchant_url = ""
 
