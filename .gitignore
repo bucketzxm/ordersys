@@ -5,6 +5,7 @@ venv/*
 alipay/*
 Dump20140617/*
 *.rar
+*.zip
 *.pyc
 *.pdf
 *.sql
@@ -16,3 +17,4 @@ Dump20140617/*
 migrations/
 log/
 db.sqlite3
+WeiyueRestManage/
