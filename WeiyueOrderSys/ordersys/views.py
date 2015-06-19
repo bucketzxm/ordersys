@@ -7,8 +7,9 @@ from models import Cart, Food, Category, LineItem, Order, OrderNum
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from utils.serialize import *
 import json
-
 import logging
+import datetime
+
 
 logger = logging.getLogger('ordersys')
 
@@ -273,7 +274,9 @@ def get_category(request):
 @csrf_exempt
 def get_unpay_order(request):
     # 只显示今天的订单
-    orders = Order.objects.all()
+    today = datetime.datetime.now()
+    yesterday = today - datetime.timedelta(days=1)
+    orders = Order.objects.get(time=(yesterday, today))
     order_json_array = []
     for o in orders:
         tmp_order_json = {'id': str(o.id), 'time': o.time.strftime('%y-%b-%d %H:%M:%S'),
