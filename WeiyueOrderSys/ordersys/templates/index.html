@@ -55,13 +55,9 @@
                         <div id="food_item" class="item"  foodId={{ food_key.id }}>
                             <img src={{ food_key.image_url }}>
 
-                            <div class="description" >
-                                <div>
-                                    {{ food_key.name }}
-                                </div>
-                                <div>抢购价
-                                    <specialPrice>￥ {{ food_key.price }} </specialPrice>
-                                </div>
+                            <div>
+                                <div>{{ food_key.name }}</div>
+                                <div>抢购价<specialPrice>￥ {{ food_key.price }} </specialPrice></div>
                             </div>
 
                           <button>{{ number }}</button>
